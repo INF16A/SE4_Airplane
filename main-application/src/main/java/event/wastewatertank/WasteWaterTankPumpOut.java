@@ -1,6 +1,6 @@
 package event.wastewatertank;
 
-public class WasteWaterTankRefill {
+public class WasteWaterTankPumpOut {
 	private String phase;
 
 	public int getFillValue() {
@@ -9,11 +9,11 @@ public class WasteWaterTankRefill {
 
 	private int fillValue;
 
-	public WasteWaterTankRefill(String phase) {
+	/*public WasteWaterTankTakeOut(String phase) {
 		this.phase = phase;
-		fillValue = 1000;
-	}
-	public WasteWaterTankRefill(String phase, int value) {
+		fillValue = 100;
+	}*/
+	public WasteWaterTankPumpOut(String phase, int value) {
 		this.phase = phase;
 		fillValue = value;
 	}
@@ -23,6 +23,6 @@ public class WasteWaterTankRefill {
 	}
 
 	public String toString() {
-		return "event - " + phase + " : WasteWaterTankRefill :" + fillValue;
+		return "event - " + phase + " : WasteWaterTankTakeOut :" + fillValue;
 	}
 }
