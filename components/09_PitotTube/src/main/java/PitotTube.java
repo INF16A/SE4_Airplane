@@ -1,28 +1,29 @@
 public class PitotTube implements IPitotTube {
 
-    private String manufacturer;
-    private String type;
-    private String id;
-    private boolean isOn;
-    private int velocity;
+    private String manufacturer = "ExampleManufacturer 1";
+    private String type = "Tube101";
+    private String id = "1";
+    private boolean isOn = false;
+    private int velocity = 10;
 
     @Override
     public String version() {
-        return "Pitot Tube by "+manufacturer+" type: "+type;
+        return "Pitot Tube(id: " + id + ") by " + manufacturer + " type: " + type;
     }
 
     @Override
     public int measureStaticPressure() {
-        return 0;
+        return 10;
     }
 
     @Override
     public int measureTotalPressure() {
-        return 0;
+        return 25;
     }
 
     @Override
     public int measureVelocity() {
-        return 0;
+        return velocity;
     }
+
 }

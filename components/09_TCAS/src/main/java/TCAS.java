@@ -1,50 +1,55 @@
 public class TCAS implements ITCAS {
 
-    private String manufacturer;
-    private String type;
-    private String id;
-    private boolean isOn;
+    private String manufacturer = "ExampleManufacturer 1";
+    private String type = "Tube101";
+    private String id = "1";
+    private boolean isOn = true;
     private boolean isConnected;
-    private boolean isAlarm;
+    private boolean isAlarm = false;
     private int altitude;
 
     @Override
     public String version() {
-        return null;
+        return "TCAS(id: " + id + ") by " + manufacturer + " type: " + type;
     }
 
     @Override
     public boolean on() {
-        return false;
+        isOn = !isOn;
+        return isOn;
     }
 
     @Override
     public boolean connect(String frequency) {
-        return false;
+        isConnected = !frequency.isEmpty();
+        return isConnected;
     }
 
     @Override
     public boolean scan(String environment) {
-        return false;
+        return !environment.isEmpty();
     }
 
     @Override
     public boolean alarm() {
-        return false;
+        isAlarm = !isAlarm;
+        return isAlarm;
     }
 
     @Override
     public int determineAltitude(String environment) {
-        return 0;
+        return environment.length();
     }
 
     @Override
     public int setAltitude(int value) {
-        return 0;
+        altitude = value;
+        return altitude;
     }
 
     @Override
     public boolean off() {
-        return false;
+        return !isOn;
     }
+
 }
