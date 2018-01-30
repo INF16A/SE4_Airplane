@@ -225,6 +225,7 @@ public enum PrimaryFlightDisplay {
 
     //Radar
     public boolean isRadarOn;
+    public boolean isAirspaceFree;
 
     //SatCom
     public boolean isSatComConnected;

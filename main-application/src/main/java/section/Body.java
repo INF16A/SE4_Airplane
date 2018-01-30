@@ -5,17 +5,22 @@ import java.util.ArrayList;
 
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
-import event.Camera.CameraOff;
-import event.Camera.CameraOn;
 import logging.LogEngine;
 import event.Subscriber;
 
-// import factorys for sensor04
+// imports for sensor04
 import factory.CameraFactory;
 import factory.GPSFactory;
 import factory.RadarFactory;
 import factory.SatComFactory;
 import factory.VHFFactory;
+import event.Camera.CameraOff;
+import event.Camera.CameraOn;
+import event.Camera.CameraZoomIn;
+import event.radar.RadarOff;
+import event.radar.RadarOn;
+import event.radar.RadarScan;
+
 import recorder.FlightRecorder;
 
 public class Body extends Subscriber {
@@ -63,7 +68,7 @@ public class Body extends Subscriber {
     // sensor04
     private ArrayList<Object> cameraPorts;
     private ArrayList<Object> gPSs;
-    private ArrayList<Object> radars;
+    private ArrayList<Object> radarPorts;
     private ArrayList<Object> satComs;
     private ArrayList<Object> vHFs;
     // light
@@ -187,9 +192,9 @@ public class Body extends Subscriber {
         for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
             gPSs.add(GPSFactory.build());
         // Factory magic 2
-        radars = new ArrayList<>();
+        radarPorts = new ArrayList<>();
         for (int radarIndex = 0;radarIndex < 2;radarIndex++)
-            radars.add(RadarFactory.build());
+            radarPorts.add(RadarFactory.build());
         // Factory magic 2
         satComs = new ArrayList<>();
         for (int satComIndex = 0;satComIndex < 2;satComIndex++)
@@ -305,4 +310,97 @@ public class Body extends Subscriber {
             e.printStackTrace();
         }
     }
+
+    @Subscribe
+    public void receive(CameraZoomIn cameraZoomIn){
+        LogEngine.instance.write("+ Body.receive(" + cameraZoomIn + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
+                Method cameraZoomInMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("zoomIn", boolean.class);
+                LogEngine.instance.write("cameraZoomInMethod = " + cameraZoomInMethod + "");
+
+                double cameraFactor = (double) cameraZoomInMethod.invoke(cameraPorts.get(cameraIndex), new Object[]{true});
+
+                LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
+
+                PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraZoomIn.getPhase() + " : Camera (Factor) = " + cameraFactor);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarOn radarOn){
+        LogEngine.instance.write("+ Body.receive(" + radarOn + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarOnMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("radarOnMethod = " + radarOnMethod + "");
+
+                boolean isRadarOn = (boolean)radarOnMethod.invoke(radarPorts.get(radarIndex));
+
+                LogEngine.instance.write(radarOn.getPhase() + " : isRadarOn = " + isRadarOn + "");
+
+                PrimaryFlightDisplay.instance.isRadarOn = isRadarOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOn.getPhase() + " : Radar (isOn) = " + isRadarOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarOff radarOff){
+        LogEngine.instance.write("+ Body.receive(" + radarOff + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarOffMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("radarOffMethod = " + radarOffMethod + "");
+
+                boolean isRadarOff = (boolean)radarOffMethod.invoke(radarPorts.get(radarIndex));
+
+                LogEngine.instance.write(radarOff.getPhase() + " : isRadarOff = " + isRadarOff + "");
+
+                PrimaryFlightDisplay.instance.isRadarOn = isRadarOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOff.getPhase() + " : Radar (isOn) = " + isRadarOff);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarScan radarScan){
+        LogEngine.instance.write("+ Body.receive(" + radarScan + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarScanMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("scan",String.class);
+                LogEngine.instance.write("radarScanMethod = " + radarScanMethod + "");
+
+                boolean scanResult = (boolean)radarScanMethod.invoke(radarPorts.get(radarIndex), new Object[]{radarScan.getEnvironment()});
+
+                LogEngine.instance.write(radarScan.getPhase() + " : scanResult = " + scanResult + "");
+
+                PrimaryFlightDisplay.instance.isAirspaceFree = scanResult;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarScan.getPhase() + " : Radar (scan) = " + scanResult);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

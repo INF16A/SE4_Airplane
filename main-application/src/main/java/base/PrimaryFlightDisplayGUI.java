@@ -21,6 +21,9 @@ import recorder.FlightRecorder;
 public class PrimaryFlightDisplayGUI extends Application {
     private PrimaryFlightDisplayEntry weatherRadarIsOnEntry;
     private PrimaryFlightDisplayEntry cameraIsOnEntry;
+    private PrimaryFlightDisplayEntry cameraFactorEntry;
+    private PrimaryFlightDisplayEntry radarIsOnEntry;
+    private PrimaryFlightDisplayEntry radarScanEntry;
 
     private ArrayList<PrimaryFlightDisplayEntry> dataList;
     private ObservableList data;
@@ -165,6 +168,12 @@ public class PrimaryFlightDisplayGUI extends Application {
         // sensor04
         cameraIsOnEntry = new PrimaryFlightDisplayEntry("Camera (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
         dataList.add(cameraIsOnEntry);
+        cameraFactorEntry = new PrimaryFlightDisplayEntry("Camera (ZoomFactor)", Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
+        dataList.add(cameraFactorEntry);
+        radarIsOnEntry = new PrimaryFlightDisplayEntry( "Radar (isOn", Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn) );
+        dataList.add(radarIsOnEntry);
+        radarScanEntry = new PrimaryFlightDisplayEntry( "Radar (scan)", Boolean.toString(PrimaryFlightDisplay.instance.isAirspaceFree) );
+        dataList.add(radarScanEntry);
     }
 
     private ObservableList getInitialTableData() {
@@ -176,6 +185,9 @@ public class PrimaryFlightDisplayGUI extends Application {
     public void update() {
         // please add value(s)
         cameraIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
+        cameraFactorEntry.setValue(Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
+        radarIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn));
+        radarScanEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isAirspaceFree));
         tableView.refresh();
     }
 
