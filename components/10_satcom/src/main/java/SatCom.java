@@ -55,7 +55,7 @@ public class SatCom {
                 System.out.println("Signal has been send");
         }
 
-        public String recieve() {
+        public String receive() {
             if(!isConnected)
                 return "no satellite connection";
             else

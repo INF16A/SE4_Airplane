@@ -1,9 +1,9 @@
-package event.radar;
+package event.Camera;
 
-public class RadarOn {
+public class CameraOff {
     private String phase;
 
-    public RadarOn(String phase) {
+    public CameraOff(String phase) {
         this.phase = phase;
     }
 
@@ -12,7 +12,6 @@ public class RadarOn {
     }
 
     public String toString() {
-        return "event - " + phase + " : RadarOn";
+        return "event - " + phase + " : CameraOff";
     }
 }
-

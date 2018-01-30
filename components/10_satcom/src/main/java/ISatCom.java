@@ -4,5 +4,5 @@ public interface ISatCom {
     boolean off();
     boolean connect(String satellite, String frequency);
     void send(String request);
-    String recieve();
+    String receive();
 }

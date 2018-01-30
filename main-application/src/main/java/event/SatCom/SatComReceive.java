@@ -1,9 +1,9 @@
-package event.radar;
+package event.SatCom;
 
-public class RadarOn {
+public class SatComReceive {
     private String phase;
 
-    public RadarOn(String phase) {
+    public SatComReceive(String phase) {
         this.phase = phase;
     }
 
@@ -12,7 +12,6 @@ public class RadarOn {
     }
 
     public String toString() {
-        return "event - " + phase + " : RadarOn";
+        return "event - " + phase + " : SatComReceive";
     }
 }
-

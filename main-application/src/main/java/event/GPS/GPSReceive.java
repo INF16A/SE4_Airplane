@@ -1,9 +1,9 @@
-package event.radar;
+package event.GPS;
 
-public class RadarOn {
+public class GPSReceive {
     private String phase;
 
-    public RadarOn(String phase) {
+    public GPSReceive(String phase) {
         this.phase = phase;
     }
 
@@ -12,7 +12,6 @@ public class RadarOn {
     }
 
     public String toString() {
-        return "event - " + phase + " : RadarOn";
+        return "event - " + phase + " : GPSReceive";
     }
 }
-
