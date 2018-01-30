@@ -24,5 +24,10 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.dhbw.mosbach.inf16a</groupId>
+            <artifactId>12_stowagecargo_stowagenumberfive</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

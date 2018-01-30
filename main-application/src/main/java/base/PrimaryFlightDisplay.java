@@ -3,6 +3,7 @@ package base;
 import java.util.ArrayList;
 
 public enum PrimaryFlightDisplay {
+    /*
     instance;
 
     // please add value(s)
@@ -321,4 +322,5 @@ public enum PrimaryFlightDisplay {
     public int seatManagementNumberOfPassengersFirstClassAssigned;
     public int seatManagementNumberOfPassengersBusinessClassAssigned;
     public int seatManagementNumberOfPassengersEconomyClassAssigned;
+    */
 }
