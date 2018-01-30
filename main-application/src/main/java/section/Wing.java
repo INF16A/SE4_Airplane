@@ -275,7 +275,7 @@ public class Wing extends Subscriber {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpCompress + ")");
 
         try {
-            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex < 2;hydraulicPumpCompressIndex++) {
+            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex <4 ;hydraulicPumpCompressIndex++) {
                 Method hydraulicPumpCompressMethod = null;
                 int compress = 0;
                 if (hydraulicPumpCompress.getAmount() == 0){
@@ -305,7 +305,7 @@ public class Wing extends Subscriber {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpDecompress + ")");
 
         try {
-            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 2;hydraulicPumpDecompressIndex++) {
+            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 4;hydraulicPumpDecompressIndex++) {
                 Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
                 LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
 
@@ -327,7 +327,7 @@ public class Wing extends Subscriber {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpRefilOil + ")");
 
         try {
-            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 2;hydraulicPumpRefilOilIndex++) {
+            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 4;hydraulicPumpRefilOilIndex++) {
                 Method hydraulicPumpRefilOilMethod = null;
                 int refilOil = 0;
                 if (hydraulicPumpRefilOil.getAmount() == 0){
