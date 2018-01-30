@@ -5,12 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>03_Gear</artifactId>
+    <artifactId>12_stowagecargo_stowagenumberfive</artifactId>
     <version>1.0.0</version>
 
-    <parent>
-        <groupId>de.dhbw.mosbach.inf16a</groupId>
-        <artifactId>SE4_Airplane</artifactId>
-        <version>1.0.0</version>
-    </parent>
+    
 </project>
