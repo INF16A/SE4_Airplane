@@ -1,5 +1,3 @@
-package main.java;
-
 public class DroopNose {
     public Port port;
     private static DroopNose instance = new DroopNose();
