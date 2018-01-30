@@ -21,6 +21,13 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>de.dhbw.mosbach.inf16a</groupId>
+            <artifactId>main-application</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>de.dhbw.mosbach.inf16a</groupId>
