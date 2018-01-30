@@ -10,6 +10,7 @@ import event.Subscriber;
 
 
 public class Body extends Subscriber {
+
     // Flight Controls01
     private ArrayList<Object> elevators;
     // Flight Controls02
@@ -242,7 +243,278 @@ public class Body extends Subscriber {
         }
     }
 
+    public ArrayList<Object> getElevators()
+    {
+        return elevators;
+    }
 
+    public ArrayList<Object> getRudders()
+    {
+        return rudders;
+    }
 
-    // please add here
+    public ArrayList<Object> getApus()
+    {
+        return apus;
+    }
+
+    public ArrayList<Object> getGears()
+    {
+        return gears;
+    }
+
+    public ArrayList<Object> getHydraulicPumps()
+    {
+        return hydraulicPumps;
+    }
+
+    public ArrayList<Object> getBulkCargoDoors()
+    {
+        return bulkCargoDoors;
+    }
+
+    public ArrayList<Object> getCrewDoors()
+    {
+        return crewDoors;
+    }
+
+    public ArrayList<Object> getEmergencyExitDoors()
+    {
+        return emergencyExitDoors;
+    }
+
+    public ArrayList<Object> getGearDoors()
+    {
+        return gearDoors;
+    }
+
+    public ArrayList<Object> getaPUOilTanks()
+    {
+        return aPUOilTanks;
+    }
+
+    public ArrayList<Object> getBatteries()
+    {
+        return batteries;
+    }
+
+    public ArrayList<Object> getNitrogenBottles()
+    {
+        return nitrogenBottles;
+    }
+
+    public ArrayList<Object> getOxygenBottles()
+    {
+        return oxygenBottles;
+    }
+
+    public ArrayList<Object> getPotableWaterTanks()
+    {
+        return potableWaterTanks;
+    }
+
+    public ArrayList<Object> getWasteWaterTanks()
+    {
+        return wasteWaterTanks;
+    }
+
+    public ArrayList<Object> getFireExtinguishers()
+    {
+        return fireExtinguishers;
+    }
+
+    public ArrayList<Object> getDeIcingSystems()
+    {
+        return deIcingSystems;
+    }
+
+    public ArrayList<Object> getFirstClassSeats()
+    {
+        return firstClassSeats;
+    }
+
+    public ArrayList<Object> getBusinessClassSeats()
+    {
+        return businessClassSeats;
+    }
+
+    public ArrayList<Object> getTouristClassSeats()
+    {
+        return touristClassSeats;
+    }
+
+    public ArrayList<Object> getCrewSeats()
+    {
+        return crewSeats;
+    }
+
+    public ArrayList<Object> getIceDetectorProbes()
+    {
+        return iceDetectorProbes;
+    }
+
+    public ArrayList<Object> getFireDetectors()
+    {
+        return fireDetectors;
+    }
+
+    public ArrayList<Object> getOxygenSensors()
+    {
+        return oxygenSensors;
+    }
+
+    public ArrayList<Object> getShockSensors()
+    {
+        return shockSensors;
+    }
+
+    public ArrayList<Object> getStallingSensors()
+    {
+        return stallingSensors;
+    }
+
+    public ArrayList<Object> getTemperatureSensors()
+    {
+        return temperatureSensors;
+    }
+
+    public ArrayList<Object> getAirflowSensors()
+    {
+        return airflowSensors;
+    }
+
+    public ArrayList<Object> getPitotTubes()
+    {
+        return pitotTubes;
+    }
+
+    public ArrayList<Object> getRadarAltimeters()
+    {
+        return radarAltimeters;
+    }
+
+    public ArrayList<Object> gettCASs()
+    {
+        return tCASs;
+    }
+
+    public ArrayList<Object> getTurbulentAirFlowSensors()
+    {
+        return turbulentAirFlowSensors;
+    }
+
+    public ArrayList<Object> getCameras()
+    {
+        return cameras;
+    }
+
+    public ArrayList<Object> getgPSs()
+    {
+        return gPSs;
+    }
+
+    public ArrayList<Object> getRadars()
+    {
+        return radars;
+    }
+
+    public ArrayList<Object> getSatComs()
+    {
+        return satComs;
+    }
+
+    public ArrayList<Object> getvHFs()
+    {
+        return vHFs;
+    }
+
+    public ArrayList<Object> getAntiCollisionLights()
+    {
+        return antiCollisionLights;
+    }
+
+    public ArrayList<Object> getCargoCompartmentLights()
+    {
+        return cargoCompartmentLights;
+    }
+
+    public ArrayList<Object> getLandingLights()
+    {
+        return landingLights;
+    }
+
+    public ArrayList<Object> getLogoLights()
+    {
+        return logoLights;
+    }
+
+    public ArrayList<Object> getTailNavigationLights()
+    {
+        return tailNavigationLights;
+    }
+
+    public ArrayList<Object> getTaxiLights()
+    {
+        return taxiLights;
+    }
+
+    public ArrayList<Object> gettCASLights()
+    {
+        return tCASLights;
+    }
+
+    public ArrayList<Object> getCargoSystems()
+    {
+        return cargoSystems;
+    }
+
+    public ArrayList<Object> getStowageNumberFives()
+    {
+        return stowageNumberFives;
+    }
+
+    public ArrayList<Object> getAirConditionings()
+    {
+        return airConditionings;
+    }
+
+    public ArrayList<Object> getKitchens()
+    {
+        return kitchens;
+    }
+
+    public ArrayList<Object> getLavatories()
+    {
+        return lavatories;
+    }
+
+    public ArrayList<Object> getWasteSystems()
+    {
+        return wasteSystems;
+    }
+
+    public ArrayList<Object> getWaterSystems()
+    {
+        return waterSystems;
+    }
+
+    public ArrayList<Object> getEscapeSlides()
+    {
+        return escapeSlides;
+    }
+
+    public ArrayList<Object> getCostOptimizers()
+    {
+        return costOptimizers;
+    }
+
+    public ArrayList<Object> getRouteManagements()
+    {
+        return routeManagements;
+    }
+
+    public ArrayList<Object> getSeatManagements()
+    {
+        return seatManagements;
+    }
 }
