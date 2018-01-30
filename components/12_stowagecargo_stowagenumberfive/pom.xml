@@ -7,6 +7,33 @@
     <groupId>de.dhbw.mosbach.inf16a</groupId>
     <artifactId>12_stowagecargo_stowagenumberfive</artifactId>
     <version>1.0.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>stowagenumberfive</finalName>
+                    <outputDirectory>../</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <parent>
+        <groupId>de.dhbw.mosbach.inf16a</groupId>
+        <artifactId>SE4_Airplane</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
 </project>

@@ -14,7 +14,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>routemanagement</finalName> <!-- TODO: CHANGE OUTPUT NAME HERE -->
+                    <finalName>costoptimizer</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
@@ -27,5 +27,4 @@
         <version>1.0.0</version>
         <relativePath>../..</relativePath>
     </parent>
-    
 </project>
