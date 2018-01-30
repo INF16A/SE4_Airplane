@@ -12,6 +12,7 @@ public class RadarTest {
         componentPort = RadarFactory.build();
         assertNotNull(componentPort);
     }
+
     @Test
     public void on() {
         componentPort = RadarFactory.build();

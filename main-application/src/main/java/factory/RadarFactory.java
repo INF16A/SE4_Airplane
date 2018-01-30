@@ -10,7 +10,7 @@ public class RadarFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/radar.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "radar.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, RadarFactory.class.getClassLoader());
             Class radarClass = Class.forName("Radar",true,urlClassLoader);
             Object radarInstance = radarClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);

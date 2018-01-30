@@ -12,6 +12,7 @@ public class SatComTest {
         componentPort = SatComFactory.build();
         assertNotNull(componentPort);
     }
+
     @Test
     public void on() {
         componentPort = SatComFactory.build();
@@ -48,7 +49,8 @@ public class SatComTest {
         }
     }
 
-    public void conncect() {
+    @Test
+    public void connect() {
         componentPort = SatComFactory.build();
         try {
             Method method1 = componentPort.getClass().getDeclaredMethod("on");
@@ -63,6 +65,7 @@ public class SatComTest {
         }
     }
 
+    @Test
     public void receive() {
         componentPort = SatComFactory.build();
         try {
@@ -78,6 +81,7 @@ public class SatComTest {
         }
     }
 
+    @Test
     public void send() {
         componentPort = SatComFactory.build();
         try {

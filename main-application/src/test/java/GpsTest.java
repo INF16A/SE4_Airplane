@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
-public class GpsTest {
+public class GPSTest {
     private Object componentPort;
 
     @Test
@@ -12,6 +12,7 @@ public class GpsTest {
         componentPort = GPSFactory.build();
         assertNotNull(componentPort);
     }
+
     @Test
     public void on() {
         componentPort = GPSFactory.build();

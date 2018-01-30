@@ -10,7 +10,7 @@ public class GPSFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/gps.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "gps.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, GPSFactory.class.getClassLoader());
             Class gpsClass = Class.forName("GPS",true,urlClassLoader);
             Object gpsInstance = gpsClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
