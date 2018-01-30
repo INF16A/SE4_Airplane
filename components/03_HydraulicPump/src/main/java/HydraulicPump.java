@@ -26,7 +26,7 @@ public class HydraulicPump {
     {
 
         public String version() {
-            return "Hydraulic Pump 1,0";
+            return "Hydraulic Pump 1.0";
         }
 
         public int compress() {

@@ -11,15 +11,17 @@ import java.net.URLClassLoader;
  */
 public class EngineFactory {
 
+    //Untested!
+
     public static Object build() {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/apu.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/engine.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
-            Class weatherRadarClass = Class.forName("APU", true, urlClassLoader);
-            Object weatherRadarInstance = weatherRadarClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            componentPort = weatherRadarClass.getDeclaredField("port").get(weatherRadarInstance);
+            Class engineClass = Class.forName("Engine", true, urlClassLoader);
+            Object engineInstance = engineClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = engineClass.getDeclaredField("port").get(engineInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
