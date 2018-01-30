@@ -3,14 +3,14 @@ package event.sensors.turbulentAirFlowSensor;
 public class TurbulentAirFlowSensorMeasure {
 
     private String phase;
-    private int airFlow;
+    private String airFlow;
 
-    public TurbulentAirFlowSensorMeasure(String nPhase, int nAirFlow) {
+    public TurbulentAirFlowSensorMeasure(String nPhase, String nAirFlow) {
         airFlow = nAirFlow;
         phase = nPhase;
     }
 
-    public int getAirFlow() {
+    public String getAirFlow() {
         return airFlow;
     }
 

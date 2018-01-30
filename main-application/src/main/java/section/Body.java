@@ -34,6 +34,7 @@ import factory.TurbulentAirFlowSensorFactory;
 import factory.VHFFactory;
 import logging.LogEngine;
 
+import javax.print.DocFlavor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -634,7 +635,7 @@ public class Body extends Subscriber {
 
         try {
             for (int momSensor = 0; momSensor < turbulentAirFlowSensors.size(); momSensor++) {
-                Method turbulentAirFlowSensorMeasureMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("measure", int.class);
+                Method turbulentAirFlowSensorMeasureMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("measure", String.class);
                 LogEngine.instance.write("turbulentAirFlowSensorMeasureMethod = " + turbulentAirFlowSensorMeasureMethod);
 
                 int measuredValue = (int) turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor), turbulentAirFlowSensorMeasure.getAirFlow());
