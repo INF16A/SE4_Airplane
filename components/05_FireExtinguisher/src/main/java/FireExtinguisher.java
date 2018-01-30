@@ -1,4 +1,3 @@
-package main.java;
 
 import java.lang.reflect.Method;
 
