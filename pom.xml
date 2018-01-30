@@ -11,8 +11,13 @@
 
     <modules>
         <module>main-application</module>
-        <module>components/example</module>
+        <module>components/03_APU</module>
+        <module>components/03_Engine</module>
+        <module>components/03_Gear</module>
+        <module>components/03_HydraulicPump</module>
     </modules>
+
+
 
     <build>
         <pluginManagement>
@@ -35,6 +40,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>23.6-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
