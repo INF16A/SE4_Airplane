@@ -1,5 +1,9 @@
 public class ExhaustGasTemperatureSensor {
 
+    public static ExhaustGasTemperatureSensor getInstance() {
+        return instance;
+    }
+
     private static ExhaustGasTemperatureSensor instance = new ExhaustGasTemperatureSensor();
     public Port port = new Port();
     private String manufacturer = "DHBW";

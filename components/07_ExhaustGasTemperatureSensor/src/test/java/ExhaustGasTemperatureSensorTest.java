@@ -5,12 +5,12 @@ public class ExhaustGasTemperatureSensorTest {
 
     @Test
     public void TestVersion() {
-        Assert.assertNotNull( FuelFlowSensor.getInstance().version());
+        Assert.assertNotNull( ExhaustGasTemperatureSensor.getInstance().version());
     }
 
     @Test
     public void TestMeasure() {
-        FuelFlowSensor.getInstance().measure();
+        ExhaustGasTemperatureSensor.getInstance().measure();
     }
 
 }
