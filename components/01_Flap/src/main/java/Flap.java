@@ -1,4 +1,4 @@
-package main.java;
+
 
 public class Flap {
     private String manufacturer;
@@ -8,7 +8,7 @@ public class Flap {
 
     public Port port;
 
-    public class Port implements IFlap {
+    public class Port implements main.java.IFlap {
         @Override
         public String version() {
             return innerVersion();

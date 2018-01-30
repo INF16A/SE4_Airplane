@@ -1,4 +1,4 @@
-package main.java;
+
 
 public class Slat {
     private String manufacturer;
@@ -8,7 +8,7 @@ public class Slat {
 
     public Port port;
 
-    public class Port implements ISlat {
+    public class Port implements main.java.ISlat {
         @Override
         public String version() {
             return innerVersion();
