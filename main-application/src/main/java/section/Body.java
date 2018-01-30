@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import com.google.common.eventbus.Subscribe;
 import event.apu.APUDecreaseRPM;
+import event.apu.APUIncreaseRPM;
+import event.apu.APUShutdown;
+import event.apu.APUStart;
 import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
@@ -402,29 +405,6 @@ public class Body extends Subscriber {
         return tCASs;
     }
 
-    @Subscribe
-    public void receive(APUDecreaseRPM apuDecreaseRPM) {
-        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
-
-        try {
-
-            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
-
-            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
-
-            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
-            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
-
-            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
-
-            LogEngine.instance.write("+");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
     public ArrayList<Object> getTurbulentAirFlowSensors()
     {
         return turbulentAirFlowSensors;
@@ -544,4 +524,96 @@ public class Body extends Subscriber {
     {
         return seatManagements;
     }
+
+    @Subscribe
+    public void receive(APUStart apuStart) {
+        LogEngine.instance.write("+ Body.receive(" + apuStart + ")");
+
+        try {
+
+            Method apuStartMethod = apus.get(0).getClass().getDeclaredMethod("start", int.class);
+
+            LogEngine.instance.write("apuStartMethode = " + apuStartMethod);
+
+            apuStartMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuStart.getPhase() + " : apuStarted");
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuStart.getPhase() + " : apuStarted");
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("decreaseRPM", int.class);
+
+            LogEngine.instance.write("decreaseRPMMethod = " + apuDecreaseRPMMethod);
+
+            int decreasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getValue());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : decreasedRPM = " + decreasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : DecreasedRPM = " + decreasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(APUIncreaseRPM apuIncreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuIncreaseRPM + ")");
+
+        try {
+
+            Method apuIncreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("increaseRPMMethod = " + apuIncreaseRPMMethod);
+
+            int increasedRPM = (int) apuIncreaseRPMMethod.invoke(apus.get(0), apuIncreaseRPM.getValue());
+            LogEngine.instance.write(apuIncreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuIncreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(APUShutdown apuShutdown) {
+        LogEngine.instance.write("+ Body.receive(" + apuShutdown + ")");
+
+        try {
+
+            Method apuShutdownMethod = apus.get(0).getClass().getDeclaredMethod("shutdown", int.class);
+
+            LogEngine.instance.write("apuStartMethode = " + apuShutdownMethod);
+
+            apuShutdownMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuShutdown.getPhase() + " : apuShutdown");
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuShutdown.getPhase() + " : apuShutdown");
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
 }
