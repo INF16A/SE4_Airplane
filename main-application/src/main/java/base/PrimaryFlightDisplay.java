@@ -221,7 +221,6 @@ public enum PrimaryFlightDisplay {
 
     //GPS
     public boolean isGPSOn;
-    public boolean isGPSConnected;
 
     //Radar
     public boolean isRadarOn;
@@ -232,8 +231,6 @@ public enum PrimaryFlightDisplay {
 
     //VHF
     public boolean isVHFOn;
-    public String[] vHFChannelList;
-    public String vHFselectedChannel;
 
     //AntiCollisionLight
     public boolean isAntiCollisionLightOn;
