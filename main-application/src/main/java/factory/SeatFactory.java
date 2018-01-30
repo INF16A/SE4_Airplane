@@ -1,4 +1,4 @@
-package factory;
+package main.java.factory;
 
 import java.io.File;
 import java.net.URL;
