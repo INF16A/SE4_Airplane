@@ -30,7 +30,7 @@ public class SeatFactory {
             URLClassLoader urlClassLoader = new URLClassLoader(urls, SeatFactory.class.getClassLoader());
             Class touristSeatClass = Class.forName("TouristClassSeat",true,urlClassLoader);
             Object touristSeatInstance = touristSeatClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
-            componentPort = touristSeatClass.getDeclaredField("port").get(crewSeatInstance);
+            componentPort = touristSeatClass.getDeclaredField("port").get(touristSeatInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
