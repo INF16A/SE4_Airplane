@@ -12,6 +12,11 @@
     <modules>
         <module>main-application</module>
         <module>components/example</module>
+        <module>components/09_AirflowSensor</module>
+        <module>components/09_PitotTube</module>
+        <module>components/09_RadarAltimeter</module>
+        <module>components/09_TCAS</module>
+        <module>components/09_TurbulentAirFlowSensor</module>
     </modules>
 
     <build>
