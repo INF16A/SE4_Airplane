@@ -1,28 +1,27 @@
-package main;
+package main.java;
 
-public class Elevator {
+public class DroopNose {
     public Port port;
-    private static Elevator instance = new Elevator();
+    private static DroopNose instance = new DroopNose();
 
     private String manufacturer;
     private String type;
     private String id;
     private int degree;
 
-    private Elevator() {
+    private DroopNose() {
         port = new Port();
     }
 
-    public static Elevator getInstance() {
+    public static DroopNose getInstance() {
         return instance;
     }
 
     private String innerVersion() {
-        return "Version 1.0";
+        return "Version 0.2";
     }
 
-    public class Port implements IElevator {
-
+    public class Port implements IDroopNose {
         public String version() {
             return innerVersion();
         }
@@ -31,19 +30,15 @@ public class Elevator {
             return 0;
         }
 
-        public int fullUp() {
-            return 0;
-        }
-
         public int fullDown() {
             return 0;
         }
 
-        public int up(int degree) {
+        public int down(int degree) {
             return 0;
         }
 
-        public int down(int degree) {
+        public int up(int degree) {
             return 0;
         }
     }

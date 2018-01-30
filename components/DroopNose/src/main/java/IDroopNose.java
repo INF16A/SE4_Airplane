@@ -1,10 +1,10 @@
-package main;
+package main.java;
 
-public interface IElevator {
+public interface IDroopNose {
     String version();
     int neutral();
-    int fullUp();
     int fullDown();
-    int up(int degree);
     int down(int degree);
+    int up(int degree);
+
 }
