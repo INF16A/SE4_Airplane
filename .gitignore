@@ -9,3 +9,4 @@ out
 
 .DS_Store
 main-application/log
+*.jar
