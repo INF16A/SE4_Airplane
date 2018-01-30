@@ -36,6 +36,7 @@ public class EngineTest {
         Assert.assertFalse(port.shutdown());
     }
 
+    @Test
     public  void extinguishFire(){
         Assert.assertFalse(port.extinguishFire());
     }
