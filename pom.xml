@@ -15,6 +15,7 @@
         <module>components/03_Engine</module>
         <module>components/03_Gear</module>
         <module>components/03_HydraulicPump</module>
+=======
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
@@ -30,6 +31,15 @@
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
 
+        <module>components/10_Camera</module>
+        <module>components/10_GPS</module>
+        <module>components/10_Radar</module>
+        <module>components/10_SatCom</module>
+        <module>components/10_VHF</module>
+
+
+
+        <module>main-application</module>
     </modules>
 
 
