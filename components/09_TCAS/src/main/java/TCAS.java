@@ -2,9 +2,11 @@ public class TCAS {
 
     private static TCAS Instance = new TCAS();
 
-    public Port port;
+    public static TCAS getInstance() {
+        return Instance;
+    }
 
-    public static TCAS getInstance(){return Instance;}
+    public Port port = new Port();
 
     private String manufacturer = "ExampleManufacturer 1";
     private String type = "Tube101";
@@ -14,7 +16,7 @@ public class TCAS {
     private boolean isAlarm = false;
     private int altitude;
 
-    public class Port implements ITCAS{
+    public class Port implements ITCAS {
 
         @Override
         public String version() {
@@ -23,12 +25,12 @@ public class TCAS {
 
         @Override
         public boolean on() {
-            return isOn=true;
+            return isOn = true;
         }
 
         @Override
         public boolean connect(String frequency) {
-            return isConnected=frequency.hashCode()%10==0;
+            return isConnected = frequency.hashCode() % 10 == 0;
         }
 
         @Override
@@ -48,13 +50,13 @@ public class TCAS {
 
         @Override
         public int setAltitude(int value) {
-            altitude=value;
+            altitude = value;
             return altitude;
         }
 
         @Override
         public boolean off() {
-            return isOn=false;
+            return isOn = false;
         }
     }
 

@@ -1,17 +1,19 @@
-public class Airflowsensor{
+public class Airflowsensor {
 
     private static Airflowsensor Instance = new Airflowsensor();
 
-    private Port port;
+    public static Airflowsensor getInstance() {
+        return Instance;
+    }
 
-    public static Airflowsensor getInstance(){ return Instance;}
+    private Port port = new Port();
 
-    private String manufacutrer ="Dumbo";
+    private String manufacutrer = "Dumbo";
     private String type = "Der Beschte";
     private int airPressure = 3;
     private boolean isAlarm = false;
 
-    public class Port implements IAirflowSensor{
+    public class Port implements IAirflowSensor {
 
         @Override
         public String version() {
@@ -27,6 +29,7 @@ public class Airflowsensor{
         public boolean alarm(int threshhold) {
             return innerAlarm(threshhold);
         }
+
     }
 
     public String innerVersion() {
@@ -40,4 +43,5 @@ public class Airflowsensor{
     public boolean innerAlarm(int threshhold) {
         return isAlarm;
     }
+
 }
