@@ -22,6 +22,44 @@ import event.sensors.tCAS.TCASScann;
 import event.sensors.tCAS.TCASSetAltitude;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import factory.CameraFactory;
+import factory.GPSFactory;
+import factory.RadarFactory;
+import factory.SatComFactory;
+import factory.VHFFactory;
+import logging.LogEngine;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+import base.PrimaryFlightDisplay;
+import com.google.common.eventbus.Subscribe;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+import com.google.common.eventbus.Subscribe;
+import event.apu.APUDecreaseRPM;
+import factory.*;
+import logging.LogEngine;
+import event.sensors.airflowSensor.AirflowSensorAlarm;
+import event.sensors.airflowSensor.AirflowSensorMeasure;
+import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
+import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
+import event.sensors.pitotTube.PitotTubeMeasureVelocity;
+import event.sensors.radarAltimeter.RadarAltimeterMeasureAltitude;
+import event.sensors.radarAltimeter.RadarAltimeterOff;
+import event.sensors.radarAltimeter.RadarAltimeterOn;
+import event.sensors.radarAltimeter.RadarAltimeterReceive;
+import event.sensors.radarAltimeter.RadarAltimeterSend;
+import event.sensors.tCAS.TCASAlarm;
+import event.sensors.tCAS.TCASConnect;
+import event.sensors.tCAS.TCASDetermineAltitude;
+import event.sensors.tCAS.TCASOff;
+import event.sensors.tCAS.TCASOn;
+import event.sensors.tCAS.TCASScann;
+import event.sensors.tCAS.TCASSetAltitude;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
 import factory.AirflowSensorFactory;
 import factory.CameraFactory;
 import factory.GPSFactory;
@@ -38,9 +76,16 @@ import javax.print.DocFlavor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-// import factorys for sensor04
+import factory.IceDetectorProbeFactory;
+import logging.LogEngine;
+
+import java.util.ArrayList;
+import recorder.FlightRecorder;
+
+
 
 public class Body extends Subscriber {
+
     // Flight Controls01
     private ArrayList<Object> elevators;
     // Flight Controls02
@@ -145,21 +190,21 @@ public class Body extends Subscriber {
 
         // tank_bottle
         aPUOilTanks = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) aPUOilTanks.add(APUOilTankFactory.build());
         batteries = new ArrayList<>();
-        // Factory magic 24
+        for (int i = 0; i < 24; i++) batteries.add(BatteryFactory.build());
         nitrogenBottles = new ArrayList<>();
-        // Factory magic 6
+        for (int i = 0; i < 6; i++) nitrogenBottles.add(NitrogenBottleFactory.build());
         oxygenBottles = new ArrayList<>();
-        // Factory magic 10
+        for (int i = 0; i < 10; i++) oxygenBottles.add(OxygenBottleFactory.build());
         potableWaterTanks = new ArrayList<>();
-        // Factory magic 8
+        for (int i = 0; i < 8; i++) potableWaterTanks.add(PotableWaterTankFactory.build());
         wasteWaterTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) wasteWaterTanks.add(WasteWaterTankFactory.build());
         fireExtinguishers = new ArrayList<>();
-        // Factory magic 14
+        for (int i = 0; i < 14; i++) fireExtinguishers.add(FireExtinguisherFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // seats
         firstClassSeats = new ArrayList<>();
@@ -173,6 +218,8 @@ public class Body extends Subscriber {
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02
@@ -205,23 +252,18 @@ public class Body extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        // Factory magic 2
         cameras = new ArrayList<>();
         for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++)
             cameras.add(CameraFactory.build());
-        // Factory magic 2
         gPSs = new ArrayList<>();
         for (int gpsIndex = 0; gpsIndex < 2; gpsIndex++)
             gPSs.add(GPSFactory.build());
-        // Factory magic 2
         radars = new ArrayList<>();
         for (int radarIndex = 0; radarIndex < 2; radarIndex++)
             radars.add(RadarFactory.build());
-        // Factory magic 2
         satComs = new ArrayList<>();
         for (int satComIndex = 0; satComIndex < 2; satComIndex++)
             satComs.add(SatComFactory.build());
-        // Factory magic 2
         vHFs = new ArrayList<>();
         for (int vhfIndex = 0; vhfIndex < 2; vhfIndex++)
             vHFs.add(VHFFactory.build());
@@ -250,16 +292,30 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
+        for (int i = 0; i < 4; i++)
+            airConditionings.add(AirConditioningFactory.build());
         // Factory magic 4
         kitchens = new ArrayList<>();
+        kitchens.add(KitchenFactory.build("FIRST"));
+        kitchens.add(KitchenFactory.build("BUSINESS"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
+        for (int i = 0; i < 8; i++)
+            lavatories.add(LavatoryFactory.build());
         // Factory magic 8
         wasteSystems = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            wasteSystems.add(WasteSystemFactory.build());
         // Factory magic 10
         waterSystems = new ArrayList<>();
+        for (int i = 0; i < 4; i++)
+            waterSystems.add(WaterSystemFactory.build());
         // Factory magic 4
         escapeSlides = new ArrayList<>();
+        for (int i = 0; i < 14; i++)
+            escapeSlides.add(EscapeSlideFactory.build());
         // Factory magic 14
 
         // management
@@ -281,6 +337,249 @@ public class Body extends Subscriber {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public ArrayList<Object> getElevators() {
+        return elevators;
+    }
+
+    public ArrayList<Object> getRudders() {
+        return rudders;
+    }
+
+    public ArrayList<Object> getApus() {
+        return apus;
+    }
+
+    public ArrayList<Object> getGears() {
+        return gears;
+    }
+
+    public ArrayList<Object> getHydraulicPumps() {
+        return hydraulicPumps;
+    }
+
+    public ArrayList<Object> getBulkCargoDoors() {
+        return bulkCargoDoors;
+    }
+
+    public ArrayList<Object> getCrewDoors() {
+        return crewDoors;
+    }
+
+    public ArrayList<Object> getEmergencyExitDoors() {
+        return emergencyExitDoors;
+    }
+
+    public ArrayList<Object> getGearDoors() {
+        return gearDoors;
+    }
+
+    public ArrayList<Object> getaPUOilTanks() {
+        return aPUOilTanks;
+    }
+
+    public ArrayList<Object> getBatteries() {
+        return batteries;
+    }
+
+    public ArrayList<Object> getNitrogenBottles() {
+        return nitrogenBottles;
+    }
+
+    public ArrayList<Object> getOxygenBottles() {
+        return oxygenBottles;
+    }
+
+    public ArrayList<Object> getPotableWaterTanks() {
+        return potableWaterTanks;
+    }
+
+    public ArrayList<Object> getWasteWaterTanks() {
+        return wasteWaterTanks;
+    }
+
+    public ArrayList<Object> getFireExtinguishers() {
+        return fireExtinguishers;
+    }
+
+    public ArrayList<Object> getDeIcingSystems() {
+        return deIcingSystems;
+    }
+
+    public ArrayList<Object> getFirstClassSeats() {
+        return firstClassSeats;
+    }
+
+    public ArrayList<Object> getBusinessClassSeats() {
+        return businessClassSeats;
+    }
+
+    public ArrayList<Object> getTouristClassSeats() {
+        return touristClassSeats;
+    }
+
+    public ArrayList<Object> getCrewSeats() {
+        return crewSeats;
+    }
+
+    public ArrayList<Object> getIceDetectorProbes() {
+        return iceDetectorProbes;
+    }
+
+    public ArrayList<Object> getFireDetectors() {
+        return fireDetectors;
+    }
+
+    public ArrayList<Object> getOxygenSensors() {
+        return oxygenSensors;
+    }
+
+    public ArrayList<Object> getShockSensors() {
+        return shockSensors;
+    }
+
+    public ArrayList<Object> getStallingSensors() {
+        return stallingSensors;
+    }
+
+    public ArrayList<Object> getTemperatureSensors() {
+        return temperatureSensors;
+    }
+
+    public ArrayList<Object> getAirflowSensors() {
+        return airflowSensors;
+    }
+
+    public ArrayList<Object> getPitotTubes() {
+        return pitotTubes;
+    }
+
+    public ArrayList<Object> getRadarAltimeters() {
+        return radarAltimeters;
+    }
+
+    public ArrayList<Object> gettCASs() {
+        return tCASs;
+    }
+
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
+
+            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    public ArrayList<Object> getTurbulentAirFlowSensors() {
+        return turbulentAirFlowSensors;
+    }
+
+    public ArrayList<Object> getCameras() {
+        return cameras;
+    }
+
+    public ArrayList<Object> getgPSs() {
+        return gPSs;
+    }
+
+    public ArrayList<Object> getRadars() {
+        return radars;
+    }
+
+    public ArrayList<Object> getSatComs() {
+        return satComs;
+    }
+
+    public ArrayList<Object> getvHFs() {
+        return vHFs;
+    }
+
+    public ArrayList<Object> getAntiCollisionLights() {
+        return antiCollisionLights;
+    }
+
+    public ArrayList<Object> getCargoCompartmentLights() {
+        return cargoCompartmentLights;
+    }
+
+    public ArrayList<Object> getLandingLights() {
+        return landingLights;
+    }
+
+    public ArrayList<Object> getLogoLights() {
+        return logoLights;
+    }
+
+    public ArrayList<Object> getTailNavigationLights() {
+        return tailNavigationLights;
+    }
+
+    public ArrayList<Object> getTaxiLights() {
+        return taxiLights;
+    }
+
+    public ArrayList<Object> gettCASLights() {
+        return tCASLights;
+    }
+
+    public ArrayList<Object> getCargoSystems() {
+        return cargoSystems;
+    }
+
+    public ArrayList<Object> getStowageNumberFives() {
+        return stowageNumberFives;
+    }
+
+    public ArrayList<Object> getAirConditionings() {
+        return airConditionings;
+    }
+
+    public ArrayList<Object> getKitchens() {
+        return kitchens;
+    }
+
+    public ArrayList<Object> getLavatories() {
+        return lavatories;
+    }
+
+    public ArrayList<Object> getWasteSystems() {
+        return wasteSystems;
+    }
+
+    public ArrayList<Object> getWaterSystems() {
+        return waterSystems;
+    }
+
+    public ArrayList<Object> getEscapeSlides() {
+        return escapeSlides;
+    }
+
+    public ArrayList<Object> getCostOptimizers() {
+        return costOptimizers;
+    }
+
+    public ArrayList<Object> getRouteManagements() {
+        return routeManagements;
+    }
+
+    public ArrayList<Object> getSeatManagements() {
+        return seatManagements;
     }
 
     @Subscribe
@@ -311,7 +610,7 @@ public class Body extends Subscriber {
 
                 int measureResult = (int) measureMethod.invoke(airflowSensors.get(i), airflowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(airflowSensorMeasure.getPhase() + " : measure" + measureResult);
-                PrimaryFlightDisplay.instance.bodyAirflowSensorAirPressure=measureResult;
+                PrimaryFlightDisplay.instance.bodyAirflowSensorAirPressure = measureResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -363,7 +662,7 @@ public class Body extends Subscriber {
 
                 int measureResult = (int) pitotTubeMeasureVelocityMethod.invoke(pitotTubes.get(i));
                 LogEngine.instance.write(pitotTubeMeasureVelocity.getPhase() + " : measureVelocity is " + measureResult);
-                PrimaryFlightDisplay.instance.pitotTubeVelocity=measureResult;
+                PrimaryFlightDisplay.instance.pitotTubeVelocity = measureResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -399,7 +698,7 @@ public class Body extends Subscriber {
 
                 boolean result = (boolean) radarAltimeterOffMethod.invoke(radarAltimeters.get(i));
                 LogEngine.instance.write(radarAltimeterOff.getPhase() + " : off ->" + result);
-                PrimaryFlightDisplay.instance.isRadarAltimeterOn=result;
+                PrimaryFlightDisplay.instance.isRadarAltimeterOn = result;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -477,7 +776,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASAlarmMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasAlarm.getPhase() + " : TCASAlarm = " + measuredValue);
 
-                  PrimaryFlightDisplay.instance.isTCASAlarm = measuredValue;
+                PrimaryFlightDisplay.instance.isTCASAlarm = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -498,7 +797,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASConnectMethod.invoke(tCASs.get(momSensor), tcasConnect.getFrequency());
                 LogEngine.instance.write(tcasConnect.getPhase() + " : TCASConnect = " + measuredValue);
 
-                  PrimaryFlightDisplay.instance.isTCASConnected = measuredValue;
+                PrimaryFlightDisplay.instance.isTCASConnected = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -538,7 +837,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASOffMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasOff.getPhase() + " : TCASOff = " + measuredValue);
 
-                  PrimaryFlightDisplay.instance.isTCASOn = measuredValue;
+                PrimaryFlightDisplay.instance.isTCASOn = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -648,5 +947,4 @@ public class Body extends Subscriber {
         }
     }
 
-    // please add here
 }

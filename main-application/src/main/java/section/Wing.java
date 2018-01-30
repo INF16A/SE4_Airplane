@@ -8,17 +8,21 @@ import event.sensors.airflowSensor.AirflowSensorMeasure;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
 import factory.AirflowSensorFactory;
+import factory.CameraFactory;
+import factory.ExhaustGasTemperatureSensorFactory;
+import factory.FuelFlowSensorFactory;
+import factory.FuelSensorFactory;
+import factory.IceDetectorProbeFactory;
 import factory.TurbulentAirFlowSensorFactory;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-// Factory import for sensor04
-import factory.CameraFactory;
-
 public class Wing extends Subscriber {
-    private int wingIndex; //0=links; 1=rechts
+
+    private int wingIndex;
+
 
     // Flight Controls01
     private ArrayList<Object> droopNoses;
@@ -96,12 +100,25 @@ public class Wing extends Subscriber {
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
+        }
         // Factory magic 4
         fuelFlowSensors = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            fuelFlowSensors.add(FuelFlowSensorFactory.build());
+        }
         // Factory magic 6
+
         fuelSensors = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            fuelSensors.add(FuelSensorFactory.build());
+        }
         // Factory magic 6
+
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02
@@ -142,6 +159,19 @@ public class Wing extends Subscriber {
         try {
             LogEngine.instance.write(wingIndex == 0 ? "--- left Wing ---" : "--- right Wing ---");
 
+            //Engine
+            for (int enginesIndex = 0; enginesIndex < 2; enginesIndex++) {
+                Method engineVersionMethod = engines.get(enginesIndex).getClass().getDeclaredMethod("version");
+                String engineVersion = (String) engineVersionMethod.invoke(engines.get(enginesIndex));
+                LogEngine.instance.write("enginePort : " + engines.get(enginesIndex).hashCode() + " - " + engineVersion);
+            }
+
+            //Hydraulic Pump
+            for (int hydraulicPumpIndex = 0; hydraulicPumpIndex < 4; hydraulicPumpIndex++) {
+                Method hydraulicPumpVersionMethod = hydraulicPumps.get(hydraulicPumpIndex).getClass().getDeclaredMethod("version");
+                String hydraulicPumpVersion = (String) hydraulicPumpVersionMethod.invoke(hydraulicPumps.get(hydraulicPumpIndex));
+                LogEngine.instance.write("hydraulicPumpPort : " + hydraulicPumps.get(hydraulicPumpIndex).hashCode() + " - " + hydraulicPumpVersion);
+            }
             // please add here
 
             LogEngine.instance.write("");
@@ -160,7 +190,7 @@ public class Wing extends Subscriber {
 
                 boolean alarmResult = (boolean) alarmMethod.invoke(airflowSensors.get(i), airflowSensorAlarm.getThreshhold());
                 LogEngine.instance.write(airflowSensorAlarm.getPhase() + " : isAlarm" + alarmResult);
-                if(wingIndex==0)
+                if (wingIndex == 0)
                     PrimaryFlightDisplay.instance.isLeftWingAirflowSensorAlarm = alarmResult;
                 else
                     PrimaryFlightDisplay.instance.isRightWingAirflowSensorAlarm = alarmResult;
@@ -181,7 +211,7 @@ public class Wing extends Subscriber {
 
                 int measureResult = (int) measureMethod.invoke(airflowSensors.get(i), airflowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(airflowSensorMeasure.getPhase() + " : measure" + measureResult);
-                if(wingIndex==0)
+                if (wingIndex == 0)
                     PrimaryFlightDisplay.instance.leftWingAirflowSensorAirPressure = measureResult;
                 else
                     PrimaryFlightDisplay.instance.rightWingAirflowSensorAirPressure = measureResult;
@@ -204,7 +234,7 @@ public class Wing extends Subscriber {
                 boolean measuredValue = (boolean) turbulentAirFlowSensorAlarmMethod.invoke(turbulentAirFlowSensors.get(momSensor));
                 LogEngine.instance.write(turbulentAirFlowSensorAlarm.getPhase() + " : turbulentAirFlowSensorAlarm = " + measuredValue);
 
-                if(wingIndex==0)
+                if (wingIndex == 0)
                     PrimaryFlightDisplay.instance.isLeftWingTurbulentAirFlowSensorAlarm = measuredValue;
                 else
                     PrimaryFlightDisplay.instance.isRightWingTurbulentAirFlowSensorAlarm = measuredValue;
@@ -235,5 +265,105 @@ public class Wing extends Subscriber {
         }
     }
 
-    // please add here
+
+    public ArrayList<Object> getDroopNoses() {
+        return droopNoses;
+    }
+
+    public ArrayList<Object> getFlaps() {
+        return flaps;
+    }
+
+    public ArrayList<Object> getSlats() {
+        return slats;
+    }
+
+    public ArrayList<Object> getLeftAilerons() {
+        return leftAilerons;
+    }
+
+    public ArrayList<Object> getRightAilerons() {
+        return rightAilerons;
+    }
+
+    public ArrayList<Object> getSpoilers() {
+        return spoilers;
+    }
+
+    public ArrayList<Object> getEngines() {
+        return engines;
+    }
+
+    public ArrayList<Object> getHydraulicPumps() {
+        return hydraulicPumps;
+    }
+
+    public ArrayList<Object> getEngineOilTanks() {
+        return engineOilTanks;
+    }
+
+    public ArrayList<Object> getFuelTanks() {
+        return fuelTanks;
+    }
+
+    public ArrayList<Object> getDeIcingSystems() {
+        return deIcingSystems;
+    }
+
+    public ArrayList<Object> getExhaustGasTemperatureSensors() {
+        return exhaustGasTemperatureSensors;
+    }
+
+    public ArrayList<Object> getFuelFlowSensors() {
+        return fuelFlowSensors;
+    }
+
+    public ArrayList<Object> getFuelSensors() {
+        return fuelSensors;
+    }
+
+    public ArrayList<Object> getIceDetectorProbes() {
+        return iceDetectorProbes;
+    }
+
+    public ArrayList<Object> getFireDetectors() {
+        return fireDetectors;
+    }
+
+    public ArrayList<Object> getShockSensors() {
+        return shockSensors;
+    }
+
+    public ArrayList<Object> getStallingSensors() {
+        return stallingSensors;
+    }
+
+    public ArrayList<Object> getTemperatureSensors() {
+        return temperatureSensors;
+    }
+
+    public ArrayList<Object> getAirflowSensors() {
+        return airflowSensors;
+    }
+
+    public ArrayList<Object> getTurbulentAirFlowSensors() {
+        return turbulentAirFlowSensors;
+    }
+
+    public ArrayList<Object> getCameras() {
+        return cameras;
+    }
+
+    public ArrayList<Object> getLandingLights() {
+        return landingLights;
+    }
+
+    public ArrayList<Object> getLeftNavigationLights() {
+        return leftNavigationLights;
+    }
+
+    public ArrayList<Object> getRightNavigationLights() {
+        return rightNavigationLights;
+    }
+
 }
