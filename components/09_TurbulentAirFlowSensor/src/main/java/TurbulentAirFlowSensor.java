@@ -1,22 +1,35 @@
-public class TurbulentAirFlowSensor implements ITurbulentAirFlowSensor {
+public class TurbulentAirFlowSensor{
 
-    private String  manufacturer;
-    private String type;
-    private String id;
+    private static TurbulentAirFlowSensor Instance = new TurbulentAirFlowSensor();
+
+    public Port port;
+
+    public static TurbulentAirFlowSensor getInstance(){return Instance;}
+
+    private String  manufacturer="Turbulent Juice";
+    private String type ="Juice";
+    private String id = "9785643131";
     private boolean isAlarm;
 
-    @Override
-    public String version() {
-        return null;
+    public class Port implements ITurbulentAirFlowSensor{
+
+        @Override
+        public String version() {
+            return innerVersion();
+        }
+
+        @Override
+        public int measure(String airFlow) {
+            return airFlow.hashCode();
+        }
+
+        @Override
+        public boolean alarm() {
+            return isAlarm;
+        }
     }
 
-    @Override
-    public int measure(String airFlow) {
-        return 0;
-    }
-
-    @Override
-    public boolean alarm() {
-        return false;
+    public String innerVersion() {
+        return "TurbulentAirFlowSensor(id: "+id+") by "+manufacturer+" with Type "+type;
     }
 }

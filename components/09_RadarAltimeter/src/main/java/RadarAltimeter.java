@@ -1,38 +1,54 @@
-public class RadarAltimeter implements IRadarAltimeter{
+public class RadarAltimeter{
 
-    private String manufacturer;
-    private String type;
-    private String id;
-    private boolean isOn;
-    private int altitude;
+    private static RadarAltimeter Instance = new RadarAltimeter();
 
-    @Override
-    public String version() {
-        return null;
+    public Port port;
+
+    public static RadarAltimeter getInstance(){return Instance;}
+
+    private String manufacturer = "Die Manufaktur";
+    private String type ="1Radar";
+    private String id ="79846512";
+    private boolean isOn = false;
+    private int altitude = 10;
+
+    public class Port implements IRadarAltimeter{
+
+        @Override
+        public String version() {
+            return innerVersion();
+        }
+
+        @Override
+        public boolean on() {
+            isOn = true;
+            return isOn;
+        }
+
+        @Override
+        public void send(String radioWave) {
+            System.out.println(radioWave);
+        }
+
+        @Override
+        public int receive(String radioWave) {
+            return radioWave.hashCode();
+        }
+
+        @Override
+        public int measureAltitude() {
+            return altitude;
+        }
+
+        @Override
+        public boolean off() {
+            isOn = false;
+            return isOn;
+        }
     }
 
-    @Override
-    public boolean on() {
-        return false;
+    public String innerVersion() {
+        return "RadarAltimeter (id: "+id+") by "+manufacturer+" with Type "+type;
     }
 
-    @Override
-    public void send(String radioWave) {
-
-    }
-
-    @Override
-    public int receive(String radioWave) {
-        return 0;
-    }
-
-    @Override
-    public int measureAltitude() {
-        return 0;
-    }
-
-    @Override
-    public boolean off() {
-        return false;
-    }
 }

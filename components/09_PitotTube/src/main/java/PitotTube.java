@@ -1,4 +1,10 @@
-public class PitotTube implements IPitotTube {
+public class PitotTube{
+
+    private static PitotTube Instance = new PitotTube();
+
+    public static PitotTube getInstance(){return Instance; }
+
+    public Port port;
 
     private String manufacturer = "ExampleManufacturer 1";
     private String type = "Tube101";
@@ -6,24 +12,30 @@ public class PitotTube implements IPitotTube {
     private boolean isOn = false;
     private int velocity = 10;
 
-    @Override
-    public String version() {
+    public class Port implements IPitotTube{
+
+        @Override
+        public String version() {
+            return innerVersion();
+        }
+
+        @Override
+        public int measureStaticPressure() {
+            return velocity/7;
+        }
+
+        @Override
+        public int measureTotalPressure() {
+            return velocity/5;
+        }
+
+        @Override
+        public int measureVelocity() {
+            return velocity;
+        }
+    }
+
+    public String innerVersion() {
         return "Pitot Tube(id: " + id + ") by " + manufacturer + " type: " + type;
     }
-
-    @Override
-    public int measureStaticPressure() {
-        return 10;
-    }
-
-    @Override
-    public int measureTotalPressure() {
-        return 25;
-    }
-
-    @Override
-    public int measureVelocity() {
-        return velocity;
-    }
-
 }
