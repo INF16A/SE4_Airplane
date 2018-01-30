@@ -14,7 +14,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>apu</finalName> 
+                    <finalName>apu</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>

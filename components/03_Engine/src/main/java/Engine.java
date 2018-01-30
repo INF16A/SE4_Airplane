@@ -29,7 +29,7 @@ public class Engine {
     public class Port implements IEngine
     {
 
-        public String vision() {
+        public String version() {
             return "Engine 1.0";
         }
 
@@ -60,8 +60,9 @@ public class Engine {
             return isStarted;
         }
 
-        public void extinguishFire() {
+        public boolean extinguishFire() {
             isFire = false;
+            return isFire;
         }
     }
 

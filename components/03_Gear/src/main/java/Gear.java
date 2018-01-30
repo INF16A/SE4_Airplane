@@ -21,7 +21,7 @@ public class Gear {
     private Gear()
     {
         port = new Port();
-
+        wheels = new ArrayList<>();
         Wheel w1 = new Wheel("0", System.currentTimeMillis());
         w1.setBrake(new Brake("0", System.currentTimeMillis()));
         wheels.add(w1);
@@ -39,16 +39,17 @@ public class Gear {
         }
 
         public GearType setType(String newType) {
-           if(newType.equals(GearType.front))
+           if(newType.equals(GearType.front.name()))
                type = GearType.front;
-            if(newType.equals(GearType.rear))
+            if(newType.equals(GearType.rear.name()))
                 type = GearType.rear;
 
             return type;
         }
 
         public boolean down() {
-            return false;
+            isDown = true;
+            return isDown;
         }
 
         public boolean up() {
