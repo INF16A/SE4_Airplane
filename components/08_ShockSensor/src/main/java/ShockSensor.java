@@ -1,28 +1,48 @@
-public class ShockSensor implements IShockSensor{
+public class ShockSensor {
 
-    String manufacturer;
-    String type;
-    String id;
-    boolean isCalibrated;
-    boolean isShockDetected;
+    private static ShockSensor Instance = new ShockSensor();
 
-    public String version() {
-        return null;
+    public static ShockSensor getInstance() {
+        return Instance;
     }
 
-    public boolean calibrate() {
-        return false;
-    }
+    public Port port = new Port();
 
-    public boolean calibrate(double level) {
-        return false;
-    }
+    private String manufacturer = "Center Shock";
+    private String type = "Shockwave 1000";
+    private String id = "36214";
+    private boolean isCalibrated = true;
+    private boolean isShockDetected = false;
 
-    public int measure() {
-        return 0;
-    }
+    public class Port implements IShockSensor {
 
-    public boolean alarm() {
-        return false;
+        @Override
+        public String version() {
+            return innerVersion();
+        }
+
+        @Override
+        public boolean calibrate() {
+            return isCalibrated;
+        }
+
+        @Override
+        public boolean calibrate(double level) {
+            return isCalibrated;
+        }
+
+        @Override
+        public int measure() {
+            return 0;
+        }
+
+        @Override
+        public boolean alarm() {
+            return isShockDetected;
+        }
+
+        public String innerVersion() {
+            return "ShockSensor(id: " + id + ") by " + manufacturer + " with Type " + type;
+        }
+
     }
-}
