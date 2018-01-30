@@ -1,4 +1,4 @@
-package main.java.factory;
+package factory;
 
 import configuration.Configuration;
 
@@ -12,7 +12,7 @@ public class EngineOilTankFactory {
 
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/engineoiltank.jar").toURI().toURL()};
-            URLClassLoader urlClassLoader = new URLClassLoader(urls, FuelTankFactory.class.getClassLoader());
+            URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineOilTankFactory.class.getClassLoader());
             Class fuelTankClass = Class.forName("EngineOilTank",true,urlClassLoader);
             Object fuelTankInstance = fuelTankClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
             componentPort = fuelTankClass.getDeclaredField("port").get(fuelTankInstance);

@@ -10,16 +10,24 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-application</module>
+        <module>components/03_APU</module>
+        <module>components/03_Engine</module>
+        <module>components/03_Gear</module>
+        <module>components/03_HydraulicPump</module>
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
-        <module>components/example</module>
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
         <module>components/12_stowagecargo_stowagenumberfive</module>
         <module>components/12_stowagecargo_cargosystem</module>
+        <module>components/13_airconditioning</module>
+        <module>components/13_kitchen</module>
+        <module>components/13_lavatory</module>
+        <module>components/13_escapeslide</module>
+        <module>components/13_watersystem</module>
+        <module>components/13_wastesystem</module>
 
         <module>components/07_ExhaustGasTemperatureSensor</module>
         <module>components/07_FuelFlowSensor</module>
@@ -32,7 +40,18 @@
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
 
+        <module>components/10_Camera</module>
+        <module>components/10_GPS</module>
+        <module>components/10_Radar</module>
+        <module>components/10_SatCom</module>
+        <module>components/10_VHF</module>
+
+
+
+        <module>main-application</module>
     </modules>
+
+
 
     <build>
         <pluginManagement>
