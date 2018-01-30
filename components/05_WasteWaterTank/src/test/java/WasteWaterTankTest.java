@@ -1,5 +1,5 @@
-package test.java;
-import main.java.WasteWaterTank;
+
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
