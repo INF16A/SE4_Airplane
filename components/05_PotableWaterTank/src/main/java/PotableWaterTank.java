@@ -2,51 +2,60 @@ package main.java;
 
 import java.lang.reflect.Method;
 
-public class WasteWaterTank {
+public class PotableWaterTank {
 
-	private static WasteWaterTank instance = new WasteWaterTank();
+	private static PotableWaterTank instance = new PotableWaterTank();
 	public Port port;
 
 	private String manufacturer;
 	private String id;
-	private int capacity;
+	private String type;
+	private int amount;
 	private boolean isLocked;
 	private int current;
 
-	private WasteWaterTank(){
+	private PotableWaterTank(){
 		port = new Port();
-		capacity = 1000;
+		amount = 1000;
 		current = 0;
 		isLocked = false;
-		id = "WasteWaterTank";
-		manufacturer = "WasteWaterTankManufacturer";
+		type = id = "PotableWaterTank";
+		manufacturer = "PotableWaterTankManufacturer";
 	}
 
 	public boolean setIsLocked(boolean toLocked){
 		isLocked = toLocked;
 		return isLocked;
 	}
-	public int addCapacity(int amount){
-		int sum = current + amount;
+	public int addInner(int toAmount){
+		int sum = current + toAmount;
 		if(sum > 1000){
-			current = capacity;
+			current = amount;
 		}else{
 			current = sum;
 		}
 		return current;
 	}
-	public int clear(){
-		current = 0;
+	public int fillToHead(){
+		current = amount;
+		return current;
+	}
+	public int takeOutInner(int amount){
+		int sum = current - 0;
+		if(sum < 0 ){
+			sum = 0;
+		}
+		current = sum;
 		return current;
 	}
 	public String toString(){
-		return "WasteWaterTank - Version 1.0";
+		return "PotableWaterTank - Version 1.0";
 	}
 
-	public static WasteWaterTank getInstance() {
+	public static PotableWaterTank getInstance() {
 		return instance;
 	}
-	public class Port implements IWasteWaterTank {
+	public class Port implements IPotableWaterTank {
 		private Method[] methods = getClass().getMethods();
 
 		public boolean lock(){
@@ -55,14 +64,17 @@ public class WasteWaterTank {
 		public boolean unlock() {
 			return setIsLocked(false);
 		}
-		public int add(int amount) {
-			return addCapacity(amount);
+		public int refill(int amount) {
+			return addInner(amount);
 		}
-		public int pumpOut() {
-			return clear();
+		public int refill() {
+			return fillToHead();
+		}
+		public int takeOut(int amount) {
+			return takeOutInner(amount);
 		}
 		public String version(){
-			return WasteWaterTank.this.toString();
+			return PotableWaterTank.this.toString();
 		}
 		public void listMethods() {
 			System.out.println("--- public methods for " + getClass().getName());
