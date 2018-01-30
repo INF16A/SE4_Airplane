@@ -22,7 +22,7 @@ public class Engine {
 
     }
 
-    private static Engine getInstance(){
+    public static Engine getInstance(){
         return instance;
     }
 

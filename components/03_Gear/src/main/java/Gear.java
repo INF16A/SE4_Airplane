@@ -14,7 +14,7 @@ public class Gear {
     public Port port;
     private static Gear instance = new Gear();
 
-    private static Gear getInstance(){
+    public static Gear getInstance(){
         return instance;
     }
 

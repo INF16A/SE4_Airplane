@@ -18,7 +18,7 @@ public class HydraulicPump {
         this.id = "1";
     }
 
-    private static HydraulicPump getInstance(){
+    public static HydraulicPump getInstance(){
         return instance;
     }
 
@@ -26,7 +26,7 @@ public class HydraulicPump {
     {
 
         public String version() {
-            return "Hydraulic Pump 1,0";
+            return "Hydraulic Pump 1.0";
         }
 
         public int compress() {
