@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.ArrayList;
 
 /**
@@ -28,7 +30,7 @@ public class CostOptimizer {
     private class Port implements ICostOptimizer {
 
         public String version() {
-            return "CostOptimizer 1.0.0";
+            return "main.java.CostOptimizer 1.0.0";
         }
 
         public boolean on() {
@@ -46,7 +48,7 @@ public class CostOptimizer {
             return checkPointList.add(checkPoint) ? 1 : 0;
         }
 
-        // theoretisch remove(int checkPoint), das macht aber wenig Sinn weil die anderen beiden Methoden CheckPoint benutzen
+        // theoretisch remove(int checkPoint), das macht aber wenig Sinn weil die anderen beiden Methoden main.java.CheckPoint benutzen
         // Das UML ist hier inkonsistent. Vielleicht wieder auf (int checkPoint) ändern.
         public int remove(CheckPoint checkPoint) {
             return checkPointList.remove(checkPoint) ? 1 : 0;
