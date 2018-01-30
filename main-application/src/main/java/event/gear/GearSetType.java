@@ -5,12 +5,18 @@ package event.gear;
  */
 public class GearSetType {
 
+    private String phase;
     private String type;
 
-    public GearSetType() {
+    public GearSetType(String phase) {
+        this.phase = phase;
     }
 
     public String getType() {
         return type;
+    }
+
+    public String getPhase() {
+        return phase;
     }
 }
