@@ -4,21 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>14_management_costoptimizer</artifactId>
+    <artifactId>14_management_costoptimizer</artifactId> <!-- TODO: CHANGE MODULE NAME HERE -->
     <version>1.0.0</version>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <finalName>costoptimizer</finalName> <!-- TODO: CHANGE OUTPUT NAME HERE -->
+                    <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-
+    <parent>
+        <groupId>de.dhbw.mosbach.inf16a</groupId>
+        <artifactId>SE4_Airplane</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../..</relativePath>
+    </parent>
 </project>
