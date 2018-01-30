@@ -19,7 +19,7 @@ public class GPS
     }
 
     public String innerVersion() {
-        return "GPS" + id;
+        return "GPS " + id;
     }
 
     public class Port implements IGPS {

@@ -20,7 +20,7 @@ public class SatCom {
     }
 
     public String innerVersion() {
-        return "SatCom" + id;
+        return "SatCom " + id;
     }
 
     public class Port implements ISatCom {

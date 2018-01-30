@@ -1,6 +1,5 @@
 public class Radar {
 
-
     private String manufacturer = "EADS";
     private String type = "flight radar";
     private String id = "0.18.123";
@@ -19,7 +18,7 @@ public class Radar {
     }
 
     public String innerVersion() {
-        return "Radar" + id;
+        return "Radar " + id;
     }
 
     public class Port implements IRadar {
