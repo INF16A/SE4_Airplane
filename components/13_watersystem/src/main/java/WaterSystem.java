@@ -6,6 +6,12 @@ public class WaterSystem implements IWaterSystem {
     private boolean isFilled;
     private boolean isCleaned;
 
+    public WaterSystem() {
+        manufacturer = "INF16B";
+        type = "A good one";
+        id = "1";
+    }
+
     public String version() {
         return "Wastersystem 1.0";
     }

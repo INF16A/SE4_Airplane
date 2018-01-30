@@ -10,14 +10,14 @@ public class Kitchen implements IKitchen {
 
     public Kitchen() {
         trolleyList = new ArrayList<Trolley>();
+        manufacturer = "INF16B";
+        id = "1";
     }
 
-    @Override
     public String version() {
         return "Kitchen 1.0";
     }
 
-    @Override
     public boolean lock() {
         if(isLocked == true)
             return false;
@@ -26,7 +26,6 @@ public class Kitchen implements IKitchen {
         return true;
     }
 
-    @Override
     public boolean unlock() {
         if(isLocked == false)
             return false;
@@ -35,17 +34,14 @@ public class Kitchen implements IKitchen {
         return true;
     }
 
-    @Override
     public double getTotalWeightTrolleys() {
         return 0;
     }
 
-    @Override
     public void addTrolley(Trolley trolley) {
         trolleyList.add(trolley);
     }
 
-    @Override
     public void emptyTrolley(Trolley trolley) {
     }
 }

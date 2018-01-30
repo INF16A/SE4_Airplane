@@ -6,6 +6,12 @@ public class WasteSystem implements IWasteSystem {
     private boolean isOn;
     private boolean isCleaned;
 
+    public WasteSystem() {
+        manufacturer = "INF16B";
+        type = "A good one";
+        id = "1";
+    }
+
     public String version() {
         return "Wastesystem 1.0";
     }

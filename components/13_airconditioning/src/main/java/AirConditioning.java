@@ -6,6 +6,9 @@ public class AirConditioning implements IAirConditioning {
     private boolean isOn;
 
     public AirConditioning() {
+        manufacturer = "INF16B";
+        type = "A good one";
+        id = "1";
         temperature = 20;
     }
 

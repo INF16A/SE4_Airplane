@@ -4,6 +4,12 @@ public class EscapeSlide implements IEscapeSlide {
     private String id;
     private boolean isActivated;
 
+    public EscapeSlide() {
+        manufacturer = "INF16B";
+        type = "A good one";
+        id = "1";
+    }
+
     public String version() {
         return "Escapeslide 1.0";
     }

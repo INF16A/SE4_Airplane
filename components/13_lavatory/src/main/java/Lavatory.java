@@ -5,6 +5,12 @@ public class Lavatory implements ILavatory {
     private boolean isLocked;
     private boolean isCleaned;
 
+    public Lavatory() {
+        manufacturer = "INF16B";
+        type = "A good one";
+        id = "1";
+    }
+
     public String version() {
         return "Lavatory 1.0";
     }
