@@ -2,6 +2,11 @@ package event.potablewatertank;
 
 public class PotableWaterTankRefill {
 	private String phase;
+
+	public int getFillValue() {
+		return fillValue;
+	}
+
 	private int fillValue;
 
 	public PotableWaterTankRefill(String phase) {

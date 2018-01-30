@@ -2,6 +2,11 @@ package main.java.event.tank_bottle;
 
 public class FuelTankTakeOut {
 	private String phase;
+
+	public int getFillValue() {
+		return fillValue;
+	}
+
 	private int fillValue;
 
 	/*public FuelTankTakeOut(String phase) {

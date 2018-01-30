@@ -2,6 +2,11 @@ package event.nitrogenbottle;
 
 public class NitrogenBottleTakeOut {
 	private String phase;
+
+	public int getFillValue() {
+		return fillValue;
+	}
+
 	private int fillValue;
 
 	/*public NitrogenBottleTakeOut(String phase) {
