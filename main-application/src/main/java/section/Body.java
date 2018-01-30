@@ -1,37 +1,42 @@
 package section;
 
-import base.PrimaryFlightDisplay;
-import event.Subscriber;
-import factory.AirflowSensorFactory;
-import factory.PitotTubeFactory;
-import factory.RadarAltimeterFactory;
-import factory.TCASFactory;
-import factory.TurbulentAirFlowSensorFactory;
-import logging.LogEngine;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import com.google.common.eventbus.Subscribe;
+import event.Subscriber;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
 import event.sensors.airflowSensor.AirflowSensorMeasure;
 import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
 import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
 import event.sensors.pitotTube.PitotTubeMeasureVelocity;
-import event.sensors.radarAltimeter.*;
-import event.sensors.tCAS.*;
+import event.sensors.radarAltimeter.RadarAltimeterMeasureAltitude;
+import event.sensors.radarAltimeter.RadarAltimeterOff;
+import event.sensors.radarAltimeter.RadarAltimeterOn;
+import event.sensors.radarAltimeter.RadarAltimeterReceive;
+import event.sensors.radarAltimeter.RadarAltimeterSend;
+import event.sensors.tCAS.TCASAlarm;
+import event.sensors.tCAS.TCASConnect;
+import event.sensors.tCAS.TCASDetermineAltitude;
+import event.sensors.tCAS.TCASOff;
+import event.sensors.tCAS.TCASOn;
+import event.sensors.tCAS.TCASScann;
+import event.sensors.tCAS.TCASSetAltitude;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
-import logging.LogEngine;
-import event.Subscriber;
-import recorder.FlightRecorder;
-
-// import factorys for sensor04
+import factory.AirflowSensorFactory;
 import factory.CameraFactory;
 import factory.GPSFactory;
+import factory.PitotTubeFactory;
+import factory.RadarAltimeterFactory;
 import factory.RadarFactory;
 import factory.SatComFactory;
+import factory.TCASFactory;
+import factory.TurbulentAirFlowSensorFactory;
 import factory.VHFFactory;
+import logging.LogEngine;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+// import factorys for sensor04
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -200,23 +205,23 @@ public class Body extends Subscriber {
         // sensor04
         // Factory magic 2
         cameras = new ArrayList<>();
-        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
+        for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++)
             cameras.add(CameraFactory.build());
         // Factory magic 2
         gPSs = new ArrayList<>();
-        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
+        for (int gpsIndex = 0; gpsIndex < 2; gpsIndex++)
             gPSs.add(GPSFactory.build());
         // Factory magic 2
         radars = new ArrayList<>();
-        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
+        for (int radarIndex = 0; radarIndex < 2; radarIndex++)
             radars.add(RadarFactory.build());
         // Factory magic 2
         satComs = new ArrayList<>();
-        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
+        for (int satComIndex = 0; satComIndex < 2; satComIndex++)
             satComs.add(SatComFactory.build());
         // Factory magic 2
         vHFs = new ArrayList<>();
-        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
+        for (int vhfIndex = 0; vhfIndex < 2; vhfIndex++)
             vHFs.add(VHFFactory.build());
 
         // light
@@ -278,54 +283,150 @@ public class Body extends Subscriber {
 
     @Subscribe
     public void recieve(AirflowSensorAlarm airflowSensorAlarm) {
+        LogEngine.instance.write("+ Body.receive(" + airflowSensorAlarm + ")");
+        try {
+            for (int i = 0; i < airflowSensors.size(); i++) {
+                Method alarmMethod = airflowSensors.get(i).getClass().getDeclaredMethod("alarm", int.class);
+                LogEngine.instance.write("airflowSensorAlarmMethod = " + alarmMethod);
 
+                boolean alarmResult = (boolean) alarmMethod.invoke(airflowSensors.get(i), airflowSensorAlarm.getThreshhold());
+                LogEngine.instance.write(airflowSensorAlarm.getPhase() + " : isAlarm" + alarmResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
     public void recieve(AirflowSensorMeasure airflowSensorMeasure) {
+        LogEngine.instance.write("+ Body.receive(" + airflowSensorMeasure + ")");
+        try {
+            for (int i = 0; i < airflowSensors.size(); i++) {
+                Method measureMethod = airflowSensors.get(i).getClass().getDeclaredMethod("measure", String.class);
+                LogEngine.instance.write("airflowSensorMeasureMethod = " + measureMethod);
 
+                int measureResult = (int) measureMethod.invoke(airflowSensors.get(i), airflowSensorMeasure.getAirFlow());
+                LogEngine.instance.write(airflowSensorMeasure.getPhase() + " : measure" + measureResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(PitotTubeMeasureStaticPressure pitotTubeMeasureStaticPressure){
+    public void recieve(PitotTubeMeasureStaticPressure pitotTubeMeasureStaticPressure) {
+        LogEngine.instance.write("+ Body.receive(" + pitotTubeMeasureStaticPressure + ")");
+        try {
+            for (int i = 0; i < pitotTubes.size(); i++) {
+                Method measureStaticPressureMethod = pitotTubes.get(i).getClass().getDeclaredMethod("measureStaticPressure");
+                LogEngine.instance.write("pitotTubeMeasureStaticPressureMethod = " + measureStaticPressureMethod);
 
+                int measureResult = (int) measureStaticPressureMethod.invoke(pitotTubes.get(i));
+                LogEngine.instance.write(pitotTubeMeasureStaticPressure.getPhase() + " : measureStaticPressure is " + measureResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(PitotTubeMeasureTotalPressure pitotTubeMeasureTotalPressure){
+    public void recieve(PitotTubeMeasureTotalPressure pitotTubeMeasureTotalPressure) {
+        LogEngine.instance.write("+ Body.receive(" + pitotTubeMeasureTotalPressure + ")");
+        try {
+            for (int i = 0; i < pitotTubes.size(); i++) {
+                Method measureTotalPressureMethod = pitotTubes.get(i).getClass().getDeclaredMethod("measureTotalPressure");
+                LogEngine.instance.write("pitotTubeMeasureTotalPressureMethod = " + measureTotalPressureMethod);
 
+                int measureResult = (int) measureTotalPressureMethod.invoke(pitotTubes.get(i));
+                LogEngine.instance.write(pitotTubeMeasureTotalPressure.getPhase() + " : measureTotalPressure is " + measureResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(PitotTubeMeasureVelocity pitotTubeMeasureVelocity){
+    public void recieve(PitotTubeMeasureVelocity pitotTubeMeasureVelocity) {
+        LogEngine.instance.write("+ Body.receive(" + pitotTubeMeasureVelocity + ")");
+        try {
+            for (int i = 0; i < pitotTubes.size(); i++) {
+                Method pitotTubeMeasureVelocityMethod = pitotTubes.get(i).getClass().getDeclaredMethod("measureVelocity");
+                LogEngine.instance.write("pitotTubeMeasureTotalPressureMethod = " + pitotTubeMeasureVelocityMethod);
 
+                int measureResult = (int) pitotTubeMeasureVelocityMethod.invoke(pitotTubes.get(i));
+                LogEngine.instance.write(pitotTubeMeasureVelocity.getPhase() + " : measureVelocity is " + measureResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(RadarAltimeterMeasureAltitude radarAltimeterMeasureAltitude){
+    public void recieve(RadarAltimeterMeasureAltitude radarAltimeterMeasureAltitude) {
+        LogEngine.instance.write("+ Body.receive(" + radarAltimeterMeasureAltitude + ")");
+        try {
+            for (int i = 0; i < radarAltimeters.size(); i++) {
+                Method radarAltimeterMeasureAltitudeMethod = radarAltimeters.get(i).getClass().getDeclaredMethod("measureAltitude");
+                LogEngine.instance.write("radarAltimeterMeasureAltitudeMethod = " + radarAltimeterMeasureAltitudeMethod);
 
+                int measureResult = (int) radarAltimeterMeasureAltitudeMethod.invoke(radarAltimeters.get(i));
+                LogEngine.instance.write(radarAltimeterMeasureAltitude.getPhase() + " : measureAltitude is " + measureResult);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(RadarAltimeterOff radarAltimeterOff){
+    public void recieve(RadarAltimeterOff radarAltimeterOff) {
+        LogEngine.instance.write("+ Body.receive(" + radarAltimeterOff + ")");
+        try {
+            for (int i = 0; i < radarAltimeters.size(); i++) {
+                Method radarAltimeterOffMethod = radarAltimeters.get(i).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("radarAltimeterOffMethod = " + radarAltimeterOffMethod);
 
+                boolean result = (boolean) radarAltimeterOffMethod.invoke(radarAltimeters.get(i));
+                LogEngine.instance.write(radarAltimeterOff.getPhase() + " : off ->" + result);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(RadarAltimeterOn radarAltimeterOn){
+    public void recieve(RadarAltimeterOn radarAltimeterOn) {
+        LogEngine.instance.write("+ Body.receive(" + radarAltimeterOn + ")");
+        try {
+            for (int i = 0; i < radarAltimeters.size(); i++) {
+                Method radarAltimeterOnMethod = radarAltimeters.get(i).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("radarAltimeterOffMethod = " + radarAltimeterOnMethod);
 
+                boolean result = (boolean) radarAltimeterOnMethod.invoke(radarAltimeters.get(i));
+                LogEngine.instance.write(radarAltimeterOn.getPhase() + " : on ->" + result);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
-    public void recieve(RadarAltimeterReceive radarAltimeterReceive){
+    public void recieve(RadarAltimeterReceive radarAltimeterReceive) {
         LogEngine.instance.write("+ Body.receive(" + radarAltimeterReceive + ")");
 
         try {
-            for (int momSensor = 0;momSensor < radarAltimeters.size();momSensor++) {
-                Method RadarAltimeterReceiveMethod = radarAltimeters.get(momSensor).getClass().getDeclaredMethod("receive",String.class);
+            for (int momSensor = 0; momSensor < radarAltimeters.size(); momSensor++) {
+                Method RadarAltimeterReceiveMethod = radarAltimeters.get(momSensor).getClass().getDeclaredMethod("receive", String.class);
                 LogEngine.instance.write("RadarAltimeterReceive = " + RadarAltimeterReceiveMethod);
 
-                int measuredValue = (int)RadarAltimeterReceiveMethod.invoke(radarAltimeters.get(momSensor), radarAltimeterReceive.getRadioWave());
+                int measuredValue = (int) RadarAltimeterReceiveMethod.invoke(radarAltimeters.get(momSensor), radarAltimeterReceive.getRadioWave());
                 LogEngine.instance.write(radarAltimeterReceive.getPhase() + " : RadarAltimeterReceive = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -339,15 +440,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(RadarAltimeterSend radarAltimeterSend){
+    public void recieve(RadarAltimeterSend radarAltimeterSend) {
         LogEngine.instance.write("+ Body.receive(" + radarAltimeterSend + ")");
 
         try {
-            for (int momSensor = 0;momSensor < radarAltimeters.size();momSensor++) {
-                Method RadarAltimeterSendMethod = radarAltimeters.get(momSensor).getClass().getDeclaredMethod("send",String.class);
+            for (int momSensor = 0; momSensor < radarAltimeters.size(); momSensor++) {
+                Method RadarAltimeterSendMethod = radarAltimeters.get(momSensor).getClass().getDeclaredMethod("send", String.class);
                 LogEngine.instance.write("RadarAltimeterSend = " + RadarAltimeterSendMethod);
 
-                RadarAltimeterSendMethod.invoke(radarAltimeters.get(momSensor),radarAltimeterSend.getRadioWave());
+                RadarAltimeterSendMethod.invoke(radarAltimeters.get(momSensor), radarAltimeterSend.getRadioWave());
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
 //                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
@@ -360,15 +461,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASAlarm tcasAlarm){
+    public void recieve(TCASAlarm tcasAlarm) {
         LogEngine.instance.write("+ Body.receive(" + tcasAlarm + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
                 Method TCASAlarmMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("alarm");
                 LogEngine.instance.write("TCASAlarm = " + TCASAlarmMethod);
 
-                boolean measuredValue = (boolean)TCASAlarmMethod.invoke(tCASs.get(momSensor));
+                boolean measuredValue = (boolean) TCASAlarmMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasAlarm.getPhase() + " : TCASAlarm = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -382,15 +483,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASConnect tcasConnect){
+    public void recieve(TCASConnect tcasConnect) {
         LogEngine.instance.write("+ Body.receive(" + tcasConnect + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
-                Method TCASConnectMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("connect",String.class);
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
+                Method TCASConnectMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("connect", String.class);
                 LogEngine.instance.write("TCASConnect = " + TCASConnectMethod);
 
-                boolean measuredValue = (boolean)TCASConnectMethod.invoke(tCASs.get(momSensor),tcasConnect.getFrequency());
+                boolean measuredValue = (boolean) TCASConnectMethod.invoke(tCASs.get(momSensor), tcasConnect.getFrequency());
                 LogEngine.instance.write(tcasConnect.getPhase() + " : TCASConnect = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -404,15 +505,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASDetermineAltitude tcasDetermineAltitude){
+    public void recieve(TCASDetermineAltitude tcasDetermineAltitude) {
         LogEngine.instance.write("+ Body.receive(" + tcasDetermineAltitude + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
-                Method TCASDetermineAltitudeMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("determineAltitude",String.class);
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
+                Method TCASDetermineAltitudeMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("determineAltitude", String.class);
                 LogEngine.instance.write("TCASDetermineAltitude = " + TCASDetermineAltitudeMethod);
 
-                int measuredValue = (int)TCASDetermineAltitudeMethod.invoke(tCASs.get(momSensor),tcasDetermineAltitude.getEnvironment());
+                int measuredValue = (int) TCASDetermineAltitudeMethod.invoke(tCASs.get(momSensor), tcasDetermineAltitude.getEnvironment());
                 LogEngine.instance.write(tcasDetermineAltitude.getPhase() + " : TCASDetermineAltitude = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -426,15 +527,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASOff tcasOff){
+    public void recieve(TCASOff tcasOff) {
         LogEngine.instance.write("+ Body.receive(" + tcasOff + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
                 Method TCASOffMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("TCASOff = " + TCASOffMethod);
 
-                boolean measuredValue = (boolean)TCASOffMethod.invoke(tCASs.get(momSensor));
+                boolean measuredValue = (boolean) TCASOffMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasOff.getPhase() + " : TCASOff = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -448,15 +549,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASOn tcasOn){
+    public void recieve(TCASOn tcasOn) {
         LogEngine.instance.write("+ Body.receive(" + tcasOn + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
                 Method TCASOnMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("TCASOn = " + TCASOnMethod);
 
-                boolean measuredValue = (boolean)TCASOnMethod.invoke(tCASs.get(momSensor));
+                boolean measuredValue = (boolean) TCASOnMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasOn.getPhase() + " : TCASOn = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -470,15 +571,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASScann tcasScann){
+    public void recieve(TCASScann tcasScann) {
         LogEngine.instance.write("+ Body.receive(" + tcasScann + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
                 Method TCASScanMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("scan", String.class);
                 LogEngine.instance.write("TCASScan = " + TCASScanMethod);
 
-                boolean measuredValue = (boolean)TCASScanMethod.invoke(tCASs.get(momSensor),tcasScann.getEnvironment());
+                boolean measuredValue = (boolean) TCASScanMethod.invoke(tCASs.get(momSensor), tcasScann.getEnvironment());
                 LogEngine.instance.write(tcasScann.getPhase() + " : TCASScan = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -492,15 +593,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TCASSetAltitude tcasSetAltitude){
+    public void recieve(TCASSetAltitude tcasSetAltitude) {
         LogEngine.instance.write("+ Body.receive(" + tcasSetAltitude + ")");
 
         try {
-            for (int momSensor = 0;momSensor < tCASs.size();momSensor++) {
+            for (int momSensor = 0; momSensor < tCASs.size(); momSensor++) {
                 Method TCASSetAltitudeMethod = tCASs.get(momSensor).getClass().getDeclaredMethod("setAltitude", int.class);
                 LogEngine.instance.write("TCASSetAltitude = " + TCASSetAltitudeMethod);
 
-                int measuredValue = (int)TCASSetAltitudeMethod.invoke(tCASs.get(momSensor),tcasSetAltitude.getValue());
+                int measuredValue = (int) TCASSetAltitudeMethod.invoke(tCASs.get(momSensor), tcasSetAltitude.getValue());
                 LogEngine.instance.write(tcasSetAltitude.getPhase() + " : TCASSetAltitude = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -514,15 +615,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TurbulentAirFlowSensorAlarm turbulentAirFlowSensorAlarm){
+    public void recieve(TurbulentAirFlowSensorAlarm turbulentAirFlowSensorAlarm) {
         LogEngine.instance.write("+ Body.receive(" + turbulentAirFlowSensorAlarm + ")");
 
         try {
-            for (int momSensor = 0;momSensor < turbulentAirFlowSensors.size();momSensor++) {
+            for (int momSensor = 0; momSensor < turbulentAirFlowSensors.size(); momSensor++) {
                 Method turbulentAirFlowSensorAlarmMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("alarm");
                 LogEngine.instance.write("turbulentAirFlowSensorMeasureMethod = " + turbulentAirFlowSensorAlarmMethod);
 
-                boolean measuredValue = (boolean)turbulentAirFlowSensorAlarmMethod.invoke(turbulentAirFlowSensors.get(momSensor));
+                boolean measuredValue = (boolean) turbulentAirFlowSensorAlarmMethod.invoke(turbulentAirFlowSensors.get(momSensor));
                 LogEngine.instance.write(turbulentAirFlowSensorAlarm.getPhase() + " : turbulentAirFlowSensorAlarm = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
@@ -536,15 +637,15 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void recieve(TurbulentAirFlowSensorMeasure turbulentAirFlowSensorMeasure){
+    public void recieve(TurbulentAirFlowSensorMeasure turbulentAirFlowSensorMeasure) {
         LogEngine.instance.write("+ Body.receive(" + turbulentAirFlowSensorMeasure + ")");
 
         try {
-            for (int momSensor = 0;momSensor < turbulentAirFlowSensors.size();momSensor++) {
+            for (int momSensor = 0; momSensor < turbulentAirFlowSensors.size(); momSensor++) {
                 Method turbulentAirFlowSensorMeasureMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("measure", int.class);
                 LogEngine.instance.write("turbulentAirFlowSensorMeasureMethod = " + turbulentAirFlowSensorMeasureMethod);
 
-                int measuredValue = (int)turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor),turbulentAirFlowSensorMeasure.getAirFlow());
+                int measuredValue = (int) turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor), turbulentAirFlowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(turbulentAirFlowSensorMeasure.getPhase() + " : turbulentAirFlowSensorMeasure = " + measuredValue);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
