@@ -4,11 +4,11 @@ import org.junit.Test;
 public class FuelSensorTest {
     @Test
     public void TestVersion() {
-        Assert.assertNotNull(new FuelSensor().version());
+        Assert.assertNotNull(FuelSensor.getInstance().port.version());
     }
 
     @Test
     public void TestMeasure() {
-        new FuelSensor().measure();
+        FuelSensor.getInstance().port.measure();
     }
 }

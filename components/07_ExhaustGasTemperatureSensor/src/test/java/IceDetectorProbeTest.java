@@ -4,33 +4,31 @@ import org.junit.Test;
 public class IceDetectorProbeTest {
     @Test
     public void TestVersion() {
-        Assert.assertNotNull(new IceDetectorProbe().version());
+        Assert.assertNotNull(IceDetectorProbe.getInstance().port.version());
     }
 
     @Test
     public void TestActivate() {
-        new IceDetectorProbe().activate();
+        IceDetectorProbe.getInstance().port.activate();
     }
 
     @Test
     public void TestDeactivate() {
-        IceDetectorProbe iceDetectorProbe = new IceDetectorProbe();
-        iceDetectorProbe.deactivate();
-        //Assert.assertFalse(iceDetectorProbe.getClass().getDeclaredField("isActivated").getBoolean(iceDetectorProbe));
+        IceDetectorProbe.getInstance().port.deactivate();
     }
 
     @Test
     public void TestDetect() {
-        new IceDetectorProbe().detect();
+        IceDetectorProbe.getInstance().port.detect();
     }
 
     @Test
     public void TestDetectString() {
-        Assert.assertTrue(new IceDetectorProbe().detect("test"));
+        Assert.assertTrue(IceDetectorProbe.getInstance().port.detect("test"));
     }
 
     @Test
     public void TestDetectStringMatch() {
-        Assert.assertTrue(new IceDetectorProbe().detect("test", "test"));
+        Assert.assertTrue(IceDetectorProbe.getInstance().port.detect("test", "test"));
     }
 }

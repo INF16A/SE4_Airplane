@@ -1,6 +1,16 @@
 public class FuelFlowSensor {
+    private static FuelFlowSensor instance = new FuelFlowSensor();
+    public Port port = new Port();
+    private String manufacturer = "DHBW";
+    private String type = "zero";
+    private String id = "0";
+    private int fuelFlow = 10;
     private FuelFlowSensor() {
 
+    }
+
+    public static FuelFlowSensor getInstance() {
+        return instance;
     }
 
     public String version() {
@@ -10,13 +20,6 @@ public class FuelFlowSensor {
     public int measure() {
         return fuelFlow;
     }
-
-    private String manufacturer = "DHBW";
-    private String type = "zero";
-    private String id = "0";
-    private int fuelFlow = 10;
-    public Port port = new Port();
-    private static FuelFlowSensor instance = new FuelFlowSensor();
 
     public class Port implements IFuelFlowSensor {
 

@@ -1,6 +1,18 @@
 public class IceDetectorProbe {
+    private static IceDetectorProbe instance = new IceDetectorProbe();
+    public Port port = new Port();
+    private String manufacturer = "DHBW";
+    private String type = "zero";
+    private String id = "0";
+    private boolean isActivated = false;
+    private boolean isIceDetected = false;
+
     private IceDetectorProbe() {
 
+    }
+
+    public static IceDetectorProbe getInstance() {
+        return instance;
     }
 
     public String version() {
@@ -28,14 +40,6 @@ public class IceDetectorProbe {
         isActivated = false;
         return true;
     }
-
-    private String manufacturer = "DHBW";
-    private String type = "zero";
-    private String id = "0";
-    private boolean isActivated = false;
-    private boolean isIceDetected = false;
-    private static IceDetectorProbe instance = new IceDetectorProbe();
-    public Port port = new Port();
 
     public class Port implements IIceDetectorProbe {
         @Override

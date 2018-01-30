@@ -1,6 +1,18 @@
 public class FuelSensor {
+    private static FuelSensor instance = new FuelSensor();
+    public Port port = new Port();
+    private String manufacturer = "DHBW";
+    private String type = "zero";
+    private String id = "0";
+    private boolean isAlarmReserve = false;
+    private boolean isAlarmCritical = false;
+    private boolean isAlarmMajor = false;
     private FuelSensor() {
 
+    }
+
+    public static FuelSensor getInstance() {
+        return instance;
     }
 
     public String version() {
@@ -22,15 +34,6 @@ public class FuelSensor {
     public int measure() {
         return 99;
     }
-
-    private String manufacturer = "DHBW";
-    private String type = "zero";
-    private String id = "0";
-    private boolean isAlarmReserve = false;
-    private boolean isAlarmCritical = false;
-    private boolean isAlarmMajor = false;
-    private static FuelSensor instance = new FuelSensor();
-    public Port port = new Port();
 
     public class Port implements IFuelSensor {
         @Override

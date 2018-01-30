@@ -1,5 +1,11 @@
 public class ExhaustGasTemperatureSensor {
 
+    private static ExhaustGasTemperatureSensor instance = new ExhaustGasTemperatureSensor();
+    public Port port = new Port();
+    private String manufacturer = "DHBW";
+    private String type = "zero";
+    private String id = "0";
+
     private ExhaustGasTemperatureSensor() {
 
     }
@@ -19,12 +25,6 @@ public class ExhaustGasTemperatureSensor {
     public boolean alarmCritical(int threshold) {
         return threshold == 200;
     }
-
-    private String manufacturer = "DHBW";
-    private String type = "zero";
-    private String id = "0";
-    public Port port = new Port();
-    private static ExhaustGasTemperatureSensor instance = new ExhaustGasTemperatureSensor();
 
     public class Port implements IExhaustGasTemperatureSensor {
         @Override
