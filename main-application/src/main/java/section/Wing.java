@@ -1,13 +1,14 @@
 package section;
 
 import event.Subscriber;
+import factory.*;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 // Factory import for sensor04
-import factory.CameraFactory;
+
 
 public class Wing extends Subscriber {
     private int wingIndex;
@@ -75,17 +76,17 @@ public class Wing extends Subscriber {
 
         // apu_engine_gear_pump
         engines = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) engines.add(EngineFactory.build());
         hydraulicPumps = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) hydraulicPumps.add(HydraulicPumpFactory.build());
 
         // tank_bottle
         engineOilTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) engineOilTanks.add(EngineOilTankFactory.build());
         fuelTanks = new ArrayList<>();
-        // Factory magic 3
+        for (int i = 0; i < 3; i++) fuelTanks.add(FuelTankFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
@@ -114,7 +115,6 @@ public class Wing extends Subscriber {
         // Factory magic 4
 
         // sensor04
-        //Factory magic 1
         cameras = new ArrayList<>();
         cameras.add(CameraFactory.build());
 

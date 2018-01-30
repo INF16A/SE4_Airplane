@@ -101,11 +101,11 @@ public class Body extends Subscriber {
 
         // apu_engine_gear_pump
         apus = new ArrayList<>();
-        // Factory magic 1
+        for (int i = 0; i < 1; i++) apus.add(APUFactory.build());
         gears = new ArrayList<>();
-        // Factory magic 3 (1 front, 2 rear)
+        for (int i = 0; i < 3; i++) gears.add(GearFactory.build());
         hydraulicPumps = new ArrayList<>();
-        // Factory magic 6
+        for (int i = 0; i < 6; i++) hydraulicPumps.add(HydraulicPumpFactory.build());
 
         // doors
         bulkCargoDoors = new ArrayList<>();
@@ -137,13 +137,13 @@ public class Body extends Subscriber {
 
         // seats
         firstClassSeats = new ArrayList<>();
-        // Factory magic 16
+        for (int i = 0; i < 16; i++) firstClassSeats.add(SeatFactory.buildFirstSeat());
         businessClassSeats = new ArrayList<>();
-        // Factory magic 72
+        for (int i = 0; i < 72; i++) businessClassSeats.add(SeatFactory.buildBusinessSeat());
         touristClassSeats = new ArrayList<>();
-        // Factory magic 480
+        for (int i = 0; i < 480; i++) touristClassSeats.add(SeatFactory.buildTouristSeat());
         crewSeats = new ArrayList<>();
-        // Factory magic 14
+        for (int i = 0; i < 14; i++) crewSeats.add(SeatFactory.buildCrewSeat());
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
@@ -175,20 +175,15 @@ public class Body extends Subscriber {
 
         // sensor04
         cameras = new ArrayList<>();
-        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
-            cameras.add(CameraFactory.build());
+        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++) cameras.add(CameraFactory.build());
         gPSs = new ArrayList<>();
-        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
-            gPSs.add(GPSFactory.build());
+        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++) gPSs.add(GPSFactory.build());
         radars = new ArrayList<>();
-        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
-            radars.add(RadarFactory.build());
+        for (int radarIndex = 0;radarIndex < 2;radarIndex++) radars.add(RadarFactory.build());
         satComs = new ArrayList<>();
-        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
-            satComs.add(SatComFactory.build());
+        for (int satComIndex = 0;satComIndex < 2;satComIndex++) satComs.add(SatComFactory.build());
         vHFs = new ArrayList<>();
-        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
-            vHFs.add(VHFFactory.build());
+        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++) vHFs.add(VHFFactory.build());
 
         // light
         antiCollisionLights = new ArrayList<>();
@@ -214,17 +209,18 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) airConditionings.add(AirConditioningFactory.build());
         kitchens = new ArrayList<>();
+        for (int i = 0; i < 4; i++) kitchens.add(KitchenFactory.build());
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
-        // Factory magic 8
+        for (int i = 0; i < 8; i++) lavatories.add(LavatoryFactory.build());
         wasteSystems = new ArrayList<>();
-        // Factory magic 10
+        for (int i = 0; i < 10; i++) wasteSystems.add(WasteSystemFactory.build());
         waterSystems = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) waterSystems.add(WaterSystemFactory.build());
         escapeSlides = new ArrayList<>();
-        // Factory magic 14
+        for (int i = 0; i < 14; i++) escapeSlides.add(EscapeSlideFactory.build());
 
         // management
         costOptimizers = new ArrayList<>();
