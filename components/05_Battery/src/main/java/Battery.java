@@ -35,6 +35,9 @@ public class Battery {
     public int innerDischarge() {
         percentage--;
         if (percentage < 0) percentage = 0;
+        if (1==2) {
+            System.out.println("Hallo");
+        }
         return percentage;
     }
 
