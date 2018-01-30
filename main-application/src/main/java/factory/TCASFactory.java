@@ -11,10 +11,10 @@ public class TCASFactory {
     public static Object build() {
         Object componentPort = null;
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/tcas.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "tcas.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, TCASFactory.class.getClassLoader());
             Class pitotTubeClass = Class.forName("TCAS", true, urlClassLoader);
-            Object pitotTubeInstance = pitotTubeClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            Object pitotTubeInstance = pitotTubeClass.getMethod("getInstance").invoke(null);
             componentPort = pitotTubeClass.getDeclaredField("port").get(pitotTubeInstance);
         } catch (Exception e) {
             e.printStackTrace();

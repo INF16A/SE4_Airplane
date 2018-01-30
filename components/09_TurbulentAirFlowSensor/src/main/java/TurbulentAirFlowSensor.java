@@ -11,7 +11,7 @@ public class TurbulentAirFlowSensor {
     private String manufacturer = "Turbulent Juice";
     private String type = "Juice";
     private String id = "9785643131";
-    private boolean isAlarm=false;
+    private boolean isAlarm = false;
 
     public class Port implements ITurbulentAirFlowSensor {
 

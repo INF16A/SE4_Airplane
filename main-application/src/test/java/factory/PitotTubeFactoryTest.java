@@ -6,7 +6,8 @@ import org.junit.Test;
 public class PitotTubeFactoryTest {
 
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(PitotTubeFactory.build());
     }
+
 }

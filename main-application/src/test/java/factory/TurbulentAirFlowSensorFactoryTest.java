@@ -6,7 +6,8 @@ import org.junit.Test;
 public class TurbulentAirFlowSensorFactoryTest {
 
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(TurbulentAirFlowSensorFactory.build());
     }
+
 }
