@@ -18,6 +18,10 @@
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
+        <module>components/Slat</module>
+        <module>components/DroopNose</module>
+        <module>components/Elevator</module>
+        <module>components/Flap</module>
 
     </modules>
 
