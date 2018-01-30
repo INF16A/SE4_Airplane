@@ -25,27 +25,51 @@ public class RightNavigationLight {
 
         @Override
         public String version() {
-            return null;
+            return innerMethodGetVersion();
         }
 
         @Override
         public LightType setLightType(String type) {
-            return null;
+            return innerMethodSetType(type);
         }
 
         @Override
         public Position setPosition(String position) {
-            return null;
+            return innerMethodSetPosition(position);
         }
 
         @Override
         public boolean on() {
-            return false;
+
+            return isOn = true;
         }
 
         @Override
         public boolean off() {
-            return false;
+            return isOn = false;
         }
     }
+
+    public String innerMethodGetVersion() {
+        return "RightNavigationLight";
+    }
+
+    public LightType innerMethodSetType(String type) {
+        for (LightType lightType : LightType.values()) {
+            if (lightType.toString() == type) {
+                this.type = lightType.toString();
+                return lightType;
+            }
+        }
+        return null;
+    }
+
+    public Position innerMethodSetPosition(String pos) {
+
+        for (Position position : Position.values()) {
+            if (position.toString() == pos) return position;
+        }
+        return null;
+    }
+
 }

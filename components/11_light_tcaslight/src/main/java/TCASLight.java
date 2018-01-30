@@ -10,25 +10,37 @@ public class TCASLight {
     private boolean isOn;
 
     private static TCASLight instance = new TCASLight();
-   // public Port port;
+    public Port port;
 
     private TCASLight() {
-      //  port = new Port();
+        port = new Port();
     }
 
     public static TCASLight getInstance() {
         return instance;
     }
 
-    /*public class Port implements ITCASLight {
+    public class Port implements ITCASLight {
         private Method[] methods = getClass().getMethods();
 
-        public String getVersion() {
+        @Override
+        public boolean on() {
+            return isOn = true;
+        }
+
+        @Override
+        public String off() {
+            isOn = false;
+            return innerMethodGetVersion() + " is off.";
+        }
+
+        @Override
+        public String version() {
             return innerMethodGetVersion();
         }
-    }*/
+    }
 
     public String innerMethodGetVersion() {
-        return "Lichtname";
+        return "TCASLight";
     }
 }

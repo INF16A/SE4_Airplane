@@ -25,21 +25,22 @@ public class TailNavigationLight {
 
         @Override
         public String version() {
-            return null;
+            return innerMethodGetVersion();
         }
 
         @Override
         public boolean on() {
-            return false;
+
+            return isOn = true;
         }
 
         @Override
-        public String off() {
-            return null;
+        public boolean off() {
+            return isOn = false;
         }
     }
 
     public String innerMethodGetVersion() {
-        return "LogoLight";
+        return "TailNavigationLight";
     }
 }

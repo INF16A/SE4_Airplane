@@ -4,5 +4,5 @@
 public interface ITaxiLight {
     public String version();
     public boolean on();
-    public String off();
+    public boolean off();
 }

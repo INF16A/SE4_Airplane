@@ -25,17 +25,18 @@ public class AntiCollisionLight {
 
         @Override
         public String version() {
-            return null;
+            return innerMethodGetVersion();
         }
 
         @Override
         public boolean on() {
-            return false;
+
+            return isOn = true;
         }
 
         @Override
         public boolean off() {
-            return false;
+            return isOn = false;
         }
     }
 
