@@ -3,6 +3,7 @@ package section;
 import event.Subscriber;
 import logging.LogEngine;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 // Factory import for sensor04
@@ -130,6 +131,19 @@ public class Wing extends Subscriber {
         try {
             LogEngine.instance.write(wingIndex == 0 ? "--- left Wing ---" : "--- right Wing ---");
 
+            //Engine
+            for (int enginesIndex = 0; enginesIndex < 2; enginesIndex++){
+                Method engineVersionMethod = engines.get(enginesIndex).getClass().getDeclaredMethod("version");
+                String engineVersion = (String) engineVersionMethod.invoke(engines.get(enginesIndex));
+                LogEngine.instance.write("enginePort : " + engines.get(enginesIndex).hashCode() + " - " + engineVersion);
+            }
+
+            //Hydraulic Pump
+            for (int hydraulicPumpIndex = 0; hydraulicPumpIndex < 4; hydraulicPumpIndex++){
+                Method hydraulicPumpVersionMethod = hydraulicPumps.get(hydraulicPumpIndex).getClass().getDeclaredMethod("version");
+                String hydraulicPumpVersion = (String) hydraulicPumpVersionMethod.invoke(hydraulicPumps.get(hydraulicPumpIndex));
+                LogEngine.instance.write("hydraulicPumpPort : " + hydraulicPumps.get(hydraulicPumpIndex).hashCode() + " - " + hydraulicPumpVersion);
+            }
             // please add here
 
             LogEngine.instance.write("");
@@ -264,5 +278,5 @@ public class Wing extends Subscriber {
     {
         return rightNavigationLights;
     }
-
+    
 }

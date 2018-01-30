@@ -10,6 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>components/03_APU</module>
+        <module>components/03_Engine</module>
+        <module>components/03_Gear</module>
+        <module>components/03_HydraulicPump</module>
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
@@ -18,6 +22,12 @@
         <module>components/14_management_seatmanagement</module>
         <module>components/12_stowagecargo_stowagenumberfive</module>
         <module>components/12_stowagecargo_cargosystem</module>
+        <module>components/13_airconditioning</module>
+        <module>components/13_kitchen</module>
+        <module>components/13_lavatory</module>
+        <module>components/13_escapeslide</module>
+        <module>components/13_watersystem</module>
+        <module>components/13_wastesystem</module>
 
         <module>components/05_WasteWaterTank</module>
         <module>components/05_FuelTank</module>
@@ -35,6 +45,8 @@
 
         <module>main-application</module>
     </modules>
+
+
 
     <build>
         <pluginManagement>
