@@ -11,12 +11,28 @@
 
     <modules>
         <module>main-application</module>
+        <!-- Hier module "path" hinzufügen. alt+Enter über dem path
+             drücken und Create Module auswählen
+        -->
         <module>components/example</module>
         <module>components/09_AirflowSensor</module>
         <module>components/09_PitotTube</module>
         <module>components/09_RadarAltimeter</module>
         <module>components/09_TCAS</module>
         <module>components/09_TurbulentAirFlowSensor</module>
+
+        <module>components/14_management_costoptimizer</module>
+        <module>components/14_management_routemanagement</module>
+        <module>components/14_management_seatmanagement</module>
+        <module>components/12_stowagecargo_stowagenumberfive</module>
+        <module>components/12_stowagecargo_cargosystem</module>
+
+        <module>components/05_WasteWaterTank</module>
+        <module>components/05_FuelTank</module>
+        <module>components/05_NitrogenBottle</module>
+        <module>components/05_PotableWaterTank</module>
+        <module>components/05_OxygenBottle</module>
+
     </modules>
 
     <build>
