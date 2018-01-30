@@ -1,12 +1,12 @@
-public class Airflowsensor {
+public class AirflowSensor {
 
-    private static Airflowsensor Instance = new Airflowsensor();
+    private static AirflowSensor Instance = new AirflowSensor();
 
-    public static Airflowsensor getInstance() {
+    public static AirflowSensor getInstance() {
         return Instance;
     }
 
-    private Port port = new Port();
+    public Port port = new Port();
 
     private String manufacutrer = "Dumbo";
     private String type = "Der Beschte";
@@ -33,7 +33,7 @@ public class Airflowsensor {
     }
 
     public String innerVersion() {
-        return "Airflowsensor by " + manufacutrer + " " + type;
+        return "AirflowSensor by " + manufacutrer + " " + type;
     }
 
     public int innerMeasure(String airFlow) {
