@@ -10,11 +10,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-application</module>
+        <module>components/03_APU</module>
+        <module>components/03_Engine</module>
+        <module>components/03_Gear</module>
+        <module>components/03_HydraulicPump</module>
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
-        <module>components/example</module>
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
@@ -40,7 +42,11 @@
         <module>components/10_VHF</module>
 
 
+
+        <module>main-application</module>
     </modules>
+
+
 
     <build>
         <pluginManagement>
