@@ -172,6 +172,21 @@ public class Wing extends Subscriber {
                 String hydraulicPumpVersion = (String) hydraulicPumpVersionMethod.invoke(hydraulicPumps.get(hydraulicPumpIndex));
                 LogEngine.instance.write("hydraulicPumpPort : " + hydraulicPumps.get(hydraulicPumpIndex).hashCode() + " - " + hydraulicPumpVersion);
             }
+
+            //AirflowSensor
+            for (Object port : airflowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("AirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //TurbulentAirFlowSensor
+            for (Object port : turbulentAirFlowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
             // please add here
 
             LogEngine.instance.write("");

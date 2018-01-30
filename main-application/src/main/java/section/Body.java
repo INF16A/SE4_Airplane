@@ -331,6 +331,40 @@ public class Body extends Subscriber {
         try {
             LogEngine.instance.write("--- Body ---");
 
+
+            //AirflowSensor
+            for (Object port : airflowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("AirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //TurbulentAirFlowSensor
+            for (Object port : turbulentAirFlowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //PitotTube
+            for (Object port : pitotTubes) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("PitotTubePort :" + port.hashCode() + " - " + version);
+            }
+            //RadarAltimeter
+            for (Object port : radarAltimeters) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("RadarAltimeterPort :" + port.hashCode() + " - " + version);
+            }
+            //TCAS
+            for (Object port : tCASs) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TCASPort :" + port.hashCode() + " - " + version);
+            }
+
             // please add here
 
             LogEngine.instance.write("");
