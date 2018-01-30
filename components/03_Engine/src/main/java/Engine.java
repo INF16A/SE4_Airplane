@@ -15,6 +15,11 @@ public class Engine {
     private Engine()
     {
         port = new Port();
+        this.manufacturer = "Best Engine Customer";
+        this.type = "Best Engine Type";
+        this.id = "1";
+        this.rpm = 0;
+
     }
 
     private static Engine getInstance(){
