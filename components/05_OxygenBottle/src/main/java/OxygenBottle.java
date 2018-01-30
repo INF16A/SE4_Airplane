@@ -23,7 +23,7 @@ public class OxygenBottle {
 
 	public int addInner(int toAmount){
 		int sum = current + toAmount;
-		if(sum > 1000){
+		if(sum > amount){
 			current = amount;
 		}else{
 			current = sum;
@@ -35,7 +35,7 @@ public class OxygenBottle {
 		return current;
 	}
 	public int takeOutInner(int amount){
-		int sum = current - 0;
+		int sum = current - amount;
 		if(sum < 0 ){
 			sum = 0;
 		}

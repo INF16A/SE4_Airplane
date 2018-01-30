@@ -28,7 +28,7 @@ public class WasteWaterTank {
 	}
 	public int addCapacity(int amount){
 		int sum = current + amount;
-		if(sum > 1000){
+		if(sum > capacity){
 			current = capacity;
 		}else{
 			current = sum;
