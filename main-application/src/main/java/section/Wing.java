@@ -2,7 +2,7 @@ package section;
 
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
-import event.engine.EngineDecreaseRPM;
+import event.engine.*;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
@@ -162,7 +162,7 @@ public class Wing extends Subscriber {
 
         try {
             for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
-                Method engineDecreaseRPMMethod = engines.get(engineIndex).getClass().getDeclaredMethod("increaseRPM", int.class);
+                Method engineDecreaseRPMMethod = engines.get(engineIndex).getClass().getDeclaredMethod("decreaseRPM", int.class);
                 LogEngine.instance.write("engineDecreaseRPM = " + engineDecreaseRPMMethod);
 
                 int decreaseRPM = (int)engineDecreaseRPMMethod.invoke(engines.get(engineIndex), engineDecreaseRPM.getValue());
@@ -177,6 +177,98 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
+    @Subscribe
+    public void receive(EngineExtinguishFire engineExtinguishFire) {
+        LogEngine.instance.write("+ Body.receive(" + engineExtinguishFire + ")");
+
+        try {
+            for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
+                Method engineExtinguishFireMMethod = engines.get(engineIndex).getClass().getDeclaredMethod("extinguishFire");
+                LogEngine.instance.write("engineExtinguishFire = " + engineExtinguishFireMMethod);
+
+                boolean isOnFire = (boolean) engineExtinguishFireMMethod.invoke(engines.get(engineIndex));
+                LogEngine.instance.write(engineExtinguishFire.getPhase() + " : isOnFire = " + isOnFire);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),engineExtinguishFire.getPhase() + " : isOnFire = " + isOnFire);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(EngineIncreaseRPM engineIncreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + engineIncreaseRPM + ")");
+
+        try {
+            for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
+                Method engineIncreaseRPMMethod = engines.get(engineIndex).getClass().getDeclaredMethod("increaseRPM", int.class);
+                LogEngine.instance.write("engineIncreaseRPMMethod = " + engineIncreaseRPMMethod);
+
+                int increaseRPM = (int)engineIncreaseRPMMethod.invoke(engines.get(engineIndex), engineIncreaseRPM.getValue());
+                LogEngine.instance.write(engineIncreaseRPM.getPhase() + " : increaseRPM = " + increaseRPM);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = increaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),engineIncreaseRPM.getPhase() + " : increaseRPM = " + increaseRPM);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(EngineShutdown engineShutdown) {
+        LogEngine.instance.write("+ Body.receive(" + engineShutdown + ")");
+
+        try {
+            for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
+                Method engineShutdownMethod = engines.get(engineIndex).getClass().getDeclaredMethod("shutdown");
+                LogEngine.instance.write("engineShutdown = " + engineShutdownMethod);
+
+                boolean isShutdown = (boolean) engineShutdownMethod.invoke(engines.get(engineIndex));
+                LogEngine.instance.write(engineShutdown.getPhase() + " : isShutdown = " + !isShutdown);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),engineShutdown.getPhase() + " : isShutdown = " + !isShutdown);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(EngineStart engineStart) {
+        LogEngine.instance.write("+ Body.receive(" + engineStart + ")");
+
+        try {
+            for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
+                Method engineStartMethod = engines.get(engineIndex).getClass().getDeclaredMethod("start");
+                LogEngine.instance.write("engineStart = " + engineStartMethod);
+
+                boolean isStarted = (boolean) engineStartMethod.invoke(engines.get(engineIndex));
+                LogEngine.instance.write(engineStart.getPhase() + " : isStarted = " + isStarted);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),engineStart.getPhase() + " : isStarted = " + isStarted);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
 
 
 
