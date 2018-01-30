@@ -23,8 +23,17 @@ public class WasteWaterTank {
 		return isLocked;
 	}
 	public int addCapacity(int amount){
-		capacity = capacity + amount;
-		return capacity;
+		int sum = current + amount;
+		if(sum > 1000){
+			current = capacity;
+		}else{
+			sum = current;
+		}
+		return current;
+	}
+	public int clear(){
+		current = 0;
+		return current;
 	}
 	public String toString(){
 		return "WasteWaterTank - Version 1.0";
@@ -42,11 +51,11 @@ public class WasteWaterTank {
 		public boolean unlock() {
 			return setIsLocked(false);
 		}
-		public int addCapacity(int amount) {
-			return 0;
+		public int add(int amount) {
+			return addCapacity(amount);
 		}
 		public int pumpOut() {
-			return 0;
+			return clear();
 		}
 		public String version(){
 			return WasteWaterTank.this.toString();
