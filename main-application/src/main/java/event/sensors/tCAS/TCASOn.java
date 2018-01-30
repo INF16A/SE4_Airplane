@@ -1,4 +1,4 @@
-package event;
+package event.sensors.tCAS;
 
 public class TCASOn {
 

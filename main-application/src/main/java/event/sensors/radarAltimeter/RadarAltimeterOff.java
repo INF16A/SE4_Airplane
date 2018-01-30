@@ -1,4 +1,4 @@
-package event;
+package event.sensors.radarAltimeter;
 
 public class RadarAltimeterOff {
 
