@@ -2,6 +2,16 @@ package section;
 
 import java.util.ArrayList;
 
+import com.google.common.eventbus.Subscribe;
+import event.sensors.airflowSensor.AirflowSensorAlarm;
+import event.sensors.airflowSensor.AirflowSensorMeasure;
+import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
+import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
+import event.sensors.pitotTube.PitotTubeMeasureVelocity;
+import event.sensors.radarAltimeter.*;
+import event.sensors.tCAS.*;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
 import logging.LogEngine;
 import event.Subscriber;
 
@@ -233,7 +243,80 @@ public class Body extends Subscriber {
         }
     }
 
+    @Subscribe
+    public void recieve(AirflowSensorAlarm airflowSensorAlarm) {
 
+    }
+
+    @Subscribe
+    public void recieve(AirflowSensorMeasure airflowSensorMeasure) {
+
+    }
+
+    @Subscribe
+    public void recieve(PitotTubeMeasureStaticPressure pitotTubeMeasureStaticPressure){
+
+    }
+
+    @Subscribe
+    public void recieve(PitotTubeMeasureTotalPressure pitotTubeMeasureTotalPressure){
+
+    }
+
+    @Subscribe
+    public void recieve(PitotTubeMeasureVelocity pitotTubeMeasureVelocity){
+
+    }
+
+    @Subscribe
+    public void recieve(RadarAltimeterMeasureAltitude radarAltimeterMeasureAltitude){
+
+    }
+
+    @Subscribe
+    public void recieve(RadarAltimeterOff radarAltimeterOff){
+
+    }
+
+    @Subscribe
+    public void recieve(RadarAltimeterOn radarAltimeterOn){
+
+    }
+
+    @Subscribe
+    public void recieve(RadarAltimeterReceive radarAltimeterReceive){
+
+    }
+
+    @Subscribe
+    public void recieve(RadarAltimeterSend radarAltimeterSend){}
+
+    @Subscribe
+    public void recieve(TCASAlarm tcasAlarm){}
+
+    @Subscribe
+    public void recieve(TCASConnect tcasConnect){}
+
+    @Subscribe
+    public void recieve(TCASDetermineAltitude tcasDetermineAltitude){}
+
+    @Subscribe
+    public void recieve(TCASOff tcasOff){}
+
+    @Subscribe
+    public void recieve(TCASOn tcasOn){}
+
+    @Subscribe
+    public void recieve(TCASScann tcasScann){}
+
+    @Subscribe
+    public void recieve(TCASSetAltitude tcasSetAltitude){}
+
+    @Subscribe
+    public void recieve(TurbulentAirFlowSensorAlarm turbulentAirFlowSensorAlarm){}
+
+    @Subscribe
+    public void recieve(TurbulentAirFlowSensorMeasure turbulentAirFlowSensorMeasure){}
 
     // please add here
 }
