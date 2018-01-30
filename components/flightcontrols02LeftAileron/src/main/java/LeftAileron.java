@@ -22,7 +22,7 @@ public class LeftAileron {
     public static final int MAX_DEGREE = 21;
     public static final int MIN_DEGREE = -21;
 
-    public class Port implements ILeftAileron {
+    public class Port implements main.java.ILeftAileron {
 
         @Override
         public String version() {
@@ -31,44 +31,51 @@ public class LeftAileron {
 
         @Override
         public int neutral() {
-            return setDegree(0);
+            setDegree(0);
+            return getDegree();
         }
 
         @Override
         public int fullUp() {
-            return setDegree(MAX_DEGREE);
+            setDegree(MAX_DEGREE);
+            return getDegree();
         }
 
         @Override
         public int fullDown() {
-            return setDegree(MIN_DEGREE);
+            setDegree(MIN_DEGREE);
+            return getDegree();
         }
 
         @Override
         public int up(int degree) {
-            return addDegree(degree);
+            addDegree(degree);
+            return getDegree();
         }
 
         @Override
         public int down(int degree) {
-            return addDegree(degree * -1);
+            addDegree(degree * -1);
+            return getDegree();
         }
     }
 
-    private int addDegree(int addValue) {
+    private void addDegree(int addValue) {
         setDegree(this.degree + addValue);
-        return this.degree;
     }
 
-    private int setDegree(int totalValue) {
-        if(totalValue < MIN_DEGREE) {
+    private void setDegree(int totalValue) {
+        if (totalValue < MIN_DEGREE) {
             this.degree = MIN_DEGREE;
-        } else if(totalValue > MAX_DEGREE) {
+        } else if (totalValue > MAX_DEGREE) {
             this.degree = MAX_DEGREE;
         } else {
             this.degree = totalValue;
         }
-        return this.degree;
+    }
+
+    private int getDegree() {
+        return degree;
     }
 
     private String innerMethodGetVersion() {

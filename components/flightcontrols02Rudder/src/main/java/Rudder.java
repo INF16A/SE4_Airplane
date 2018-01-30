@@ -31,43 +31,51 @@ public class Rudder {
 
         @Override
         public int neutral() {
-            return setDegree(0);
+            setDegree(0);
+            return getDegree();
         }
 
         @Override
         public int fullRight() {
-            return setDegree(MAX_DEGREE);
+            setDegree(MAX_DEGREE);
+            return getDegree();
         }
 
         @Override
         public int fullLeft() {
-            return setDegree(MIN_DEGREE);
+            setDegree(MIN_DEGREE);
+            return getDegree();
         }
 
         @Override
         public int right(int degree) {
-            return addDegree(degree);
+            addDegree(degree);
+            return getDegree();
         }
 
         @Override
         public int left(int degree) {
-            return addDegree(degree * -1);
+            addDegree(degree * -1);
+            return getDegree();
         }
     }
 
-    private int addDegree(int addValue) {
-        return setDegree(this.degree + addValue);
+    private void addDegree(int addValue) {
+        setDegree(this.degree + addValue);
     }
 
-    private int setDegree(int totalValue) {
-        if(totalValue < MIN_DEGREE) {
+    private void setDegree(int totalValue) {
+        if (totalValue < MIN_DEGREE) {
             this.degree = MIN_DEGREE;
-        } else if(totalValue > MAX_DEGREE) {
+        } else if (totalValue > MAX_DEGREE) {
             this.degree = MAX_DEGREE;
         } else {
             this.degree = totalValue;
         }
-        return this.degree;
+    }
+
+    private int getDegree() {
+        return degree;
     }
 
     private String innerMethodGetVersion() {
