@@ -1,18 +1,20 @@
 package section;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import com.google.common.eventbus.Subscribe;
+import event.apu.APUDecreaseRPM;
+import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
+import recorder.FlightRecorder;
 
 // import factorys for sensor04
-import factory.CameraFactory;
-import factory.GPSFactory;
-import factory.RadarFactory;
-import factory.SatComFactory;
-import factory.VHFFactory;
+
 
 public class Body extends Subscriber {
+
     // Flight Controls01
     private ArrayList<Object> elevators;
     // Flight Controls02
@@ -117,21 +119,21 @@ public class Body extends Subscriber {
 
         // tank_bottle
         aPUOilTanks = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) aPUOilTanks.add(APUOilTankFactory.build());
         batteries = new ArrayList<>();
-        // Factory magic 24
+        for (int i = 0; i < 24; i++) batteries.add(BatteryFactory.build());
         nitrogenBottles = new ArrayList<>();
-        // Factory magic 6
+        for (int i = 0; i < 6; i++) nitrogenBottles.add(NitrogenBottleFactory.build());
         oxygenBottles = new ArrayList<>();
-        // Factory magic 10
+        for (int i = 0; i < 10; i++) oxygenBottles.add(OxygenBottleFactory.build());
         potableWaterTanks = new ArrayList<>();
-        // Factory magic 8
+        for (int i = 0; i < 8; i++) potableWaterTanks.add(PotableWaterTankFactory.build());
         wasteWaterTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) wasteWaterTanks.add(WasteWaterTankFactory.build());
         fireExtinguishers = new ArrayList<>();
-        // Factory magic 14
+        for (int i = 0; i < 14; i++) fireExtinguishers.add(FireExtinguisherFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // seats
         firstClassSeats = new ArrayList<>();
@@ -172,23 +174,18 @@ public class Body extends Subscriber {
         // Factory magic 2
 
         // sensor04
-        // Factory magic 2
         cameras = new ArrayList<>();
         for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
             cameras.add(CameraFactory.build());
-        // Factory magic 2
         gPSs = new ArrayList<>();
         for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
             gPSs.add(GPSFactory.build());
-        // Factory magic 2
         radars = new ArrayList<>();
         for (int radarIndex = 0;radarIndex < 2;radarIndex++)
             radars.add(RadarFactory.build());
-        // Factory magic 2
         satComs = new ArrayList<>();
         for (int satComIndex = 0;satComIndex < 2;satComIndex++)
             satComs.add(SatComFactory.build());
-        // Factory magic 2
         vHFs = new ArrayList<>();
         for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
             vHFs.add(VHFFactory.build());
@@ -250,7 +247,301 @@ public class Body extends Subscriber {
         }
     }
 
+    public ArrayList<Object> getElevators()
+    {
+        return elevators;
+    }
+
+    public ArrayList<Object> getRudders()
+    {
+        return rudders;
+    }
+
+    public ArrayList<Object> getApus()
+    {
+        return apus;
+    }
+
+    public ArrayList<Object> getGears()
+    {
+        return gears;
+    }
+
+    public ArrayList<Object> getHydraulicPumps()
+    {
+        return hydraulicPumps;
+    }
+
+    public ArrayList<Object> getBulkCargoDoors()
+    {
+        return bulkCargoDoors;
+    }
+
+    public ArrayList<Object> getCrewDoors()
+    {
+        return crewDoors;
+    }
+
+    public ArrayList<Object> getEmergencyExitDoors()
+    {
+        return emergencyExitDoors;
+    }
+
+    public ArrayList<Object> getGearDoors()
+    {
+        return gearDoors;
+    }
+
+    public ArrayList<Object> getaPUOilTanks()
+    {
+        return aPUOilTanks;
+    }
+
+    public ArrayList<Object> getBatteries()
+    {
+        return batteries;
+    }
+
+    public ArrayList<Object> getNitrogenBottles()
+    {
+        return nitrogenBottles;
+    }
+
+    public ArrayList<Object> getOxygenBottles()
+    {
+        return oxygenBottles;
+    }
+
+    public ArrayList<Object> getPotableWaterTanks()
+    {
+        return potableWaterTanks;
+    }
+
+    public ArrayList<Object> getWasteWaterTanks()
+    {
+        return wasteWaterTanks;
+    }
+
+    public ArrayList<Object> getFireExtinguishers()
+    {
+        return fireExtinguishers;
+    }
+
+    public ArrayList<Object> getDeIcingSystems()
+    {
+        return deIcingSystems;
+    }
+
+    public ArrayList<Object> getFirstClassSeats()
+    {
+        return firstClassSeats;
+    }
+
+    public ArrayList<Object> getBusinessClassSeats()
+    {
+        return businessClassSeats;
+    }
+
+    public ArrayList<Object> getTouristClassSeats()
+    {
+        return touristClassSeats;
+    }
+
+    public ArrayList<Object> getCrewSeats()
+    {
+        return crewSeats;
+    }
+
+    public ArrayList<Object> getIceDetectorProbes()
+    {
+        return iceDetectorProbes;
+    }
+
+    public ArrayList<Object> getFireDetectors()
+    {
+        return fireDetectors;
+    }
+
+    public ArrayList<Object> getOxygenSensors()
+    {
+        return oxygenSensors;
+    }
+
+    public ArrayList<Object> getShockSensors()
+    {
+        return shockSensors;
+    }
+
+    public ArrayList<Object> getStallingSensors()
+    {
+        return stallingSensors;
+    }
+
+    public ArrayList<Object> getTemperatureSensors()
+    {
+        return temperatureSensors;
+    }
+
+    public ArrayList<Object> getAirflowSensors()
+    {
+        return airflowSensors;
+    }
+
+    public ArrayList<Object> getPitotTubes()
+    {
+        return pitotTubes;
+    }
+
+    public ArrayList<Object> getRadarAltimeters()
+    {
+        return radarAltimeters;
+    }
+
+    public ArrayList<Object> gettCASs()
+    {
+        return tCASs;
+    }
+
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
+
+            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
-    // please add here
+    public ArrayList<Object> getTurbulentAirFlowSensors()
+    {
+        return turbulentAirFlowSensors;
+    }
+
+    public ArrayList<Object> getCameras()
+    {
+        return cameras;
+    }
+
+    public ArrayList<Object> getgPSs()
+    {
+        return gPSs;
+    }
+
+    public ArrayList<Object> getRadars()
+    {
+        return radars;
+    }
+
+    public ArrayList<Object> getSatComs()
+    {
+        return satComs;
+    }
+
+    public ArrayList<Object> getvHFs()
+    {
+        return vHFs;
+    }
+
+    public ArrayList<Object> getAntiCollisionLights()
+    {
+        return antiCollisionLights;
+    }
+
+    public ArrayList<Object> getCargoCompartmentLights()
+    {
+        return cargoCompartmentLights;
+    }
+
+    public ArrayList<Object> getLandingLights()
+    {
+        return landingLights;
+    }
+
+    public ArrayList<Object> getLogoLights()
+    {
+        return logoLights;
+    }
+
+    public ArrayList<Object> getTailNavigationLights()
+    {
+        return tailNavigationLights;
+    }
+
+    public ArrayList<Object> getTaxiLights()
+    {
+        return taxiLights;
+    }
+
+    public ArrayList<Object> gettCASLights()
+    {
+        return tCASLights;
+    }
+
+    public ArrayList<Object> getCargoSystems()
+    {
+        return cargoSystems;
+    }
+
+    public ArrayList<Object> getStowageNumberFives()
+    {
+        return stowageNumberFives;
+    }
+
+    public ArrayList<Object> getAirConditionings()
+    {
+        return airConditionings;
+    }
+
+    public ArrayList<Object> getKitchens()
+    {
+        return kitchens;
+    }
+
+    public ArrayList<Object> getLavatories()
+    {
+        return lavatories;
+    }
+
+    public ArrayList<Object> getWasteSystems()
+    {
+        return wasteSystems;
+    }
+
+    public ArrayList<Object> getWaterSystems()
+    {
+        return waterSystems;
+    }
+
+    public ArrayList<Object> getEscapeSlides()
+    {
+        return escapeSlides;
+    }
+
+    public ArrayList<Object> getCostOptimizers()
+    {
+        return costOptimizers;
+    }
+
+    public ArrayList<Object> getRouteManagements()
+    {
+        return routeManagements;
+    }
+
+    public ArrayList<Object> getSeatManagements()
+    {
+        return seatManagements;
+    }
 }
