@@ -1,5 +1,6 @@
 package section;
 
+import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
@@ -291,6 +292,7 @@ public class Body extends Subscriber {
 
                 boolean alarmResult = (boolean) alarmMethod.invoke(airflowSensors.get(i), airflowSensorAlarm.getThreshhold());
                 LogEngine.instance.write(airflowSensorAlarm.getPhase() + " : isAlarm" + alarmResult);
+                PrimaryFlightDisplay.instance.isBodyAirflowSensorAlarm = alarmResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -308,6 +310,7 @@ public class Body extends Subscriber {
 
                 int measureResult = (int) measureMethod.invoke(airflowSensors.get(i), airflowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(airflowSensorMeasure.getPhase() + " : measure" + measureResult);
+                PrimaryFlightDisplay.instance.bodyAirflowSensorAirPressure=measureResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -359,6 +362,7 @@ public class Body extends Subscriber {
 
                 int measureResult = (int) pitotTubeMeasureVelocityMethod.invoke(pitotTubes.get(i));
                 LogEngine.instance.write(pitotTubeMeasureVelocity.getPhase() + " : measureVelocity is " + measureResult);
+                PrimaryFlightDisplay.instance.pitotTubeVelocity=measureResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -376,6 +380,7 @@ public class Body extends Subscriber {
 
                 int measureResult = (int) radarAltimeterMeasureAltitudeMethod.invoke(radarAltimeters.get(i));
                 LogEngine.instance.write(radarAltimeterMeasureAltitude.getPhase() + " : measureAltitude is " + measureResult);
+                PrimaryFlightDisplay.instance.radarAltimeterAltitude = measureResult;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -393,6 +398,7 @@ public class Body extends Subscriber {
 
                 boolean result = (boolean) radarAltimeterOffMethod.invoke(radarAltimeters.get(i));
                 LogEngine.instance.write(radarAltimeterOff.getPhase() + " : off ->" + result);
+                PrimaryFlightDisplay.instance.isRadarAltimeterOn=result;
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -410,6 +416,9 @@ public class Body extends Subscriber {
 
                 boolean result = (boolean) radarAltimeterOnMethod.invoke(radarAltimeters.get(i));
                 LogEngine.instance.write(radarAltimeterOn.getPhase() + " : on ->" + result);
+
+                PrimaryFlightDisplay.instance.isRadarAltimeterOn = result;
+
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -429,9 +438,6 @@ public class Body extends Subscriber {
                 int measuredValue = (int) RadarAltimeterReceiveMethod.invoke(radarAltimeters.get(momSensor), radarAltimeterReceive.getRadioWave());
                 LogEngine.instance.write(radarAltimeterReceive.getPhase() + " : RadarAltimeterReceive = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
-
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -450,8 +456,6 @@ public class Body extends Subscriber {
 
                 RadarAltimeterSendMethod.invoke(radarAltimeters.get(momSensor), radarAltimeterSend.getRadioWave());
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
 
                 LogEngine.instance.write("+");
             }
@@ -472,8 +476,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASAlarmMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasAlarm.getPhase() + " : TCASAlarm = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                  PrimaryFlightDisplay.instance.isTCASAlarm = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -494,8 +497,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASConnectMethod.invoke(tCASs.get(momSensor), tcasConnect.getFrequency());
                 LogEngine.instance.write(tcasConnect.getPhase() + " : TCASConnect = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                  PrimaryFlightDisplay.instance.isTCASConnected = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -516,9 +518,6 @@ public class Body extends Subscriber {
                 int measuredValue = (int) TCASDetermineAltitudeMethod.invoke(tCASs.get(momSensor), tcasDetermineAltitude.getEnvironment());
                 LogEngine.instance.write(tcasDetermineAltitude.getPhase() + " : TCASDetermineAltitude = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
-
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -538,8 +537,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASOffMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasOff.getPhase() + " : TCASOff = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                  PrimaryFlightDisplay.instance.isTCASOn = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -560,8 +558,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASOnMethod.invoke(tCASs.get(momSensor));
                 LogEngine.instance.write(tcasOn.getPhase() + " : TCASOn = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                PrimaryFlightDisplay.instance.isTCASOn = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -582,9 +579,6 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) TCASScanMethod.invoke(tCASs.get(momSensor), tcasScann.getEnvironment());
                 LogEngine.instance.write(tcasScann.getPhase() + " : TCASScan = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
-
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -604,8 +598,7 @@ public class Body extends Subscriber {
                 int measuredValue = (int) TCASSetAltitudeMethod.invoke(tCASs.get(momSensor), tcasSetAltitude.getValue());
                 LogEngine.instance.write(tcasSetAltitude.getPhase() + " : TCASSetAltitude = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                PrimaryFlightDisplay.instance.zCASAltitude = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -626,8 +619,7 @@ public class Body extends Subscriber {
                 boolean measuredValue = (boolean) turbulentAirFlowSensorAlarmMethod.invoke(turbulentAirFlowSensors.get(momSensor));
                 LogEngine.instance.write(turbulentAirFlowSensorAlarm.getPhase() + " : turbulentAirFlowSensorAlarm = " + measuredValue);
 
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
+                PrimaryFlightDisplay.instance.isBodyTurbulentAirFlowSensorAlarm = measuredValue;
 
                 LogEngine.instance.write("+");
             }
@@ -647,9 +639,6 @@ public class Body extends Subscriber {
 
                 int measuredValue = (int) turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor), turbulentAirFlowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(turbulentAirFlowSensorMeasure.getPhase() + " : turbulentAirFlowSensorMeasure = " + measuredValue);
-
-//                PrimaryFlightDisplay.instance.isWeatherRadarOn = isWeatherRadarOn;
-//                FlightRecorder.instance.insert(this.getClass().getSimpleName(),weatherRadarOn.getPhase() + " : WeatherRadar (isOn) = " + isWeatherRadarOn);
 
                 LogEngine.instance.write("+");
             }
