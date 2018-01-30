@@ -1,4 +1,3 @@
-package main.java;
 
 public interface INitrogenBottle {
 	String version();
