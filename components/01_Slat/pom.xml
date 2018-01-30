@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>Slat</artifactId>
+    <artifactId>01_Slat</artifactId>
     <version>1.0.0</version>
 
     <build>

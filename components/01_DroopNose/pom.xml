@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>Flap</artifactId>
+    <artifactId>01_DroopNose</artifactId>
     <version>1.0.0</version>
 
     <build>
@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>flap</finalName>
+                    <finalName>dropnoose</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
@@ -28,6 +28,5 @@
         <version>1.0.0</version>
         <relativePath>../..</relativePath>
     </parent>
-
     
 </project>

@@ -28,10 +28,10 @@
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
 
-        <module>components/Slat</module>
-        <module>components/DroopNose</module>
-        <module>components/Elevator</module>
-        <module>components/Flap</module>
+        <module>components/01_Slat</module>
+        <module>components/01_DroopNose</module>
+        <module>components/01_Elevator</module>
+        <module>components/01_Flap</module>
 
     </modules>
 
