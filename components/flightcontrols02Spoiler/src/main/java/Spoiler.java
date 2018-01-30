@@ -20,7 +20,7 @@ public class Spoiler {
     private int degree;
 
     public static final int MAX_DEGREE = 21;
-    public static final int MIN_DEGREE = -21;
+    public static final int MIN_DEGREE = 0;
 
     public class Port implements ISpoiler {
 
@@ -48,6 +48,11 @@ public class Spoiler {
             id = _id;
         }
 
+        public int getDegree() {
+            return degree;
+        }
+
+
         @Override
         public String version() {
             return innerMethodGetVersion();
@@ -55,34 +60,34 @@ public class Spoiler {
 
         @Override
         public int neutral() {
-            setDegree(0);
-            return getDegree();
+            innerSetDegree(0);
+            return innerGetDegree();
         }
 
         @Override
         public int fullUp() {
-            setDegree(MAX_DEGREE);
-            return getDegree();
+            innerSetDegree(MAX_DEGREE);
+            return innerGetDegree();
         }
 
         @Override
         public int up(int degree) {
-            addDegree(degree);
-            return getDegree();
+            innerAddDegree(degree);
+            return innerGetDegree();
         }
 
         @Override
         public int down(int degree) {
-            addDegree(degree * -1);
-            return getDegree();
+            innerAddDegree(degree * -1);
+            return innerGetDegree();
         }
     }
 
-    private void addDegree(int addValue) {
-        setDegree(this.degree + addValue);
+    private void innerAddDegree(int addValue) {
+        innerSetDegree(this.degree + addValue);
     }
 
-    private void setDegree(int totalValue) {
+    private void innerSetDegree(int totalValue) {
         if (totalValue < MIN_DEGREE) {
             this.degree = MIN_DEGREE;
         } else if (totalValue > MAX_DEGREE) {
@@ -92,7 +97,7 @@ public class Spoiler {
         }
     }
 
-    private int getDegree() {
+    private int innerGetDegree() {
         return degree;
     }
 

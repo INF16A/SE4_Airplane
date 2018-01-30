@@ -2,7 +2,7 @@
 
 import static org.junit.Assert.*;
 
-public class Test {
+public class TestLeftAileron {
 
     @org.junit.Test
     public void testManufacturer(){

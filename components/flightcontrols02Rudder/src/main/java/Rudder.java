@@ -47,6 +47,11 @@ public class Rudder {
             id = _id;
         }
 
+        public int getDegree() {
+            return degree;
+        }
+
+
         @Override
         public String version() {
             return innerMethodGetVersion();
@@ -54,40 +59,40 @@ public class Rudder {
 
         @Override
         public int neutral() {
-            setDegree(0);
-            return getDegree();
+            innerSetDegree(0);
+            return innerGetDegree();
         }
 
         @Override
         public int fullRight() {
-            setDegree(MAX_DEGREE);
-            return getDegree();
+            innerSetDegree(MAX_DEGREE);
+            return innerGetDegree();
         }
 
         @Override
         public int fullLeft() {
-            setDegree(MIN_DEGREE);
-            return getDegree();
+            innerSetDegree(MIN_DEGREE);
+            return innerGetDegree();
         }
 
         @Override
         public int right(int degree) {
-            addDegree(degree);
-            return getDegree();
+            innerAddDegree(degree);
+            return innerGetDegree();
         }
 
         @Override
         public int left(int degree) {
-            addDegree(degree * -1);
-            return getDegree();
+            innerAddDegree(degree * -1);
+            return innerGetDegree();
         }
     }
 
-    private void addDegree(int addValue) {
-        setDegree(this.degree + addValue);
+    private void innerAddDegree(int addValue) {
+        innerSetDegree(this.degree + addValue);
     }
 
-    private void setDegree(int totalValue) {
+    private void innerSetDegree(int totalValue) {
         if (totalValue < MIN_DEGREE) {
             this.degree = MIN_DEGREE;
         } else if (totalValue > MAX_DEGREE) {
@@ -97,7 +102,7 @@ public class Rudder {
         }
     }
 
-    private int getDegree() {
+    private int innerGetDegree() {
         return degree;
     }
 
