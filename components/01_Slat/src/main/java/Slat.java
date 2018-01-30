@@ -42,9 +42,6 @@ public class Slat {
             int tempOver = tempDegree-45;
             innerDegree-=tempOver;
         }
-        for(int i = 1; i<=innerDegree;i++){
-            //EVENT
-        }
         degree+= innerDegree;
         return degree;
     }
