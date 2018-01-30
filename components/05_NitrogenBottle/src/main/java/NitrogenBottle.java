@@ -17,7 +17,7 @@ public class NitrogenBottle {
 		port = new Port();
 		amount = 250;
 		current = 0;
-		type = id = "NitrogenBottle";
+		type = id = "NitrogenBottleRefill";
 		manufacturer = "NitrogenBottleManufacturer";
 	}
 
@@ -43,7 +43,7 @@ public class NitrogenBottle {
 		return current;
 	}
 	public String toString(){
-		return "NitrogenBottle - Version 1.0";
+		return "NitrogenBottleRefill - Version 1.0";
 	}
 
 	public static NitrogenBottle getInstance() {

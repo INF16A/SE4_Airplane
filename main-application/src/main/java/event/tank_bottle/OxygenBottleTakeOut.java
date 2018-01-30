@@ -1,14 +1,14 @@
 package main.java.event.tank_bottle;
 
-public class FuelTankRefill {
+public class OxygenBottleTakeOut {
 	private String phase;
 	private int fillValue;
 
-	public FuelTankRefill(String phase) {
+	/*public OxygenBottleTakeOut(String phase) {
 		this.phase = phase;
-		fillValue = 1000;
-	}
-	public FuelTankRefill(String phase, int value) {
+		fillValue = 100;
+	}*/
+	public OxygenBottleTakeOut(String phase, int value) {
 		this.phase = phase;
 		fillValue = value;
 	}
@@ -18,6 +18,6 @@ public class FuelTankRefill {
 	}
 
 	public String toString() {
-		return "event - " + phase + " : FuelTankRefill :" + fillValue;
+		return "event - " + phase + " : OxygenBottleTakeOut :" + fillValue;
 	}
 }
