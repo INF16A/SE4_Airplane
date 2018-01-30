@@ -32,6 +32,16 @@ public class Kitchen {
         public void emptyTrolley(Trolley trolley) {
             innerEmptyTrolley(trolley);
         }
+
+        public void setKitchenType(String kitchenType) {
+            for(KitchenType type : KitchenType.values()) {
+                if(!type.toString().equals(kitchenType))
+                    continue;
+
+                innerSetKitchenType(type);
+                return;
+            }
+        }
     }
 
     public Port port;
@@ -68,6 +78,10 @@ public class Kitchen {
 
         isLocked = false;
         return true;
+    }
+
+    public void innerSetKitchenType(KitchenType type) {
+        kitchenType = type;
     }
 
     public double innerGetTotalWeightTrolleys() {

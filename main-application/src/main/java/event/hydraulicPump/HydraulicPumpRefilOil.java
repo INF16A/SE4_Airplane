@@ -23,4 +23,8 @@ public class HydraulicPumpRefilOil {
     public int getAmount() {
         return amount;
     }
+
+    public String toString() {
+        return "event - " + phase + " : HydraulicPumpRefilOil";
+    }
 }

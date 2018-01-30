@@ -13,4 +13,9 @@ public class APUShutdown {
     public String getPhase() {
         return phase;
     }
+
+    public String toString() {
+        return "event - " + phase + " : APUShutdown";
+    }
+
 }
