@@ -1,14 +1,20 @@
 package main.java;
 
-public class DeIcingSystem implements IDeIcingSystem {
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
+import java.lang.reflect.Method;
+
+public class DeIcingSystem{
 
     private String manufacturer;
     private String type;
     private String id;
     private int amount;
     private boolean isActivated;
+    private Port port;
 
     private DeIcingSystem() {
+        this.port = new Port();
         this.manufacturer = "MDeIcingSystem";
         this.type = "TDeIceSystem";
         this.id = "ID53";
@@ -16,13 +22,11 @@ public class DeIcingSystem implements IDeIcingSystem {
         this.amount = 1000;
     }
 
-    @Override
-    public String version() {
+    public String innerVersion() {
         return "v1.0";
     }
 
-    @Override
-    public int deIce(int amount) {
+    public int innerDeIce(int amount) {
         if (this.amount < amount) {
             this.amount = 0;
         } else {
@@ -31,21 +35,50 @@ public class DeIcingSystem implements IDeIcingSystem {
         return amount;
     }
 
-    @Override
-    public int refill() {
+    public int innerRefill() {
         amount = 1000;
         return amount;
     }
 
-    @Override
-    public boolean activate() {
+    public boolean innerActivate() {
         isActivated = true;
         return isActivated;
     }
 
-    @Override
-    public boolean deactivate() {
+    public boolean innerDeactivate() {
         isActivated = false;
         return isActivated;
+    }
+
+    public class Port implements IDeIcingSystem {
+        private Method[] methods = getClass().getMethods();
+
+        public void listMethods() {
+            System.out.println("--- public methods for " + getClass().getName());
+            for (int i = 0; i < methods.length; i++)
+                if (!methods[i].toString().contains("Object") && !methods[i].toString().contains("list"))
+                    System.out.println(methods[i]);
+            System.out.println("---");
+        }
+
+        public String version() {
+            return innerVersion();
+        }
+
+        public boolean activate() {
+            return innerActivate();
+        }
+
+        public int deIce(int amount) {
+            return innerDeIce(amount);
+        }
+
+        public int refill() {
+            return innerRefill();
+        }
+
+        public boolean deactivate() {
+            return innerDeactivate();
+        }
     }
 }
