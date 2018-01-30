@@ -281,12 +281,12 @@ public class Wing extends Subscriber {
                 if (hydraulicPumpCompress.getAmount() == 0){
                     hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress");
                     LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
-                    compress = (int) hydraulicPumpCompressMethod.invoke(engines.get(hydraulicPumpCompressIndex));
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex));
                 }
                 else{
                     hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress", int.class);
                     LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
-                    compress = (int) hydraulicPumpCompressMethod.invoke(engines.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
                 }
                 LogEngine.instance.write(hydraulicPumpCompress.getPhase() + " : compress = " + compress);
 
@@ -309,7 +309,7 @@ public class Wing extends Subscriber {
                 Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
                 LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
 
-                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(engines.get(hydraulicPumpDecompressIndex));
+                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(hydraulicPumps.get(hydraulicPumpDecompressIndex));
                 LogEngine.instance.write(hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
 
 //                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
