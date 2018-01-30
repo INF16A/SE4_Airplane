@@ -20,6 +20,7 @@ import recorder.FlightRecorder;
 
 public class PrimaryFlightDisplayGUI extends Application {
     private PrimaryFlightDisplayEntry weatherRadarIsOnEntry;
+    private PrimaryFlightDisplayEntry cameraIsOnEntry;
 
     private ArrayList<PrimaryFlightDisplayEntry> dataList;
     private ObservableList data;
@@ -160,6 +161,10 @@ public class PrimaryFlightDisplayGUI extends Application {
 
         // please add value(s)
         dataList.add(weatherRadarIsOnEntry);
+
+        // sensor04
+        cameraIsOnEntry = new PrimaryFlightDisplayEntry("Camera (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
+        dataList.add(cameraIsOnEntry);
     }
 
     private ObservableList getInitialTableData() {
@@ -170,6 +175,7 @@ public class PrimaryFlightDisplayGUI extends Application {
 
     public void update() {
         // please add value(s)
+        cameraIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
         tableView.refresh();
     }
 

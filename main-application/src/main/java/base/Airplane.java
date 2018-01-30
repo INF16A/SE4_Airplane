@@ -1,6 +1,8 @@
 package base;
 
 import com.google.common.eventbus.EventBus;
+import event.Camera.CameraOff;
+import event.Camera.CameraOn;
 import event.Subscriber;
 import section.Body;
 import section.Wing;
@@ -44,6 +46,8 @@ public class Airplane implements IAirplane {
 
     public void startup() {
         String phase = "startup";
+
+        eventBus.post(new CameraOn(phase));
     }
 
     public void taxi() {
@@ -76,5 +80,7 @@ public class Airplane implements IAirplane {
 
     public void shutdown() {
         String phase = "shutdown";
+
+        eventBus.post(new CameraOff(phase));
     }
 }

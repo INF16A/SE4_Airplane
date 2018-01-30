@@ -1,7 +1,12 @@
 package section;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import base.PrimaryFlightDisplay;
+import com.google.common.eventbus.Subscribe;
+import event.Camera.CameraOff;
+import event.Camera.CameraOn;
 import logging.LogEngine;
 import event.Subscriber;
 
@@ -11,6 +16,7 @@ import factory.GPSFactory;
 import factory.RadarFactory;
 import factory.SatComFactory;
 import factory.VHFFactory;
+import recorder.FlightRecorder;
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -55,7 +61,7 @@ public class Body extends Subscriber {
     private ArrayList<Object> tCASs;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameras;
+    private ArrayList<Object> cameraPorts;
     private ArrayList<Object> gPSs;
     private ArrayList<Object> radars;
     private ArrayList<Object> satComs;
@@ -173,9 +179,9 @@ public class Body extends Subscriber {
 
         // sensor04
         // Factory magic 2
-        cameras = new ArrayList<>();
+        cameraPorts = new ArrayList<>();
         for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
-            cameras.add(CameraFactory.build());
+            cameraPorts.add(CameraFactory.build());
         // Factory magic 2
         gPSs = new ArrayList<>();
         for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
@@ -253,4 +259,50 @@ public class Body extends Subscriber {
 
 
     // please add here
+
+    @Subscribe
+    public void receive(CameraOn cameraOn){
+        LogEngine.instance.write("+ Body.receive(" + cameraOn + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+                Method cameraOnMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOnMethod + "");
+
+                boolean isCameraOn = (boolean)cameraOnMethod.invoke(cameraPorts.get(cameraIndex));
+
+                LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : Camera (isOn) = " + isCameraOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(CameraOff cameraOff){
+        LogEngine.instance.write("+ Body.receive(" + cameraOff + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+                Method cameraOffMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOffMethod + "");
+
+                boolean isCameraOff = (boolean)cameraOffMethod.invoke(cameraPorts.get(cameraIndex));
+
+                LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOn = " + isCameraOff + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : Camera (isOff) = " + isCameraOff);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
