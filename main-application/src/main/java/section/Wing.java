@@ -8,7 +8,11 @@ import java.util.ArrayList;
 public class Wing extends Subscriber {
     private int wingIndex;
 
-    // Flight Controls 2
+    // Flight Controls01
+    private ArrayList<Object> droopNoses;
+    private ArrayList<Object> flaps;
+    private ArrayList<Object> slats;
+    // Flight Controls02
     private ArrayList<Object> leftAilerons;
     private ArrayList<Object> rightAilerons;
     private ArrayList<Object> spoilers;
@@ -47,7 +51,15 @@ public class Wing extends Subscriber {
     }
 
     public void build() {
-        // Flight Controls 2
+        // Flight Controls01
+        droopNoses = new ArrayList<>();
+        // Factory magic 2
+        flaps = new ArrayList<>();
+        // Factory magic 2
+        slats = new ArrayList<>();
+        // Factory magic 6
+
+        // Flight Controls02
         leftAilerons = new ArrayList<>();
         // Factory magic 3
         rightAilerons = new ArrayList<>();
@@ -62,11 +74,11 @@ public class Wing extends Subscriber {
         // Factory magic 4
 
         // tank_bottle
-        leftAilerons = new ArrayList<>();
+        engineOilTanks = new ArrayList<>();
         // Factory magic 4
-        rightAilerons = new ArrayList<>();
+        fuelTanks = new ArrayList<>();
         // Factory magic 3
-        spoilers = new ArrayList<>();
+        deIcingSystems = new ArrayList<>();
         // Factory magic 2
 
         // sensor01
@@ -103,9 +115,9 @@ public class Wing extends Subscriber {
         landingLights = new ArrayList<>();
         // Factory magic 2
         leftNavigationLights = new ArrayList<>();
-        // Factory magic 1
+        // Factory magic 1, LightType = red, Position = port
         rightNavigationLights = new ArrayList<>();
-        // Factory magic 1
+        // Factory magic 1, LightType = green, Position = starboard
     }
 
     public void printStatus() {

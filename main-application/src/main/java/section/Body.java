@@ -6,7 +6,9 @@ import logging.LogEngine;
 import event.Subscriber;
 
 public class Body extends Subscriber {
-    // Flight Controls 2
+    // Flight Controls01
+    private ArrayList<Object> elevators;
+    // Flight Controls02
     private ArrayList<Object> rudders;
     // apu_engine_gear_pump
     private ArrayList<Object> apus;
@@ -80,7 +82,11 @@ public class Body extends Subscriber {
     }
 
     public void build() {
-        // Flight Controls 2
+        // Flight Controls01
+        elevators = new ArrayList<>();
+        // Factory magic 4 (full = +/- 45 degrees, left -; right +)
+
+        // Flight Controls02
         rudders = new ArrayList<>();
         // Factory magic 2
 
@@ -88,7 +94,7 @@ public class Body extends Subscriber {
         apus = new ArrayList<>();
         // Factory magic 1
         gears = new ArrayList<>();
-        // Factory magic 3
+        // Factory magic 3 (1 front, 2 rear)
         hydraulicPumps = new ArrayList<>();
         // Factory magic 6
 
@@ -100,7 +106,7 @@ public class Body extends Subscriber {
         emergencyExitDoors = new ArrayList<>();
         // Factory magic 14
         gearDoors = new ArrayList<>();
-        // Factory magic 6
+        // Factory magic 6 (2 front, 4 gear)
 
         // tank_bottle
         aPUOilTanks = new ArrayList<>();
