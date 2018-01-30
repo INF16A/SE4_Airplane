@@ -333,12 +333,12 @@ public class Wing extends Subscriber {
                 if (hydraulicPumpRefilOil.getAmount() == 0){
                     hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil");
                     LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
-                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(engines.get(hydraulicPumpRefilOilIndex));
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex));
                 }
                 else{
                     hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil", int.class);
                     LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
-                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(engines.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
                 }
                 LogEngine.instance.write(hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
 
