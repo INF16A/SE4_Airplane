@@ -6,4 +6,8 @@ public class ElevatorNeutralEvent {
     public ElevatorNeutralEvent(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

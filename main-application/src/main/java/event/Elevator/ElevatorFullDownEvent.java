@@ -6,4 +6,8 @@ public class ElevatorFullDownEvent {
     public ElevatorFullDownEvent(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }
