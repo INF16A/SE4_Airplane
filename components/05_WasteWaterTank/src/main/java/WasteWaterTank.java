@@ -1,3 +1,5 @@
+package main.java;
+
 import java.lang.reflect.Method;
 
 public class WasteWaterTank {
@@ -12,10 +14,12 @@ public class WasteWaterTank {
 	private int current;
 
 	private WasteWaterTank(){
+		port = new Port();
 		capacity = 1000;
 		current = 0;
 		isLocked = false;
-		port = new Port();
+		id = "WasteWaterTank";
+		manufacturer = "WasteWaterTankManufacturer";
 	}
 
 	public boolean setIsLocked(boolean toLocked){
@@ -27,7 +31,7 @@ public class WasteWaterTank {
 		if(sum > 1000){
 			current = capacity;
 		}else{
-			sum = current;
+			current = sum;
 		}
 		return current;
 	}
