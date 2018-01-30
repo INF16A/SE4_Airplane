@@ -21,6 +21,10 @@ public class APU {
         this.manufacturer = "Best APU Customer";
     }
 
+    private static APU getInstance(){
+        return instance;
+    }
+
     public class Port implements IAPU
     {
 

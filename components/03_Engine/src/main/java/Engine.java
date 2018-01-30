@@ -10,39 +10,46 @@ public class Engine {
     private boolean isFire;
 
     public Port port;
-    private Engine instance = new Engine();
+    private static Engine instance = new Engine();
 
     private Engine()
     {
         port = new Port();
     }
 
+    private static Engine getInstance(){
+        return instance;
+    }
 
     public class Port implements IEngine
     {
 
         public String vision() {
-            return null;
+            return "Engine 1.0";
         }
 
         public boolean start() {
-            return false;
+            isStarted = true;
+            return isStarted;
         }
 
         public int increaseRPM(int value) {
-            return 0;
+            rpm += value;
+            return rpm;
         }
 
         public int decreaseRPM(int value) {
-            return 0;
+            rpm -= value;
+            return rpm;
         }
 
         public boolean shutdown() {
-            return false;
+            isStarted = false;
+            return isStarted;
         }
 
         public void extinguishFire() {
-
+            isFire = false;
         }
     }
 
