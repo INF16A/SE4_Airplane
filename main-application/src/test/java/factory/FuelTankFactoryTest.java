@@ -7,5 +7,6 @@ public class FuelTankFactoryTest {
 	@Test
 	public void build(){
 		Assert.assertNotNull(FuelTankFactory.build());
+
 	}
 }
