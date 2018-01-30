@@ -1,4 +1,4 @@
-import main.java.LeftAileron;
+
 
 import static org.junit.Assert.*;
 
