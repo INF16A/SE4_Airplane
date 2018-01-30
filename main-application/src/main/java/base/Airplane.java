@@ -35,10 +35,10 @@ public class Airplane implements IAirplane {
         body = new Body();
         addSubscriber(body);
 
-        leftWing = new Wing();
+        leftWing = new Wing(0);
         addSubscriber(leftWing);
 
-        rightWing = new Wing();
+        rightWing = new Wing(1);
         addSubscriber(rightWing);
     }
 
