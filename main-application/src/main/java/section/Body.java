@@ -8,6 +8,10 @@ import event.apu.APUDecreaseRPM;
 import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
+import factory.IceDetectorProbeFactory;
+import logging.LogEngine;
+
+import java.util.ArrayList;
 import recorder.FlightRecorder;
 
 // import factorys for sensor04
@@ -147,6 +151,8 @@ public class Body extends Subscriber {
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02

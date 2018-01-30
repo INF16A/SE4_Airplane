@@ -29,6 +29,11 @@
         <module>components/13_watersystem</module>
         <module>components/13_wastesystem</module>
 
+        <module>components/07_ExhaustGasTemperatureSensor</module>
+        <module>components/07_FuelFlowSensor</module>
+        <module>components/07_FuelSensor</module>
+        <module>components/07_IceDetectorProbe</module>
+
         <module>components/05_WasteWaterTank</module>
         <module>components/05_FuelTank</module>
         <module>components/05_NitrogenBottle</module>
