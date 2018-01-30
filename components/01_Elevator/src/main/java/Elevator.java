@@ -1,9 +1,6 @@
-import com.google.common.eventbus.EventBus;
-
 public class Elevator {
     public Port port;
     private static Elevator instance = new Elevator();
-    private EventBus eventBus;
 
     private String manufacturer;
     private String type;
