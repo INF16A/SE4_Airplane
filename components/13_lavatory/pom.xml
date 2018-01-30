@@ -8,5 +8,18 @@
     <artifactId>13_lavatory</artifactId>
     <version>1.0.0</version>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>13_lavatory</finalName> <!-- TODO: CHANGE OUTPUT NAME HERE -->
+                    <outputDirectory>../</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     
 </project>

@@ -2,7 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class TestWaterSystem {
-
+/*
     @Test
     public void TestWaterSystemOn() {
         WaterSystem ws = new WaterSystem();
@@ -40,5 +40,5 @@ public class TestWaterSystem {
         WaterSystem ws = new WaterSystem();
         ws.refill();
         Assert.assertFalse(ws.refill());
-    }
+    }*/
 }

@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class TestKitchen {
 
-    @Test
+    /*@Test
     public void TestKitchenLocked() {
         Kitchen kitchen = new Kitchen();
         Assert.assertTrue(kitchen.lock());
@@ -14,5 +14,5 @@ public class TestKitchen {
         Kitchen kitchen = new Kitchen();
         kitchen.lock();
         Assert.assertFalse(kitchen.lock());
-    }
+    }*/
 }

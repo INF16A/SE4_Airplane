@@ -1,4 +1,35 @@
-public class WaterSystem implements IWaterSystem {
+public class WaterSystem {
+    private static WaterSystem instance = new WaterSystem();
+
+    public static WaterSystem getInstance() {
+        return instance;
+    }
+
+    public class Port implements IWaterSystem {
+
+        public String version() {
+            return innerVersion();
+        }
+
+        public boolean on() {
+            return innerOn();
+        }
+
+        public boolean refill() {
+            return innerRefill();
+        }
+
+        public boolean off() {
+            return innerOff();
+        }
+
+        public boolean clean() {
+            return innerClean();
+        }
+    }
+
+    public Port port;
+
     private String manufacturer;
     private String type;
     private String id;
@@ -6,17 +37,18 @@ public class WaterSystem implements IWaterSystem {
     private boolean isFilled;
     private boolean isCleaned;
 
-    public WaterSystem() {
+    private WaterSystem() {
         manufacturer = "INF16B";
         type = "A good one";
         id = "1";
+        port = new Port();
     }
 
-    public String version() {
+    public String innerVersion() {
         return "Wastersystem 1.0";
     }
 
-    public boolean on() {
+    public boolean innerOn() {
         if(isOn == true)
             return false;
 
@@ -24,7 +56,7 @@ public class WaterSystem implements IWaterSystem {
         return true;
     }
 
-    public boolean refill() {
+    public boolean innerRefill() {
         if(isFilled == true)
             return false;
 
@@ -32,7 +64,7 @@ public class WaterSystem implements IWaterSystem {
         return true;
     }
 
-    public boolean off() {
+    public boolean innerOff() {
         if(isOn == false)
             return false;
 
@@ -40,7 +72,7 @@ public class WaterSystem implements IWaterSystem {
         return true;
     }
 
-    public boolean clean() {
+    public boolean innerClean() {
         if(isCleaned == true)
             return false;
 

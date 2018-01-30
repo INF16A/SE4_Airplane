@@ -1,21 +1,49 @@
-public class Lavatory implements ILavatory {
+public class Lavatory {
+    private static Lavatory instance = new Lavatory();
+
+    public static Lavatory getInstance() {
+        return instance;
+    }
+
+    public class Port implements ILavatory {
+
+        public String version() {
+            return innerVersion();
+        }
+
+        public boolean lock() {
+            return innerLock();
+        }
+
+        public boolean unlock() {
+            return innerUnlock();
+        }
+
+        public boolean clear() {
+            return innerClear();
+        }
+    }
+
+    public Port port;
+
     private String manufacturer;
     private String type;
     private String id;
     private boolean isLocked;
     private boolean isCleaned;
 
-    public Lavatory() {
+    private Lavatory() {
         manufacturer = "INF16B";
         type = "A good one";
         id = "1";
+        port = new Port();
     }
 
-    public String version() {
+    public String innerVersion() {
         return "Lavatory 1.0";
     }
 
-    public boolean lock() {
+    public boolean innerLock() {
         if(isLocked == true)
             return false;
 
@@ -23,7 +51,7 @@ public class Lavatory implements ILavatory {
         return true;
     }
 
-    public boolean unlock() {
+    public boolean innerUnlock() {
         if(isLocked == false)
             return false;
 
@@ -31,7 +59,7 @@ public class Lavatory implements ILavatory {
         return true;
     }
 
-    public boolean clear() {
+    public boolean innerClear() {
         if(isCleaned == true)
             return false;
 
