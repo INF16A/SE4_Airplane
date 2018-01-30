@@ -19,6 +19,29 @@ public class HydraulicPump {
     public class Port implements IHydraulicPump
     {
 
+        public String version() {
+            return null;
+        }
+
+        public int compress() {
+            return 0;
+        }
+
+        public int compress(int amount) {
+            return 0;
+        }
+
+        public int decompress() {
+            return 0;
+        }
+
+        public int refilOil() {
+            return 0;
+        }
+
+        public int refillOil(int amount) {
+            return 0;
+        }
     }
 
 
