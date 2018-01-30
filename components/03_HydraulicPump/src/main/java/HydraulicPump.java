@@ -18,7 +18,7 @@ public class HydraulicPump {
         this.id = "1";
     }
 
-    private static HydraulicPump getInstance(){
+    public static HydraulicPump getInstance(){
         return instance;
     }
 
