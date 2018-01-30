@@ -1,0 +1,6 @@
+desktop.ini
+.idea
+build
+out
+*.db.properties
+*.db.script
