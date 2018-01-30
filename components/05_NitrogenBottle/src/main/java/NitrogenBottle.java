@@ -49,7 +49,7 @@ public class NitrogenBottle {
 	public static NitrogenBottle getInstance() {
 		return instance;
 	}
-	public class Port implements IOxygenBottle {
+	public class Port implements INitrogenBottle {
 		private Method[] methods = getClass().getMethods();
 		public int refill(int amount) {
 			return addInner(amount);
