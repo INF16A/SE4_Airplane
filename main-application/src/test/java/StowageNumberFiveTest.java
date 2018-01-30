@@ -18,7 +18,7 @@ public class StowageNumberFiveTest {
     private Object componentPort;
     private ArrayList<Baggage> baggages = new ArrayList<Baggage>();
     private double expectedWeight = 0;
-    /*
+
     @Before
     public void init() {
         Baggage baggage;

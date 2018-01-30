@@ -13,9 +13,9 @@ public class CargoSystem {
     private double totalWeightContainer;
     private double totalWeightAirCargoPallet;
     private double totalWeight;
-    private Port port;
+    public Port port;
 
-    private CargoSystem() {
+    public CargoSystem() {
         this.manufacturer = "CargoManufacturer";
         this.type =  "123.2";
         this.id = "23";
