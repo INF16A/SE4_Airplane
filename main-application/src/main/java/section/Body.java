@@ -1,9 +1,10 @@
 package section;
 
-import java.util.ArrayList;
-
-import logging.LogEngine;
 import event.Subscriber;
+import factory.IceDetectorProbeFactory;
+import logging.LogEngine;
+
+import java.util.ArrayList;
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -138,6 +139,8 @@ public class Body extends Subscriber {
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02
@@ -232,7 +235,6 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
-
 
 
     // please add here
