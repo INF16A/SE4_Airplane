@@ -47,6 +47,7 @@ public class CostOptimizer {
         }
 
         // theoretisch remove(int checkPoint), das macht aber wenig Sinn weil die anderen beiden Methoden CheckPoint benutzen
+        // Das UML ist hier inkonsistent. Vielleicht wieder auf (int checkPoint) ändern.
         public int remove(CheckPoint checkPoint) {
             return checkPointList.remove(checkPoint) ? 1 : 0;
         }
