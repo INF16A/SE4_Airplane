@@ -5,7 +5,7 @@ public enum Configuration {
 
     public String userDirectory = System.getProperty("user.dir");
     public String fileSeparator = System.getProperty("file.separator");
-    public String commonPathToJavaArchive = userDirectory + fileSeparator + "components";
+    public String commonPathToJavaArchive = userDirectory + fileSeparator + ".." + fileSeparator + "components";
 
     public String lineSeparator = System.getProperty("line.separator");
     public String logFileDirectory = userDirectory + fileSeparator + "log" + fileSeparator;

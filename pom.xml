@@ -10,15 +10,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-application</module>
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
-        <module>components/example</module>
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
-
         <module>components/12_stowagecargo_stowagenumberfive</module>
         <module>components/12_stowagecargo_cargosystem</module>
 
@@ -28,11 +25,15 @@
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
 
-        <module>components/01_Slat</module>
-        <module>components/01_DroopNose</module>
-        <module>components/01_Elevator</module>
-        <module>components/01_Flap</module>
+        <module>components/10_Camera</module>
+        <module>components/10_GPS</module>
+        <module>components/10_Radar</module>
+        <module>components/10_SatCom</module>
+        <module>components/10_VHF</module>
 
+
+
+        <module>main-application</module>
     </modules>
 
     <build>
@@ -67,11 +68,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.6-jre</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
