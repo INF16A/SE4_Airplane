@@ -21,6 +21,12 @@
         <module>components/12_stowagecargo_stowagenumberfive</module>
         <module>components/12_stowagecargo_cargosystem</module>
 
+        <module>components/05_WasteWaterTank</module>
+        <module>components/05_FuelTank</module>
+        <module>components/05_NitrogenBottle</module>
+        <module>components/05_PotableWaterTank</module>
+        <module>components/05_OxygenBottle</module>
+
     </modules>
 
     <build>
