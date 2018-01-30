@@ -3,6 +3,9 @@ package section;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
 import event.engine.*;
+import event.hydraulicPump.HydraulicPumpCompress;
+import event.hydraulicPump.HydraulicPumpDecompress;
+import event.hydraulicPump.HydraulicPumpRefilOil;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
@@ -265,6 +268,90 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
+    //Hydraulic Pump
+    @Subscribe
+    public void receive (HydraulicPumpCompress hydraulicPumpCompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpCompress + ")");
+
+        try {
+            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex < 2;hydraulicPumpCompressIndex++) {
+                Method hydraulicPumpCompressMethod = null;
+                int compress = 0;
+                if (hydraulicPumpCompress.getAmount() == 0){
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress");
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(engines.get(hydraulicPumpCompressIndex));
+                }
+                else{
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress", int.class);
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(engines.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive (HydraulicPumpDecompress hydraulicPumpDecompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpDecompress + ")");
+
+        try {
+            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 2;hydraulicPumpDecompressIndex++) {
+                Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
+                LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
+
+                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(engines.get(hydraulicPumpDecompressIndex));
+                LogEngine.instance.write(hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive (HydraulicPumpRefilOil hydraulicPumpRefilOil) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpRefilOil + ")");
+
+        try {
+            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 2;hydraulicPumpRefilOilIndex++) {
+                Method hydraulicPumpRefilOilMethod = null;
+                int refilOil = 0;
+                if (hydraulicPumpRefilOil.getAmount() == 0){
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil");
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(engines.get(hydraulicPumpRefilOilIndex));
+                }
+                else{
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil", int.class);
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(engines.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 
 
