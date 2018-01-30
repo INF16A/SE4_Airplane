@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum PrimaryFlightDisplay {
     instance;
-    /*
+    
     // please add value(s)
 
     //DroopNose
@@ -320,5 +320,5 @@ public enum PrimaryFlightDisplay {
     public ArrayList<Seat> seatManagementSeats;
     public int seatManagementNumberOfPassengersFirstClassAssigned;
     public int seatManagementNumberOfPassengersBusinessClassAssigned;
-    public int seatManagementNumberOfPassengersEconomyClassAssigned;*/
+    public int seatManagementNumberOfPassengersEconomyClassAssigned;
 }
