@@ -14,10 +14,10 @@
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
-        <module>components/flightcontrols02LeftAileron</module>
-        <module>components/flightcontrols02RightAileron</module>
-        <module>components/flightcontrols02Rudder</module>
-        <module>components/flightcontrols02Spoiler</module>
+        <module>components/02_LeftAileron</module>
+        <module>components/02_RightAileron</module>
+        <module>components/02_Spoiler</module>
+        <module>components/02_Rudder</module>
         <module>components/example</module>
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
