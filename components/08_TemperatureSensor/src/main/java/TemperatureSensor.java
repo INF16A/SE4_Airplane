@@ -16,17 +16,14 @@ public class TemperatureSensor {
 
         public class Port implements  ITemperatureSensor {
 
-            @Override
             public String version() {
                 return innerVersion();
             }
 
-            @Override
             public int measure() {
                 return temperature;
             }
 
-            @Override
             public boolean alarm(int threshold) {
                 if (threshold < 75) return false;
                 else return true;

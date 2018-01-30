@@ -15,17 +15,18 @@ public class StallingSensor {
 
     public class Port implements IStallingSensor {
 
-        @Override
         public String version() {
             return innerVersion();
         }
 
-        @Override
+        public int measure(int airFlow) {
+            return 0;
+        }
+
         public int measure(String airFlow) {
             return airFlow.hashCode();
         }
 
-        @Override
         public boolean alarm() {
             return isAlarm;
         }

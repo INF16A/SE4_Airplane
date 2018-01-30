@@ -1,5 +1,3 @@
-package main.java;
-
 import java.lang.reflect.Method;
 
 public class EngineOilTank {

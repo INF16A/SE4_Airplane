@@ -3,6 +3,7 @@ package section;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.apu.APUDecreaseRPM;
 import event.apu.APUIncreaseRPM;
@@ -16,9 +17,7 @@ import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
 import factory.IceDetectorProbeFactory;
-import logging.LogEngine;
 
-import java.util.ArrayList;
 import recorder.FlightRecorder;
 
 // import factorys for sensor04

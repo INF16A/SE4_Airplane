@@ -1,5 +1,3 @@
-package main.java;
-
 public interface IDeIcingSystem {
     public String version();
     public boolean activate();

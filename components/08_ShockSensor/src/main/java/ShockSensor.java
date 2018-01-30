@@ -16,27 +16,22 @@ public class ShockSensor {
 
     public class Port implements IShockSensor {
 
-        @Override
         public String version() {
             return innerVersion();
         }
 
-        @Override
         public boolean calibrate() {
             return isCalibrated;
         }
 
-        @Override
         public boolean calibrate(double level) {
             return isCalibrated;
         }
 
-        @Override
         public int measure() {
             return 0;
         }
 
-        @Override
         public boolean alarm() {
             return isShockDetected;
         }
@@ -46,3 +41,5 @@ public class ShockSensor {
         }
 
     }
+
+}
