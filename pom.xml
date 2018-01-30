@@ -1,107 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>SE4_Airplane</artifactId>
-    <version>1.0.0</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>components/03_APU</module>
-        <module>components/03_Engine</module>
-        <module>components/03_Gear</module>
-        <module>components/03_HydraulicPump</module>
-        <!-- Hier module "path" hinzufügen. alt+Enter über dem path
-             drücken und Create Module auswählen
-        -->
-        <module>components/02_LeftAileron</module>
-        <module>components/02_RightAileron</module>
-        <module>components/02_Spoiler</module>
-        <module>components/02_Rudder</module>
-
-        <module>components/14_management_costoptimizer</module>
-        <module>components/14_management_routemanagement</module>
-        <module>components/14_management_seatmanagement</module>
-        <module>components/12_stowagecargo_stowagenumberfive</module>
-        <module>components/12_stowagecargo_cargosystem</module>
-        <module>components/11_light_leftnavigationlight</module>
-        <module>components/11_light_tcaslight</module>
-        <module>components/11_light_taxilight</module>
-        <module>components/11_light_tailnavigationlight</module>
-        <module>components/11_light_rightnavigationlight</module>
-        <module>components/11_light_logolight</module>
-        <module>components/11_light_landinglight</module>
-        <module>components/11_light_cargocompartmentlight</module>
-        <module>components/11_light_anticollisionlight</module>
-        <module>components/13_airconditioning</module>
-        <module>components/13_kitchen</module>
-        <module>components/13_lavatory</module>
-        <module>components/13_escapeslide</module>
-        <module>components/13_watersystem</module>
-        <module>components/13_wastesystem</module>
-
-        <module>components/07_ExhaustGasTemperatureSensor</module>
-        <module>components/07_FuelFlowSensor</module>
-        <module>components/07_FuelSensor</module>
-        <module>components/07_IceDetectorProbe</module>
-
-        <module>components/05_WasteWaterTank</module>
-        <module>components/05_FuelTank</module>
-        <module>components/05_NitrogenBottle</module>
-        <module>components/05_PotableWaterTank</module>
-        <module>components/05_OxygenBottle</module>
-
-        <module>components/10_Camera</module>
-        <module>components/10_GPS</module>
-        <module>components/10_Radar</module>
-        <module>components/10_SatCom</module>
-        <module>components/10_VHF</module>
-
-
-
-        <module>main-application</module>
-    </modules>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>23.6-jre</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-</project>
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0"         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">    <modelVersion>4.0.0</modelVersion>    <groupId>de.dhbw.mosbach.inf16a</groupId>    <artifactId>SE4_Airplane</artifactId>    <version>1.0.0</version>    <packaging>pom</packaging>    <modules>        <module>components/03_APU</module>        <module>components/03_Engine</module>        <module>components/03_Gear</module>        <module>components/03_HydraulicPump</module>        <!-- Hier module "path" hinzufügen. alt+Enter über dem path             drücken und Create Module auswählen        -->        <module>components/02_LeftAileron</module>        <module>components/02_RightAileron</module>        <module>components/02_Spoiler</module>        <module>components/02_Rudder</module>        <module>components/14_management_costoptimizer</module>        <module>components/14_management_routemanagement</module>        <module>components/14_management_seatmanagement</module>        <module>components/12_stowagecargo_stowagenumberfive</module>        <module>components/12_stowagecargo_cargosystem</module>        <module>components/11_light_leftnavigationlight</module>        <module>components/11_light_tcaslight</module>        <module>components/11_light_taxilight</module>        <module>components/11_light_tailnavigationlight</module>        <module>components/11_light_rightnavigationlight</module>        <module>components/11_light_logolight</module>        <module>components/11_light_landinglight</module>        <module>components/11_light_cargocompartmentlight</module>        <module>components/11_light_anticollisionlight</module>        <module>components/13_airconditioning</module>        <module>components/13_kitchen</module>        <module>components/13_lavatory</module>        <module>components/13_escapeslide</module>        <module>components/13_watersystem</module>        <module>components/13_wastesystem</module>        <module>components/07_ExhaustGasTemperatureSensor</module>        <module>components/07_FuelFlowSensor</module>        <module>components/07_FuelSensor</module>        <module>components/07_IceDetectorProbe</module>        <module>components/05_WasteWaterTank</module>        <module>components/05_FuelTank</module>        <module>components/05_NitrogenBottle</module>        <module>components/05_PotableWaterTank</module>        <module>components/05_OxygenBottle</module>        <module>components/10_Camera</module>        <module>components/10_GPS</module>        <module>components/10_Radar</module>        <module>components/10_SatCom</module>        <module>components/10_VHF</module>        <module>main-application</module>    </modules>    <build>        <pluginManagement>            <plugins>                <plugin>                    <groupId>org.apache.maven.plugins</groupId>                    <artifactId>maven-compiler-plugin</artifactId>                    <configuration>                        <source>1.8</source>                        <target>1.8</target>                    </configuration>                </plugin>            </plugins>        </pluginManagement>    </build>    <dependencyManagement>        <dependencies>            <dependency>                <groupId>com.google.guava</groupId>                <artifactId>guava</artifactId>                <version>23.6-jre</version>            </dependency>            <dependency>                <groupId>junit</groupId>                <artifactId>junit</artifactId>                <version>4.12</version>                <scope>test</scope>            </dependency>        </dependencies>    </dependencyManagement>    <dependencies>        <dependency>            <groupId>junit</groupId>            <artifactId>junit</artifactId>            <version>4.12</version>            <scope>test</scope>        </dependency>    </dependencies></project>
