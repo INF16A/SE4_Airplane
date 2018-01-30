@@ -31,6 +31,7 @@ public enum PrimaryFlightDisplay {
     public int rightWingRightAileronDegree;
 
     //Rudder
+    //Rudder
     public int rudderDegree;
 
     //Spoiler
