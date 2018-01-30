@@ -34,6 +34,11 @@
         <module>components/05_NitrogenBottle</module>
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
+        <module>components/05_APUOilTank</module>
+        <module>components/05_Battery</module>
+        <module>components/05_DeIcingSystem</module>
+        <module>components/05_EngineOilTank</module>
+        <module>components/05_FireExtinguisher</module>
 
         <module>components/10_Camera</module>
         <module>components/10_GPS</module>
