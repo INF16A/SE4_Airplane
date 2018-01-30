@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 public class EngineOilTank {
 
+
+    private static EngineOilTank instance = new EngineOilTank();
     private String manufacturer;
     private String type;
     private String id;
@@ -16,6 +18,10 @@ public class EngineOilTank {
         this.id = "ID54";
         this.level = 10;
         this.port = new Port();
+    }
+
+    public static EngineOilTank getInstance() {
+        return instance;
     }
 
     public String innerVersion() {
