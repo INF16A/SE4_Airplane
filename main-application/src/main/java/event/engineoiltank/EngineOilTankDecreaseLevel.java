@@ -1,4 +1,4 @@
-package main.java.event.fueltank;
+package main.java.event.engineoiltank;
 
 public class EngineOilTankDecreaseLevel {
     private String phase;

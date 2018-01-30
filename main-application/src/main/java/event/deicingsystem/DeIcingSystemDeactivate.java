@@ -1,10 +1,10 @@
-package main.java.event.fueltank;
+package event.deicingsystem;
 
 public class DeIcingSystemDeactivate {
     private String phase;
 
-    public int getFillValue() {
-        return fillValue;
+    public boolean getActive() {
+        return active;
     }
 
     private boolean active;

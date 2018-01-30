@@ -1,6 +1,6 @@
 package main.java.event.tank_bottle;
 
-public class APUOilTankDecreaseLevel {
+public class APUOilTankIncreaseLevel {
     private String phase;
 
     public int getFillValue() {
