@@ -1,4 +1,4 @@
-import IDroopNose;
+package main;
 
 public class DroopNose {
     public Port port;
@@ -9,11 +9,8 @@ public class DroopNose {
     private String id;
     private int degree;
 
-    private DroopNose(String id, String manufacturer, String type) {
+    private DroopNose() {
         port = new Port();
-        this.id = id;
-        this.manufacturer = manufacturer;
-        this. type = type;
     }
 
     public static DroopNose getInstance() {
@@ -25,27 +22,22 @@ public class DroopNose {
     }
 
     public class Port implements IDroopNose {
-        @Override
         public String version() {
             return innerVersion();
         }
 
-        @Override
         public int neutral() {
             return 0;
         }
 
-        @Override
         public int fullDown() {
             return 0;
         }
 
-        @Override
         public int down(int degree) {
             return 0;
         }
 
-        @Override
         public int up(int degree) {
             return 0;
         }

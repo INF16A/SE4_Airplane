@@ -1,3 +1,5 @@
+package main;
+
 public interface IDroopNose {
     String version();
     int neutral();

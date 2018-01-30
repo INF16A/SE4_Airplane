@@ -1,3 +1,5 @@
+package main;
+
 public interface IElevator {
     String version();
     int neutral();
