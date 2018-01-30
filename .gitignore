@@ -4,3 +4,5 @@ build
 out
 *.db.properties
 *.db.script
+**/target/
+*.iml
