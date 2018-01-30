@@ -13,7 +13,7 @@ public class KitchenFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/13_kitchen.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/kitchen.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, KitchenFactory.class.getClassLoader());
             Class kitchenClass = Class.forName("Kitchen",true,urlClassLoader);
             Object kitchenInstance = kitchenClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);

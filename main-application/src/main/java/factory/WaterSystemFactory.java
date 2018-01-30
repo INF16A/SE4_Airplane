@@ -13,7 +13,7 @@ public class WaterSystemFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/13_watersystem.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/watersystem.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, WaterSystemFactory.class.getClassLoader());
             Class waterSystemClass = Class.forName("WasteSystem",true,urlClassLoader);
             Object waterSystemInstance = waterSystemClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
