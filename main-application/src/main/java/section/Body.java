@@ -218,8 +218,10 @@ public class Body extends Subscriber {
             airConditionings.add(AirConditioningFactory.build());
         // Factory magic 4
         kitchens = new ArrayList<>();
-        for(int i = 0; i < 4; i++)
-            kitchens.add(KitchenFactory.build());
+        kitchens.add(KitchenFactory.build("FIRST"));
+        kitchens.add(KitchenFactory.build("BUSINESS"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
         for(int i = 0; i < 8; i++)
