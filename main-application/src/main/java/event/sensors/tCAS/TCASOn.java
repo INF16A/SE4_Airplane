@@ -2,17 +2,18 @@ package event.sensors.tCAS;
 
 public class TCASOn {
 
-    String phase;
+    private String phase;
 
-    public TCASOn(String nphase)
-    {
-        phase=nphase;
+    public TCASOn(String nPhase) {
+        phase = nPhase;
     }
 
     public String getPhase() {
         return phase;
     }
 
-    public String toString(){return "phase: "+phase+" TCASOn";}
+    public String toString() {
+        return "phase: " + phase + " TCASOn";
+    }
 
 }

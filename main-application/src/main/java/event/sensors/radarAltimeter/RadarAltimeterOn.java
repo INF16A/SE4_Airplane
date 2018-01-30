@@ -2,17 +2,18 @@ package event.sensors.radarAltimeter;
 
 public class RadarAltimeterOn {
 
-    String phase;
+    private String phase;
 
-    public RadarAltimeterOn(String nphase)
-    {
-        phase=nphase;
+    public RadarAltimeterOn(String nPhase) {
+        phase = nPhase;
     }
 
     public String getPhase() {
         return phase;
     }
 
-    public String toString(){return "phase: "+phase+" RadarAltimeterOn";}
+    public String toString() {
+        return "phase: " + phase + " RadarAltimeterOn";
+    }
 
 }

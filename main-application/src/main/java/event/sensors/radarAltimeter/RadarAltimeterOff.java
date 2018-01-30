@@ -4,15 +4,16 @@ public class RadarAltimeterOff {
 
     String phase;
 
-    public RadarAltimeterOff(String nphase)
-    {
-        phase=nphase;
+    public RadarAltimeterOff(String nPhase) {
+        phase = nPhase;
     }
 
     public String getPhase() {
         return phase;
     }
 
-    public String toString(){return "phase: "+phase+" RadarAltimeterOff";}
+    public String toString() {
+        return "phase: " + phase + " RadarAltimeterOff";
+    }
 
 }

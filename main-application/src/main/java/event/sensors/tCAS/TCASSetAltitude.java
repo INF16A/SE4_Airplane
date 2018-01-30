@@ -2,21 +2,24 @@ package event.sensors.tCAS;
 
 public class TCASSetAltitude {
 
-    String phase;
-    int value;
+    private String phase;
+    private int value;
 
-    public TCASSetAltitude(String nPhase, int nValue)
-    {
-        phase=nPhase;
-        value=nValue;
+    public TCASSetAltitude(String nPhase, int nValue) {
+        phase = nPhase;
+        value = nValue;
     }
 
-    public int getValue(){return value;}
+    public int getValue() {
+        return value;
+    }
 
     public String getPhase() {
         return phase;
     }
 
-    public String toString(){return "phase: "+phase+" TCASOff";}
+    public String toString() {
+        return "phase: " + phase + " TCASSetAltitude";
+    }
 
 }

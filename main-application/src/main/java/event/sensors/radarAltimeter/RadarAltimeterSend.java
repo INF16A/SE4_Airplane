@@ -2,8 +2,8 @@ package event.sensors.radarAltimeter;
 
 public class RadarAltimeterSend {
 
-    String phase;
-    String radioWave;
+    private String phase;
+    private String radioWave;
 
     public RadarAltimeterSend(String nPhase, String nRadioWave) {
         phase = nPhase;
@@ -19,7 +19,7 @@ public class RadarAltimeterSend {
     }
 
     public String toString() {
-        return "phase: " + phase + " TCASOff";
+        return "phase: " + phase + " RadarAltimeterSend";
     }
 
 }

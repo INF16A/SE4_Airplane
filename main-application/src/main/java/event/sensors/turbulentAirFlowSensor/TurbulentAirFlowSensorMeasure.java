@@ -2,21 +2,24 @@ package event.sensors.turbulentAirFlowSensor;
 
 public class TurbulentAirFlowSensorMeasure {
 
-    String phase;
-    int airFlow;
+    private String phase;
+    private int airFlow;
 
-    public TurbulentAirFlowSensorMeasure(String nPhase, int nAirFlow)
-    {
+    public TurbulentAirFlowSensorMeasure(String nPhase, int nAirFlow) {
         airFlow = nAirFlow;
-        phase=nPhase;
+        phase = nPhase;
     }
 
-    public int getAirFlow() {return airFlow;}
+    public int getAirFlow() {
+        return airFlow;
+    }
 
     public String getPhase() {
         return phase;
     }
 
-    public String toString(){return "phase: "+phase+" TCASOff";}
+    public String toString() {
+        return "phase: " + phase + " TurbulentAirFlowSensorMeasure";
+    }
 
 }
