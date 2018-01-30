@@ -13,9 +13,9 @@ public class GenericFactory {
 
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/" + className.toLowerCase() + ".jar").toURI().toURL()};
-            URLClassLoader urlClassLoader = new URLClassLoader(urls, APUOilTankFactory.class.getClassLoader());
+            URLClassLoader urlClassLoader = new URLClassLoader(urls, GenericFactory.class.getClassLoader());
             Class clazz = Class.forName(className,true,urlClassLoader);
-            Object instance = clazz.getMethod("getInstance",new Class[0]).invoke(null);
+            Object instance = clazz.getMethod("getInstance").invoke(null);
             componentPort = clazz.getDeclaredField("port").get(instance);
         } catch (Exception e) {
             e.printStackTrace();
