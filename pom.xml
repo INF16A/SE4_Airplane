@@ -17,6 +17,11 @@
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
+        <module>components/01_DroopNose</module>
+        <module>components/01_Elevator</module>
+        <module>components/01_Flap</module>
+        <module>components/01_Slat</module>
+
         <module>components/02_LeftAileron</module>
         <module>components/02_RightAileron</module>
         <module>components/02_Spoiler</module>
