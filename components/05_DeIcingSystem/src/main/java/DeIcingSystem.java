@@ -1,10 +1,10 @@
 package main.java;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import java.lang.reflect.Method;
 
 public class DeIcingSystem{
+
+    private static DeIcingSystem instance = new DeIcingSystem();
 
     private String manufacturer;
     private String type;
@@ -20,6 +20,10 @@ public class DeIcingSystem{
         this.id = "ID53";
         this.isActivated = false;
         this.amount = 1000;
+    }
+
+    public static DeIcingSystem getInstance() {
+        return instance;
     }
 
     public String innerVersion() {

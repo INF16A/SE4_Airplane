@@ -9,6 +9,7 @@ public class FireExtinguisher {
     private String id;
     private int percentage;
     private Port port;
+    private static FireExtinguisher instance = new FireExtinguisher();
 
     private FireExtinguisher() {
         this.manufacturer = "MFireExinguisher";
@@ -16,6 +17,10 @@ public class FireExtinguisher {
         this.id = "ID55";
         this.percentage = 100;
         this.port = new Port();
+    }
+
+    public static FireExtinguisher getInstance(){
+        return instance;
     }
 
     public String innerVersion() {
