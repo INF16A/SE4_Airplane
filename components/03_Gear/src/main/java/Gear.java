@@ -12,7 +12,11 @@ public class Gear {
 
 
     public Port port;
-    private Gear instance = new Gear();
+    private static Gear instance = new Gear();
+
+    private static Gear getInstance(){
+        return instance;
+    }
 
     private Gear()
     {
