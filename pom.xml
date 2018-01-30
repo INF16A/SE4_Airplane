@@ -11,7 +11,16 @@
 
     <modules>
         <module>main-application</module>
+        <!-- Hier module "path" hinzufügen. alt+Enter über dem path
+             drücken und Create Module auswählen
+        -->
         <module>components/example</module>
+        <module>components/14_management_costoptimizer</module>
+        <module>components/14_management_routemanagement</module>
+        <module>components/14_management_seatmanagement</module>
+        <module>components/12_stowagecargo_stowagenumberfive</module>
+        <module>components/12_stowagecargo_cargosystem</module>
+
     </modules>
 
     <build>
@@ -36,6 +45,21 @@
                 <artifactId>guava</artifactId>
                 <version>23.6-jre</version>
             </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
