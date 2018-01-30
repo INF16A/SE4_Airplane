@@ -22,7 +22,7 @@ public class APU {
         this.rpm = 0;
     }
 
-    private static APU getInstance(){
+    public static APU getInstance(){
         return instance;
     }
 

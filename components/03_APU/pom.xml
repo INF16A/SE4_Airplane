@@ -19,11 +19,19 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>de.dhbw.mosbach.inf16a</groupId>
         <artifactId>SE4_Airplane</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../</relativePath>
     </parent>
 
 
