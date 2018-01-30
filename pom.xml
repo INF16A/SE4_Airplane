@@ -12,6 +12,10 @@
     <modules>
         <module>main-application</module>
         <module>components/example</module>
+        <module>components/07_ExhaustGasTemperatureSensor</module>
+        <module>components/07_FuelFlowSensor</module>
+        <module>components/07_FuelSensor</module>
+        <module>components/07_IceDetectorProbe</module>
     </modules>
 
     <build>
