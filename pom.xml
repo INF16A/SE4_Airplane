@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>main-application</module>
         <module>components/03_APU</module>
         <module>components/03_Engine</module>
         <module>components/03_Gear</module>
