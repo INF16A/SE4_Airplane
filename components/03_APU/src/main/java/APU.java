@@ -19,6 +19,7 @@ public class APU {
         this.id = "1";
         this.type = "Best APU";
         this.manufacturer = "Best APU Customer";
+        this.rpm = 0;
     }
 
     private static APU getInstance(){

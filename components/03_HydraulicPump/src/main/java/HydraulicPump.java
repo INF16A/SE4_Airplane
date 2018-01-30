@@ -8,39 +8,50 @@ public class HydraulicPump {
     private int amount = 1000;
 
     public Port port;
-    private HydraulicPump instance = new HydraulicPump();
+    private static HydraulicPump instance = new HydraulicPump();
 
     private HydraulicPump()
     {
         port = new Port();
+        this.manufacturer = "Best HydraulicPump Customer";
+        this.type = "Best HydraulicPump Type";
+        this.id = "1";
     }
 
+    private static HydraulicPump getInstance(){
+        return instance;
+    }
 
     public class Port implements IHydraulicPump
     {
 
         public String version() {
-            return null;
+            return "Hydraulic Pump 1,0";
         }
 
         public int compress() {
-            return 0;
+            amount /= 2;
+            return amount;
         }
 
-        public int compress(int amount) {
+        public int compress(int newAmount) {
+            amount -= newAmount;
             return 0;
         }
 
         public int decompress() {
-            return 0;
+            amount *= 2;
+            return amount;
         }
 
         public int refilOil() {
-            return 0;
+            amount = 100;
+            return amount;
         }
 
-        public int refillOil(int amount) {
-            return 0;
+        public int refillOil(int newAmount) {
+            amount += newAmount;
+            return amount;
         }
     }
 
