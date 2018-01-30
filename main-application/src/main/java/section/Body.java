@@ -91,7 +91,7 @@ public class Body extends Subscriber {
     }
 
     public void build() {
-        // Flight Controls01
+        // Flight_Controls01
         elevators = new ArrayList<>();
         // Factory magic 4 (full = +/- 45 degrees, left -; right +)
 
