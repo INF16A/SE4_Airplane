@@ -7,6 +7,9 @@ import logging.LogEngine;
 
 import java.util.ArrayList;
 
+// Factory import for sensor04
+import factory.CameraFactory;
+
 public class Wing extends Subscriber {
     private int wingIndex;
 
@@ -44,6 +47,7 @@ public class Wing extends Subscriber {
     private ArrayList<Object> landingLights;
     private ArrayList<Object> leftNavigationLights;
     private ArrayList<Object> rightNavigationLights;
+
 
     public Wing(int wingIndex) {
         this.wingIndex = wingIndex;
@@ -114,8 +118,9 @@ public class Wing extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
+        //Factory magic 1
         cameras = new ArrayList<>();
-        // Factory magic 1
+        cameras.add(CameraFactory.build());
 
         // light
         landingLights = new ArrayList<>();

@@ -8,11 +8,19 @@ public class StowageNumberFive implements IStowageNumberFive {
     private ArrayList<Baggage> baggageList;
     private ArrayList<SpecialGood> specialGoodsList;
 
+    public StowageNumberFive(int maximumNuberofItems) {
+        this.maximumNuberofItems = maximumNuberofItems;
+    }
+
     public double loadBaggage(ArrayList<Baggage> baggageList) {
-        return 0;
+        double totalWeight = 0;
+        for (int i = 0; i < baggageList.size() ; i++) {
+            totalWeight += baggageList.get(i).getWeight();
+        }
+        return totalWeight;
     }
 
     public double loadSpecialGood(ArrayList<SpecialGood> specialGoodList) {
-    return 0;
+        return 0;
     }
 }

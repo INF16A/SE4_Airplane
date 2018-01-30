@@ -33,6 +33,13 @@
         <module>components/05_PotableWaterTank</module>
         <module>components/05_OxygenBottle</module>
 
+        <module>components/10_Camera</module>
+        <module>components/10_GPS</module>
+        <module>components/10_Radar</module>
+        <module>components/10_SatCom</module>
+        <module>components/10_VHF</module>
+
+
     </modules>
 
     <build>
