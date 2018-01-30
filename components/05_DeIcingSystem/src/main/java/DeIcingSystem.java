@@ -10,7 +10,7 @@ public class DeIcingSystem{
     private String id;
     private int amount;
     private boolean isActivated;
-    private Port port;
+    public Port port;
 
     private DeIcingSystem() {
         this.port = new Port();

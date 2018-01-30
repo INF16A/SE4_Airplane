@@ -1,4 +1,3 @@
-package main.java;
 
 public interface IFireExtinguisher {
     public String version();
