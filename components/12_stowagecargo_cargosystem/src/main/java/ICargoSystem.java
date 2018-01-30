@@ -1,9 +1,11 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public interface ICargoSystem {
     String version();
     boolean unlock();
-    double load(Stowage stowage, ArrayList<Container> container);
+    double loadContainer(Stowage stowage, ArrayList<Container> container);
+    double loadAirCargoPallet(Stowage stowage, ArrayList<AirCargoPallet> airCargoPalletList);
     double determineTotalWeightContainer(Stowage stowage);
     double determinetotalWeightAirCargoPallet(Stowage stowage);
     double determineTotalWeight(Stowage stowage);
