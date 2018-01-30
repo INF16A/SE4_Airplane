@@ -42,12 +42,16 @@ public class APU {
 
         @Override
         public int increaseRPM(int value) {
+            if(value <= 0)
+                return rpm;
             rpm += value;
             return rpm;
         }
 
         @Override
         public int decreaseRPM(int value) {
+            if(value <= 0)
+                return rpm;
             rpm -= value;
             return rpm;
         }
