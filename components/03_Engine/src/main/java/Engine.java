@@ -9,4 +9,19 @@ public class Engine {
     private int rpm;
     private boolean isFire;
 
+    public Port port;
+    private Engine instance = new Engine;
+
+    private Engine()
+    {
+        port = new Port();
+    }
+
+
+    public class Port implements IEngine
+    {
+
+    }
+
+
 }
