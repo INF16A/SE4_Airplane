@@ -1,5 +1,3 @@
-package main.java;
-
 public class LeftAileron {
 
     private static LeftAileron instance = new LeftAileron();

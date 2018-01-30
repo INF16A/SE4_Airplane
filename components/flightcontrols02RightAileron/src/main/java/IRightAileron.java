@@ -1,5 +1,3 @@
-package main.java;
-
 public interface IRightAileron {
 
     String version();
