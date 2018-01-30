@@ -14,15 +14,39 @@ public class LeftAileron {
         port = new Port();
     }
 
-    private String manufacturer = "Manni";
-    private String type = "Typ";
+    private String manufacturer;
+    private String type;
     private String id;
     private int degree;
 
     public static final int MAX_DEGREE = 21;
     public static final int MIN_DEGREE = -21;
 
-    public class Port implements main.java.ILeftAileron {
+    public class Port implements ILeftAileron {
+
+        public String getManufacturer() {
+            return manufacturer;
+        }
+
+        public void setManufacturer(String _manufacturer) {
+            manufacturer = _manufacturer;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String _type) {
+            type = _type;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String _id) {
+            id = _id;
+        }
 
         @Override
         public String version() {

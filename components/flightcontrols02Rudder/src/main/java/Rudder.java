@@ -14,8 +14,8 @@ public class Rudder {
         port = new Port();
     }
 
-    private String manufacturer = "Manni";
-    private String type = "Typ";
+    private String manufacturer;
+    private String type;
     private String id;
     private int degree; // negative = left, positive = right
 
@@ -23,6 +23,30 @@ public class Rudder {
     public static final int MIN_DEGREE = -26;
 
     public class Port implements IRudder {
+
+        public String getManufacturer() {
+            return manufacturer;
+        }
+
+        public void setManufacturer(String _manufacturer) {
+            manufacturer = _manufacturer;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String _type) {
+            type = _type;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String _id) {
+            id = _id;
+        }
 
         @Override
         public String version() {
