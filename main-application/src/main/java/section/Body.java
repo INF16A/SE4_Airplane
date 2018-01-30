@@ -2,15 +2,12 @@ package section;
 
 import java.util.ArrayList;
 
+import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
 
 // import factorys for sensor04
-import factory.CameraFactory;
-import factory.GPSFactory;
-import factory.RadarFactory;
-import factory.SatComFactory;
-import factory.VHFFactory;
+
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -117,21 +114,21 @@ public class Body extends Subscriber {
 
         // tank_bottle
         aPUOilTanks = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) aPUOilTanks.add(APUOilTankFactory.build());
         batteries = new ArrayList<>();
-        // Factory magic 24
+        for (int i = 0; i < 24; i++) batteries.add(BatteryFactory.build());
         nitrogenBottles = new ArrayList<>();
-        // Factory magic 6
+        for (int i = 0; i < 6; i++) nitrogenBottles.add(NitrogenBottleFactory.build());
         oxygenBottles = new ArrayList<>();
-        // Factory magic 10
+        for (int i = 0; i < 10; i++) oxygenBottles.add(OxygenBottleFactory.build());
         potableWaterTanks = new ArrayList<>();
-        // Factory magic 8
+        for (int i = 0; i < 8; i++) potableWaterTanks.add(PotableWaterTankFactory.build());
         wasteWaterTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) wasteWaterTanks.add(WasteWaterTankFactory.build());
         fireExtinguishers = new ArrayList<>();
-        // Factory magic 14
+        for (int i = 0; i < 14; i++) fireExtinguishers.add(FireExtinguisherFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // seats
         firstClassSeats = new ArrayList<>();
@@ -172,23 +169,18 @@ public class Body extends Subscriber {
         // Factory magic 2
 
         // sensor04
-        // Factory magic 2
         cameras = new ArrayList<>();
         for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
             cameras.add(CameraFactory.build());
-        // Factory magic 2
         gPSs = new ArrayList<>();
         for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
             gPSs.add(GPSFactory.build());
-        // Factory magic 2
         radars = new ArrayList<>();
         for (int radarIndex = 0;radarIndex < 2;radarIndex++)
             radars.add(RadarFactory.build());
-        // Factory magic 2
         satComs = new ArrayList<>();
         for (int satComIndex = 0;satComIndex < 2;satComIndex++)
             satComs.add(SatComFactory.build());
-        // Factory magic 2
         vHFs = new ArrayList<>();
         for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
             vHFs.add(VHFFactory.build());
