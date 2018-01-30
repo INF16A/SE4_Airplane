@@ -11,11 +11,18 @@
 
     <modules>
         <module>main-application</module>
-        <module>components/example</module>
+        <!-- Hier module "path" hinzufügen. alt+Enter über dem path
+             drücken und Create Module auswählen
+        -->
         <module>components/flightcontrols02LeftAileron</module>
         <module>components/flightcontrols02RightAileron</module>
         <module>components/flightcontrols02Rudder</module>
         <module>components/flightcontrols02Spoiler</module>
+        <module>components/example</module>
+        <module>components/14_management_costoptimizer</module>
+        <module>components/14_management_routemanagement</module>
+        <module>components/14_management_seatmanagement</module>
+
     </modules>
 
     <build>
@@ -40,6 +47,21 @@
                 <artifactId>guava</artifactId>
                 <version>23.6-jre</version>
             </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
