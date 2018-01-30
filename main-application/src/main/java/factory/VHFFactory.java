@@ -1,6 +1,6 @@
-package java.factory;
+package factory;
 
-import java.factory.RadarFactory;
+import factory.RadarFactory;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
