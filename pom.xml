@@ -18,6 +18,9 @@
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
+
+        <module>components/12_stowagecargo_stowagenumberfive</module>
+        <module>components/12_stowagecargo_cargosystem</module>
         <module>components/13_airconditioning</module>
         <module>components/13_kitchen</module>
         <module>components/13_lavatory</module>
