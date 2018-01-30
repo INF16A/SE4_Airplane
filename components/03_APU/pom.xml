@@ -20,5 +20,11 @@
         </plugins>
     </build>
 
+    <parent>
+        <groupId>de.dhbw.mosbach.inf16a</groupId>
+        <artifactId>SE4_Airplane</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
 
 </project>
