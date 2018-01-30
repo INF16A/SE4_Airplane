@@ -44,7 +44,7 @@ public class HydraulicPump {
             return amount;
         }
 
-        public int refilOil() {
+        public int refillOil() {
             amount = 100;
             return amount;
         }
