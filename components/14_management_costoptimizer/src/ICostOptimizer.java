@@ -9,7 +9,10 @@ public interface ICostOptimizer {
     boolean on();
     boolean off();
     int add(CheckPoint checkPoint);
-    int remove(int checkPoint);
+
+    // theoretisch remove(int checkPoint), das macht aber wenig Sinn weil die anderen beiden Methoden CheckPoint benutzen
+    int remove(CheckPoint checkPoint);
+
     int optimize(ArrayList<CheckPoint> checkPointList);
     boolean validate(int costIndex);
 }

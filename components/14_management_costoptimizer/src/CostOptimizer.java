@@ -41,14 +41,14 @@ public class CostOptimizer {
             return isOn;
         }
 
+
         public int add(CheckPoint checkPoint) {
-            checkPointList.add(checkPoint);
-            return checkPointList.size();
+            return checkPointList.add(checkPoint) ? 1 : 0;
         }
 
-        public int remove(int checkPoint) {
-            checkPointList.remove(checkPoint);
-            return checkPointList.size();
+        // theoretisch remove(int checkPoint), das macht aber wenig Sinn weil die anderen beiden Methoden CheckPoint benutzen
+        public int remove(CheckPoint checkPoint) {
+            return checkPointList.remove(checkPoint) ? 1 : 0;
         }
 
         public int optimize(ArrayList<CheckPoint> checkPointList) {
