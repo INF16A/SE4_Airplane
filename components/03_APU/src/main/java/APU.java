@@ -3,6 +3,8 @@
  */
 public class APU {
     public Port port;
+    private static APU instance = new APU();
+
 
     private String manufacturer;
     private String type;
@@ -11,11 +13,12 @@ public class APU {
     private int rpm;
 
 
-    private APU(String id, String type, String manufacturer)
+    private APU()
     {
-        this.id = id;
-        this.type = type;
-        this.manufacturer = manufacturer;
+        port = new Port();
+        this.id = 1;
+        this.type = "Best APU";
+        this.manufacturer = "Best APU Customer";
     }
 
     public class Port implements IAPU
