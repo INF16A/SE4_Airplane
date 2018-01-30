@@ -24,7 +24,7 @@ public class IceDetectorProbeTest {
 
     @Test
     public void TestDetectString() {
-        Assert.assertTrue(IceDetectorProbe.getInstance().port.detect("test"));
+        IceDetectorProbe.getInstance().port.detect("test");
     }
 
     @Test

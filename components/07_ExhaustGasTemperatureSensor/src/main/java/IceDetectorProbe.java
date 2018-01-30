@@ -29,7 +29,7 @@ public class IceDetectorProbe {
     }
 
     public boolean detect(String surface) {
-        return false;
+        return true;
     }
 
     public boolean detect(String surface, String pattern) {
