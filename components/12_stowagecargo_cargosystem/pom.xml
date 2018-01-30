@@ -7,6 +7,13 @@
     <groupId>de.dhbw.mosbach.inf16a</groupId>
     <artifactId>12_stowagecargo_cargosystem</artifactId>
     <version>1.0.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
-    
+
 </project>
