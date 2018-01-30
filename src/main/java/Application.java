@@ -1,7 +1,5 @@
 // please do not modify
 
-package main;
-
 import base.Airplane;
 import base.Cockpit;
 import logging.LogEngine;
