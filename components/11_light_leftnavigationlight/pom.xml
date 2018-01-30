@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>example</artifactId> <!-- TODO: CHANGE MODULE NAME HERE -->
+    <artifactId>11_light_leftnavigationlight</artifactId>
     <version>1.0.0</version>
 
     <build>
@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>example</finalName> <!-- TODO: CHANGE OUTPUT NAME HERE -->
+                    <finalName>11_light_leftnavigationlight</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
