@@ -1,4 +1,4 @@
-package main.java.event.tank_bottle;
+package event.nitrogenbottle;
 
 public class NitrogenBottleRefill {
 	private String phase;

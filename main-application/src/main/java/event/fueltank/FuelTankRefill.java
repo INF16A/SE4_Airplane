@@ -1,4 +1,4 @@
-package main.java.event.tank_bottle;
+package main.java.event.fueltank;
 
 public class FuelTankRefill {
 	private String phase;

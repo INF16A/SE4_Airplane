@@ -1,4 +1,4 @@
-package main.java.event.tank_bottle;
+package event.nitrogenbottle;
 
 public class NitrogenBottleTakeOut {
 	private String phase;
