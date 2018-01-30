@@ -1,9 +1,14 @@
 package section;
 
-import java.util.ArrayList;
-
-import logging.LogEngine;
 import event.Subscriber;
+import factory.AirflowSensorFactory;
+import factory.PitotTubeFactory;
+import factory.RadarAltimeterFactory;
+import factory.TCASFactory;
+import factory.TurbulentAirFlowSensorFactory;
+import logging.LogEngine;
+
+import java.util.ArrayList;
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -154,15 +159,20 @@ public class Body extends Subscriber {
 
         // sensor03
         airflowSensors = new ArrayList<>();
-        // Factory magic 2
+        airflowSensors.add(AirflowSensorFactory.build());
+        airflowSensors.add(AirflowSensorFactory.build());
         pitotTubes = new ArrayList<>();
-        // Factory magic 2
+        pitotTubes.add(PitotTubeFactory.build());
+        pitotTubes.add(PitotTubeFactory.build());
         radarAltimeters = new ArrayList<>();
-        // Factory magic 2
+        radarAltimeters.add(RadarAltimeterFactory.build());
+        radarAltimeters.add(RadarAltimeterFactory.build());
         tCASs = new ArrayList<>();
-        // Factory magic 2
+        tCASs.add(TCASFactory.build());
+        tCASs.add(TCASFactory.build());
         turbulentAirFlowSensors = new ArrayList<>();
-        // Factory magic 2
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
         cameras = new ArrayList<>();
@@ -232,7 +242,6 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
-
 
 
     // please add here

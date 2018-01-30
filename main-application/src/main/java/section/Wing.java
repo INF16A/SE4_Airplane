@@ -1,6 +1,8 @@
 package section;
 
 import event.Subscriber;
+import factory.AirflowSensorFactory;
+import factory.TurbulentAirFlowSensorFactory;
 import logging.LogEngine;
 
 import java.util.ArrayList;
@@ -103,9 +105,13 @@ public class Wing extends Subscriber {
 
         // sensor03
         airflowSensors = new ArrayList<>();
-        // Factory magic 2
+        airflowSensors.add(AirflowSensorFactory.build());
+        airflowSensors.add(AirflowSensorFactory.build());
         turbulentAirFlowSensors = new ArrayList<>();
-        // Factory magic 4
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
         cameras = new ArrayList<>();
