@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>08_sensor02_oxygensensor</artifactId>
+    <artifactId>08_TemperatureSensor</artifactId>
     <version>1.0.0</version>
 
     
