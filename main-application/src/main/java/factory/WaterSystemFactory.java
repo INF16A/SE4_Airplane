@@ -15,7 +15,7 @@ public class WaterSystemFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/watersystem.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, WaterSystemFactory.class.getClassLoader());
-            Class waterSystemClass = Class.forName("WasteSystem",true,urlClassLoader);
+            Class waterSystemClass = Class.forName("WaterSystem",true,urlClassLoader);
             Object waterSystemInstance = waterSystemClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
             componentPort = waterSystemClass.getDeclaredField("port").get(waterSystemInstance);
         } catch (Exception e) {
