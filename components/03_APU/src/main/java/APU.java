@@ -16,7 +16,7 @@ public class APU {
     private APU()
     {
         port = new Port();
-        this.id = 1;
+        this.id = "1";
         this.type = "Best APU";
         this.manufacturer = "Best APU Customer";
     }
