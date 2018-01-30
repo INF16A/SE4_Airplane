@@ -1,16 +1,16 @@
 package main.java;
 
-public class LeftAileron {
+public class Spoiler {
 
-    private static LeftAileron instance = new LeftAileron();
+    private static Spoiler instance = new Spoiler();
 
-    public static LeftAileron getInstance() {
+    public static Spoiler getInstance() {
         return instance;
     }
 
     public Port port;
 
-    private LeftAileron() {
+    private Spoiler() {
         port = new Port();
     }
 
@@ -22,7 +22,7 @@ public class LeftAileron {
     public static final int MAX_DEGREE = 21;
     public static final int MIN_DEGREE = -21;
 
-    public class Port implements ILeftAileron {
+    public class Port implements ISpoiler {
 
         @Override
         public String version() {
@@ -37,11 +37,6 @@ public class LeftAileron {
         @Override
         public int fullUp() {
             return setDegree(MAX_DEGREE);
-        }
-
-        @Override
-        public int fullDown() {
-            return setDegree(MIN_DEGREE);
         }
 
         @Override
@@ -74,4 +69,5 @@ public class LeftAileron {
     private String innerMethodGetVersion() {
         return manufacturer + " - " + type + ", v0.01";
     }
+
 }
