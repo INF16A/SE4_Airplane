@@ -12,6 +12,10 @@
     <modules>
         <module>main-application</module>
         <module>components/example</module>
+        <module>components/flightcontrols02LeftAileron</module>
+        <module>components/flightcontrols02RightAileron</module>
+        <module>components/flightcontrols02Rudder</module>
+        <module>components/flightcontrols02Spoiler</module>
     </modules>
 
     <build>
