@@ -1,4 +1,4 @@
-package main.java.event.tank_bottle;
+package event.potablewatertank;
 
 public class PotableWaterTankTakeOut {
 	private String phase;
