@@ -1,6 +1,8 @@
 package section;
 
+import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
+import event.engine.EngineDecreaseRPM;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 
 // Factory import for sensor04
 import factory.CameraFactory;
+import recorder.FlightRecorder;
 
 public class Wing extends Subscriber {
     private int wingIndex;
@@ -147,6 +150,29 @@ public class Wing extends Subscriber {
             // please add here
 
             LogEngine.instance.write("");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Engine
+    @Subscribe
+    public void receive(EngineDecreaseRPM engineDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + engineDecreaseRPM + ")");
+
+        try {
+            for (int engineIndex = 0;engineIndex < 2;engineIndex++) {
+                Method engineDecreaseRPMMethod = engines.get(engineIndex).getClass().getDeclaredMethod("increaseRPM", int.class);
+                LogEngine.instance.write("engineDecreaseRPM = " + engineDecreaseRPMMethod);
+
+                int decreaseRPM = (int)engineDecreaseRPMMethod.invoke(engines.get(engineIndex), engineDecreaseRPM.getValue());
+                LogEngine.instance.write(engineDecreaseRPM.getPhase() + " : decreaseRPM = " + decreaseRPM);
+
+//                PrimaryFlightDisplay.instance.isWeatherRadarOn = decreaseRPM;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),engineDecreaseRPM.getPhase() + " : decreaseRPM = " + decreaseRPM);
+
+                LogEngine.instance.write("+");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
