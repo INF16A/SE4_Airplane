@@ -1,4 +1,4 @@
-public class VHF implements IVHF{
+public class VHF{
 
     private String manufacturer = "EADS";
     private String type;
@@ -7,32 +7,51 @@ public class VHF implements IVHF{
     private String[] channelList = {"182.67", "133.70", "123.45", "120.42"};
     private String selectedChannel;
 
-    public String version() { return "VHF " + this.id; }
+    private static VHF instance = new VHF();
 
-    public boolean on() {
-        this.isOn = true;
-        return isOn;
+    public Port port;
+
+    private VHF() {
+        port = new Port();
     }
 
-    public String[] search() {
-        return this.channelList;
+    public static VHF getInstance() {
+        return instance;
     }
 
-    public String forwardChannel() {
-        return "Next channel selected";
+    public String innerVersion() {
+        return "VHF " + id;
     }
 
-    public String backwardChannel() {
-        return "Previous channel selected";
-    }
+    public class Port implements IVHF {
 
-    public String selectChannel(String channel) {
-        this.selectedChannel = channel;
-        return this.selectedChannel;
-    }
+        public String version(){ return innerVersion();}
 
-    public boolean off() {
-        this.isOn = false;
-        return isOn;
+        public boolean on() {
+            isOn = true;
+            return isOn;
+        }
+
+        public String[] search() {
+            return channelList;
+        }
+
+        public String forwardChannel() {
+            return "Next channel selected";
+        }
+
+        public String backwardChannel() {
+            return "Previous channel selected";
+        }
+
+        public String selectChannel(String channel) {
+            selectedChannel = channel;
+            return selectedChannel;
+        }
+
+        public boolean off() {
+            isOn = false;
+            return isOn;
+        }
     }
 }

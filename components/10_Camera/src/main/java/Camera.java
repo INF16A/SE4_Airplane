@@ -1,4 +1,4 @@
-public class Camera implements ICamera {
+public class Camera {
 
     private String manufacturer = "EADS";
     private CameraType type;
@@ -6,34 +6,52 @@ public class Camera implements ICamera {
     private boolean isOn;
     private double factor = 1.0;
 
-    public String version() {
+    private static Camera instance = new Camera();
+
+    public Port port;
+
+    private Camera() {
+        port = new Port();
+    }
+
+    public static Camera getInstance() {
+        return instance;
+    }
+
+    public String innerVersion() {
         return "Camera " + id;
     }
 
-    public CameraType setType(String type) {
+    public class Port implements ICamera {
+        public String version() {
+            return innerVersion();
+        }
 
-        this.type = type.equals(CameraType.tail.toString()) ?
-                    CameraType.tail : type.equals(CameraType.wing.toString()) ?
+        public CameraType setType(String t) {
+
+            type = t.equals(CameraType.tail.toString()) ?
+                    CameraType.tail : t.equals(CameraType.wing.toString()) ?
                     CameraType.wing : CameraType.taxi;
 
-        return this.type;
-    }
+            return type;
+        }
 
-    public boolean on() {
-        this.isOn = true;
-        return isOn;
-    }
+        public boolean on() {
+            isOn = true;
+            return isOn;
+        }
 
-    public String record() {
-        return "Camera " + this.manufacturer;
-    }
+        public String record() {
+            return "Camera " + manufacturer;
+        }
 
-    public double zoomIn(boolean factor) {
-        return factor ? this.factor*2.0 : 2.0 ;
-    }
+        public double zoomIn(boolean f) {
+            return f ? factor*2.0 : 2.0 ;
+        }
 
-    public boolean off() {
-        this.isOn = false;
-        return isOn;
+        public boolean off() {
+            isOn = false;
+            return isOn;
+        }
     }
 }
