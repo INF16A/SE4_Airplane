@@ -6,7 +6,7 @@ public class KitchenTest {
 
     @Test
     public void TestKitchenBuild() {
-        Object o = KitchenFactory.build();
+        Object o = KitchenFactory.build("FIRST");
         Assert.assertNotNull(o);
     }
 }
