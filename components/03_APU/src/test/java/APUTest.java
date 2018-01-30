@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 public class APUTest {
 
@@ -23,7 +23,7 @@ public class APUTest {
 
     @Test
     public void increaseRPM() {
-        Assert.assertTrue(port.increaseRPM(10) == 10);
+        Assert.assertEquals(0, port.increaseRPM(10));
     }
 
     @Test
