@@ -6,6 +6,10 @@ import event.engine.*;
 import event.hydraulicPump.HydraulicPumpCompress;
 import event.hydraulicPump.HydraulicPumpDecompress;
 import event.hydraulicPump.HydraulicPumpRefilOil;
+import factory.ExhaustGasTemperatureSensorFactory;
+import factory.FuelFlowSensorFactory;
+import factory.FuelSensorFactory;
+import factory.IceDetectorProbeFactory;
 import logging.LogEngine;
 
 import java.lang.reflect.Method;
@@ -95,12 +99,25 @@ public class Wing extends Subscriber {
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
+        }
         // Factory magic 4
         fuelFlowSensors = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            fuelFlowSensors.add(FuelFlowSensorFactory.build());
+        }
         // Factory magic 6
+
         fuelSensors = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            fuelSensors.add(FuelSensorFactory.build());
+        }
         // Factory magic 6
+
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02

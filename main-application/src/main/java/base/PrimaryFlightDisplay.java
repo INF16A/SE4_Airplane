@@ -278,7 +278,7 @@ public enum PrimaryFlightDisplay {
     //StowageNumberFive
     public int stowageNumberFiveNumberOfItems;
     public ArrayList<Double> stowageNumberFiveBaggageList;
-//    public ArrayList<SpecialGood> stowageNumberFiveSpecialGoodList;
+    //public ArrayList<SpecialGood> stowageNumberFiveSpecialGoodList;
 
     //AirConditioning
     public boolean isAirConditioningOn;
@@ -287,7 +287,7 @@ public enum PrimaryFlightDisplay {
     //Kitchen
     public boolean isKitchenLocked;
     public boolean isKitchenFilled;
-//    public ArrayList<Trolley> kitchenTrolleyList;
+    //public ArrayList<Trolley> kitchenTrolleyList;
 
     //Lavatory
     public boolean isLavatoryLocked;
@@ -308,16 +308,16 @@ public enum PrimaryFlightDisplay {
 
     //CostOptimizer
     public boolean isCostOptimizerOn;
-//    public ArrayList<CheckPoint> costOptimizerCheckPointList;
+    //public ArrayList<CheckPoint> costOptimizerCheckPointList;
     public int costOptimizerCostIndex;
 
     //RouteManagement
     public boolean isRouteManagementOn;
-//    public ArrayList<CheckPoint> routeManagementCheckPointList;
+    //public ArrayList<CheckPoint> routeManagementCheckPointList;
     public double routeManagementCostIndex;
 
     //SeatManagement
-//    public ArrayList<Seat> seatManagementSeats;
+    //public ArrayList<Seat> seatManagementSeats;
     public int seatManagementNumberOfPassengersFirstClassAssigned;
     public int seatManagementNumberOfPassengersBusinessClassAssigned;
     public int seatManagementNumberOfPassengersEconomyClassAssigned;
