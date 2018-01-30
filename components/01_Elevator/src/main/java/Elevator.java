@@ -1,5 +1,3 @@
-package main.java;
-
 import com.google.common.eventbus.EventBus;
 
 public class Elevator {
@@ -11,8 +9,11 @@ public class Elevator {
     private String type;
     private String id;
     private int degree;
+    private int maxDegree;
 
     private Elevator() {
+        this.degree = 0;
+        this.maxDegree = 45;
         port = new Port();
     }
 
@@ -25,23 +26,57 @@ public class Elevator {
     }
 
     private int innerNeutral() {
-        return 0;
+        int stepsTaken = 0;
+        if (degree < 0) {
+            for(;degree < 0; degree++) {
+                stepsTaken++;
+                // send ElevatorUp Event?
+            }
+        } else if(degree > 0) {
+            for(;degree > 0; degree--) {
+                stepsTaken++;
+                // send ElevatorDown Event?
+            }
+        }
+        return stepsTaken;
     }
 
     private int innerFullDown() {
-        return 0;
+        int stepsTaken = 0;
+        for(; degree > -maxDegree; degree--) {
+            stepsTaken++;
+            // send ElevatorDown Event?
+        }
+        return stepsTaken;
     }
 
     private int innerFullUp() {
-        return 0;
+        int stepsTaken = 0;
+        for(; degree < maxDegree; degree++) {
+            stepsTaken++;
+            // send ElevatorUp Event?
+        }
+        return stepsTaken;
     }
 
     private int innerUp(int degree) {
-        return 0;
+        for(int i = 0; i < degree; i++) {
+            if(degree < maxDegree) {
+                degree++;
+                //send ElevatorUp Event?
+            }
+        }
+        return this.degree;
     }
 
     private int innerDown(int degree) {
-        return 0;
+        for(int i = 0; i < degree; i++) {
+            if (degree > -maxDegree) {
+                degree--;
+                //send ElevatorDown Event?
+            }
+        }
+        return this.degree;
     }
 
     public class Port implements IElevator {

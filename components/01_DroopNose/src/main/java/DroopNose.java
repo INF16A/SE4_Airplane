@@ -6,8 +6,11 @@ public class DroopNose {
     private String type;
     private String id;
     private int degree;
+    private int maxDegree;
 
     private DroopNose() {
+        degree = 0;
+        maxDegree = 45;
         port = new Port();
     }
 
@@ -19,25 +22,70 @@ public class DroopNose {
         return "Version 0.2";
     }
 
+    private int innerNeutral() {
+        int stepsTaken = 0;
+        if (degree < 0) {
+            for(;degree < 0; degree++) {
+                stepsTaken++;
+                //send NoseUp Event
+            }
+        } else if(degree > 0) {
+            for(;degree > 0; degree--) {
+                stepsTaken++;
+                //send NoseDown Event
+            }
+        }
+        return stepsTaken;
+    }
+
+    private int innerFullDown() {
+        int stepsTaken = 0;
+        for(; degree > -maxDegree; degree--) {
+            stepsTaken++;
+            //send NoseDown Event
+        }
+        return stepsTaken;
+    }
+
+    private int innerDown(int degree)  {
+        for(int i = 0; i < degree; i++) {
+            if(degree > -maxDegree) {
+                degree--;
+                //send NoseDown Event
+            }
+        }
+        return this.degree;
+    }
+
+    private int innerUp(int degree) {
+        for(int i = 0; i < degree; i++) {
+            if(degree < maxDegree) {
+                degree++;
+                //send NoseDown Event
+            }
+        }
+        return this.degree;
+    }
+
     public class Port implements IDroopNose {
         public String version() {
             return innerVersion();
         }
 
         public int neutral() {
-            return 0;
+            return innerNeutral();
         }
 
         public int fullDown() {
-            return 0;
+            return innerFullDown();
         }
 
         public int down(int degree) {
-            return 0;
+            return innerDown(degree);
         }
 
         public int up(int degree) {
-            return 0;
+            return innerUp(degree);
         }
     }
 }
