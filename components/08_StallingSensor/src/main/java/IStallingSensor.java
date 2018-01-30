@@ -2,7 +2,7 @@ interface IStallingSensor {
 
     String version();
 
-    int measure(int airFlow);
+    int measure(String airFlow);
 
     boolean alarm();
 }

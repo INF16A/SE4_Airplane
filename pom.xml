@@ -51,7 +51,11 @@
         <module>components/10_SatCom</module>
         <module>components/10_VHF</module>
 
-
+        <module>components/08_FireDetector</module>
+        <module>components/08_OxygenSensor</module>
+        <module>components/08_ShockSensor</module>
+        <module>components/08_TemperatureSensor</module>
+        <module>components/08_StallingSensor</module>
 
         <module>main-application</module>
     </modules>
