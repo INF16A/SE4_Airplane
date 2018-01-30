@@ -9,8 +9,11 @@ public class GearReleaseBrake {
         this.phase = phase;
     }
 
-
     public String getPhase() {
         return phase;
+    }
+
+    public String toString() {
+        return "event - " + phase + " : GearReleaseBrake";
     }
 }

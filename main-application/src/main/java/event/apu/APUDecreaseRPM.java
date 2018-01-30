@@ -20,4 +20,8 @@ public class APUDecreaseRPM {
     public String getPhase() {
         return phase;
     }
+
+    public String toString() {
+        return "event - " + phase + " : APUDecreaseRPM";
+    }
 }

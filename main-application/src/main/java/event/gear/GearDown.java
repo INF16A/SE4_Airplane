@@ -12,4 +12,8 @@ public class GearDown {
     public String getPhase() {
         return phase;
     }
+
+    public String toString() {
+        return "event - " + phase + " : GearDown";
+    }
 }
