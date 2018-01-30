@@ -9,6 +9,6 @@ public interface ICargoSystem {
     double determineTotalWeight(Stowage stowage);
     boolean secure();
     boolean lock();
-    ArrayList<Container> unlockContainer(Stowage stowage);
+    ArrayList<Container> unloadContainer(Stowage stowage);
     ArrayList<AirCargoPallet> unloadAirCargoPallet(Stowage stowage);
 }
