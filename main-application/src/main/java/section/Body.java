@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import logging.LogEngine;
 import event.Subscriber;
 
+// import factorys for sensor04
+import factory.CameraFactory;
+import factory.GPSFactory;
+import factory.RadarFactory;
+import factory.SatComFactory;
+import factory.VHFFactory;
+
 public class Body extends Subscriber {
     // Flight Controls01
     private ArrayList<Object> elevators;
@@ -165,16 +172,26 @@ public class Body extends Subscriber {
         // Factory magic 2
 
         // sensor04
+        // Factory magic 2
         cameras = new ArrayList<>();
+        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
+            cameras.add(CameraFactory.build());
         // Factory magic 2
         gPSs = new ArrayList<>();
+        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
+            gPSs.add(GPSFactory.build());
         // Factory magic 2
         radars = new ArrayList<>();
+        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
+            radars.add(RadarFactory.build());
         // Factory magic 2
         satComs = new ArrayList<>();
+        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
+            satComs.add(SatComFactory.build());
         // Factory magic 2
         vHFs = new ArrayList<>();
-        // Factory magic 2
+        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
+            vHFs.add(VHFFactory.build());
 
         // light
         antiCollisionLights = new ArrayList<>();
