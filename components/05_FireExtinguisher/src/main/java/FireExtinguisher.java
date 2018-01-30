@@ -27,9 +27,9 @@ public class FireExtinguisher {
         return "v1.0";
     }
 
-    public int innerRefill() {
+    public boolean innerRefill() {
         percentage = 100;
-        return percentage;
+        return true;
     }
 
     public int innerApply() {
@@ -51,7 +51,7 @@ public class FireExtinguisher {
             return innerVersion();
         }
 
-        public int refill() {
+        public boolean refill() {
             return innerRefill();
         }
 

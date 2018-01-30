@@ -1,4 +1,3 @@
-package main.java;
 
 import java.lang.reflect.Method;
 
@@ -40,8 +39,9 @@ public class DeIcingSystem{
     }
 
     public int innerRefill() {
+        int tmp = 1000 - amount;
         amount = 1000;
-        return amount;
+        return tmp;
     }
 
     public boolean innerActivate() {
