@@ -13,7 +13,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>13_management_seatmanagement</finalName>
+                    <finalName>seatmanagement</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
