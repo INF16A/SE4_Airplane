@@ -2,15 +2,12 @@ package section;
 
 import java.util.ArrayList;
 
+import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
 
 // import factorys for sensor04
-import factory.CameraFactory;
-import factory.GPSFactory;
-import factory.RadarFactory;
-import factory.SatComFactory;
-import factory.VHFFactory;
+
 
 public class Body extends Subscriber {
     // Flight Controls01
@@ -217,16 +214,28 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
+        for(int i = 0; i < 4; i++)
+            airConditionings.add(AirConditioningFactory.build());
         // Factory magic 4
         kitchens = new ArrayList<>();
+        for(int i = 0; i < 4; i++)
+            kitchens.add(KitchenFactory.build());
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
+        for(int i = 0; i < 8; i++)
+            lavatories.add(LavatoryFactory.build());
         // Factory magic 8
         wasteSystems = new ArrayList<>();
+        for(int i = 0; i < 10; i++)
+            wasteSystems.add(WasteSystemFactory.build());
         // Factory magic 10
         waterSystems = new ArrayList<>();
+        for(int i = 0; i < 4; i++)
+            waterSystems.add(WasteSystemFactory.build());
         // Factory magic 4
         escapeSlides = new ArrayList<>();
+        for(int i = 0; i < 14; i++)
+            escapeSlides.add(EscapeSlideFactory.build());
         // Factory magic 14
 
         // management
