@@ -22,13 +22,13 @@
         <module>components/12_stowagecargo_cargosystem</module>
         <module>components/11_light_leftnavigationlight</module>
         <module>components/11_light_tcaslight</module>
-        <!--<module>components/11_light_taxilight</module>
+        <module>components/11_light_taxilight</module>
         <module>components/11_light_tailnavigationlight</module>
         <module>components/11_light_rightnavigationlight</module>
         <module>components/11_light_logolight</module>
         <module>components/11_light_landinglight</module>
         <module>components/11_light_cargocompartmentlight</module>
-        <module>components/11_light_anticollisionlight</module>*/ -->
+        <module>components/11_light_anticollisionlight</module>
     </modules>
 
     <build>
