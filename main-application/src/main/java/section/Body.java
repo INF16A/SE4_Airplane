@@ -1,10 +1,14 @@
 package section;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import com.google.common.eventbus.Subscribe;
+import event.apu.APUDecreaseRPM;
 import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
+import recorder.FlightRecorder;
 
 // import factorys for sensor04
 
@@ -397,6 +401,29 @@ public class Body extends Subscriber {
     {
         return tCASs;
     }
+
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
+
+            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public ArrayList<Object> getTurbulentAirFlowSensors()
     {

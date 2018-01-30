@@ -10,6 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>components/03_APU</module>
+        <module>components/03_Engine</module>
+        <module>components/03_Gear</module>
+        <module>components/03_HydraulicPump</module>
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
@@ -35,6 +39,8 @@
 
         <module>main-application</module>
     </modules>
+
+
 
     <build>
         <pluginManagement>
