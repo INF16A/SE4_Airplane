@@ -8,6 +8,10 @@ import event.apu.APUDecreaseRPM;
 import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
+import factory.IceDetectorProbeFactory;
+import logging.LogEngine;
+
+import java.util.ArrayList;
 import recorder.FlightRecorder;
 
 // import factorys for sensor04
@@ -147,6 +151,8 @@ public class Body extends Subscriber {
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
+        iceDetectorProbes.add(IceDetectorProbeFactory.build());
         // Factory magic 2
 
         // sensor02
@@ -214,16 +220,30 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
+        for(int i = 0; i < 4; i++)
+            airConditionings.add(AirConditioningFactory.build());
         // Factory magic 4
         kitchens = new ArrayList<>();
+        kitchens.add(KitchenFactory.build("FIRST"));
+        kitchens.add(KitchenFactory.build("BUSINESS"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
+        kitchens.add(KitchenFactory.build("ECONOMY"));
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
+        for(int i = 0; i < 8; i++)
+            lavatories.add(LavatoryFactory.build());
         // Factory magic 8
         wasteSystems = new ArrayList<>();
+        for(int i = 0; i < 10; i++)
+            wasteSystems.add(WasteSystemFactory.build());
         // Factory magic 10
         waterSystems = new ArrayList<>();
+        for(int i = 0; i < 4; i++)
+            waterSystems.add(WaterSystemFactory.build());
         // Factory magic 4
         escapeSlides = new ArrayList<>();
+        for(int i = 0; i < 14; i++)
+            escapeSlides.add(EscapeSlideFactory.build());
         // Factory magic 14
 
         // management
