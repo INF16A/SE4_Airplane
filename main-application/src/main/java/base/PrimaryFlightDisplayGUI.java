@@ -169,9 +169,9 @@ public class PrimaryFlightDisplayGUI extends Application {
         dataList.add(weatherRadarIsOnEntry);
 
         // sensor04
-        cameraIsOnEntry = new PrimaryFlightDisplayEntry("Camera (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
+        cameraIsOnEntry = new PrimaryFlightDisplayEntry("camera (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
         dataList.add(cameraIsOnEntry);
-        cameraFactorEntry = new PrimaryFlightDisplayEntry("Camera (ZoomFactor)", Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
+        cameraFactorEntry = new PrimaryFlightDisplayEntry("camera (ZoomFactor)", Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
         dataList.add(cameraFactorEntry);
         radarIsOnEntry = new PrimaryFlightDisplayEntry( "Radar (isOn", Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn) );
         dataList.add(radarIsOnEntry);

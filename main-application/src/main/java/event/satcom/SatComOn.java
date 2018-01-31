@@ -1,9 +1,9 @@
-package event.Camera;
+package event.satcom;
 
-public class CameraOn {
+public class SatComOn {
     private String phase;
 
-    public CameraOn(String phase) {
+    public SatComOn(String phase) {
         this.phase = phase;
     }
 
@@ -12,6 +12,6 @@ public class CameraOn {
     }
 
     public String toString() {
-        return "event - " + phase + " : CameraOn";
+        return "event - " + phase + " : SatComOn";
     }
 }

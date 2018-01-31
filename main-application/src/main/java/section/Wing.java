@@ -11,11 +11,9 @@ import java.util.ArrayList;
 // Factory import for sensor04
 import factory.CameraFactory;
 import recorder.FlightRecorder;
-import event.Camera.CameraOn;
-import event.Camera.CameraOff;
-import event.Camera.CameraRecord;
-import event.Camera.CameraSetType;
-import event.Camera.CameraZoomIn;
+import event.camera.CameraOn;
+import event.camera.CameraOff;
+import event.camera.CameraZoomIn;
 
 
 public class Wing extends Subscriber {
@@ -160,7 +158,7 @@ public class Wing extends Subscriber {
                 LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
 
                 PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : Camera (isOn) = " + isCameraOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
 
                 LogEngine.instance.write("+");
         }catch (Exception e){
@@ -181,7 +179,7 @@ public class Wing extends Subscriber {
             LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOff = " + isCameraOff + "");
 
             PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
-            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : Camera (isOff) = " + isCameraOff);
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
 
             LogEngine.instance.write("+");
         }catch (Exception e){
@@ -201,7 +199,7 @@ public class Wing extends Subscriber {
             LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
 
             PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
-            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraZoomIn.getPhase() + " : Camera (Factor) = " + cameraFactor);
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraZoomIn.getPhase() + " : camera (Factor) = " + cameraFactor);
 
             LogEngine.instance.write("+");
         }catch (Exception e){

@@ -1,9 +1,9 @@
-package event.SatCom;
+package event.camera;
 
-public class SatComReceive {
+public class CameraOff {
     private String phase;
 
-    public SatComReceive(String phase) {
+    public CameraOff(String phase) {
         this.phase = phase;
     }
 
@@ -12,6 +12,6 @@ public class SatComReceive {
     }
 
     public String toString() {
-        return "event - " + phase + " : SatComReceive";
+        return "event - " + phase + " : CameraOff";
     }
 }

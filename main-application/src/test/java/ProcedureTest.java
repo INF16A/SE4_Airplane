@@ -1,5 +1,3 @@
-package test;
-
 import base.Airplane;
 import base.Cockpit;
 import logging.LogEngine;

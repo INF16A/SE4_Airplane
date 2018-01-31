@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
-import event.GPS.GPSOff;
-import event.GPS.GPSOn;
-import event.SatCom.SatComOff;
-import event.SatCom.SatComOn;
+import event.gps.GPSOff;
+import event.gps.GPSOn;
+import event.satcom.SatComOff;
+import event.satcom.SatComOn;
 import logging.LogEngine;
 import event.Subscriber;
 
@@ -18,9 +18,9 @@ import factory.GPSFactory;
 import factory.RadarFactory;
 import factory.SatComFactory;
 import factory.VHFFactory;
-import event.Camera.CameraOff;
-import event.Camera.CameraOn;
-import event.Camera.CameraZoomIn;
+import event.camera.CameraOff;
+import event.camera.CameraOn;
+import event.camera.CameraZoomIn;
 import event.radar.RadarOff;
 import event.radar.RadarOn;
 import event.radar.RadarScan;
@@ -285,7 +285,7 @@ public class Body extends Subscriber {
                 LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
 
                 PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : Camera (isOn) = " + isCameraOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
 
                 LogEngine.instance.write("+");
             }
@@ -308,7 +308,7 @@ public class Body extends Subscriber {
                 LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOn = " + isCameraOff + "");
 
                 PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : Camera (isOff) = " + isCameraOff);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
 
                 LogEngine.instance.write("+");
             }
@@ -331,7 +331,7 @@ public class Body extends Subscriber {
                 LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
 
                 PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraZoomIn.getPhase() + " : Camera (Factor) = " + cameraFactor);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraZoomIn.getPhase() + " : camera (Factor) = " + cameraFactor);
 
                 LogEngine.instance.write("+");
             }

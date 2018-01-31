@@ -1,19 +1,18 @@
 package base;
 
 import com.google.common.eventbus.EventBus;
-import event.Camera.CameraOff;
-import event.Camera.CameraOn;
-import event.Camera.CameraZoomIn;
-import event.GPS.GPSOn;
-import event.SatCom.SatComOn;
-import event.radar.RadarOn;
+import event.camera.CameraOff;
+import event.camera.CameraOn;
+import event.camera.CameraZoomIn;
+import event.gps.GPSOn;
+import event.satcom.SatComOn;
 import event.radar.RadarOff;
 import event.radar.RadarScan;
-import event.SatCom.SatComOff;
+import event.satcom.SatComOff;
 import event.Subscriber;
 import event.VHF.VHFOff;
 import event.VHF.VHFOn;
-import event.GPS.GPSOff;
+import event.gps.GPSOff;
 import section.Body;
 import section.Wing;
 

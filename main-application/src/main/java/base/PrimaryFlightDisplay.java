@@ -215,7 +215,7 @@ public enum PrimaryFlightDisplay {
     public boolean isLeftWingTurbulentAirFlowSensorAlarm;
     public boolean isRightWingTurbulentAirFlowSensorAlarm;
 
-    //Camera
+    //camera
     public boolean isCameraOn;
     public double cameraFactor;
 
