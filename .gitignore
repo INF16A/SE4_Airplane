@@ -4,6 +4,8 @@ build
 out
 *.db.properties
 *.db.script
+*.db.lck
+*.db.log
 **/target/
 *.iml
 
