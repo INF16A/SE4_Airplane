@@ -1,4 +1,4 @@
-public interface IShockSensor {
+interface IShockSensor {
 
     String version();
 

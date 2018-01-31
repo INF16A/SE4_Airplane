@@ -15,17 +15,14 @@ public class FireDetector {
 
     public class Port implements IFireDetector {
 
-        @Override
         public String version() {
             return innerVersion();
         }
 
-        @Override
         public boolean scan(String air) {
             return air.contains("Smoke");
         }
 
-        @Override
         public boolean alarm() {
             return isAlarm;
         }
