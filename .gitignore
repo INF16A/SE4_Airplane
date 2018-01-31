@@ -8,5 +8,5 @@ out
 *.iml
 
 .DS_Store
-main-application/log
+main-application/log/*.log
 *.jar
