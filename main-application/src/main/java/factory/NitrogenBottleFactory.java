@@ -1,4 +1,4 @@
-package main.java.factory;
+package factory;
 
 import configuration.Configuration;
 
@@ -13,7 +13,7 @@ public class NitrogenBottleFactory {
 		try {
 			URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/nitrogenbottle.jar").toURI().toURL()};
 			URLClassLoader urlClassLoader = new URLClassLoader(urls, NitrogenBottleFactory.class.getClassLoader());
-			Class nitrogenBottleClass = Class.forName("NitrogenBottleRefill",true,urlClassLoader);
+			Class nitrogenBottleClass = Class.forName("NitrogenBottle",true,urlClassLoader);
 			Object nitrogenBottleInstance = nitrogenBottleClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
 			componentPort = nitrogenBottleClass.getDeclaredField("port").get(nitrogenBottleInstance);
 		} catch (Exception e) {
