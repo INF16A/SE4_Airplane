@@ -5,6 +5,13 @@ import java.util.ArrayList;
 
 import com.google.common.eventbus.Subscribe;
 import event.apu.APUDecreaseRPM;
+import event.apu.APUIncreaseRPM;
+import event.apu.APUShutdown;
+import event.apu.APUStart;
+import event.gear.*;
+import event.hydraulicPump.HydraulicPumpCompress;
+import event.hydraulicPump.HydraulicPumpDecompress;
+import event.hydraulicPump.HydraulicPumpRefilOil;
 import factory.*;
 import logging.LogEngine;
 import event.Subscriber;
@@ -181,19 +188,19 @@ public class Body extends Subscriber {
 
         // sensor04
         cameras = new ArrayList<>();
-        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
+        for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++)
             cameras.add(CameraFactory.build());
         gPSs = new ArrayList<>();
-        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
+        for (int gpsIndex = 0; gpsIndex < 2; gpsIndex++)
             gPSs.add(GPSFactory.build());
         radars = new ArrayList<>();
-        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
+        for (int radarIndex = 0; radarIndex < 2; radarIndex++)
             radars.add(RadarFactory.build());
         satComs = new ArrayList<>();
-        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
+        for (int satComIndex = 0; satComIndex < 2; satComIndex++)
             satComs.add(SatComFactory.build());
         vHFs = new ArrayList<>();
-        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
+        for (int vhfIndex = 0; vhfIndex < 2; vhfIndex++)
             vHFs.add(VHFFactory.build());
 
         // light
@@ -267,175 +274,240 @@ public class Body extends Subscriber {
         }
     }
 
-    public ArrayList<Object> getElevators()
-    {
+    public ArrayList<Object> getElevators() {
         return elevators;
     }
 
-    public ArrayList<Object> getRudders()
-    {
+    public ArrayList<Object> getRudders() {
         return rudders;
     }
 
-    public ArrayList<Object> getApus()
-    {
+    public ArrayList<Object> getApus() {
         return apus;
     }
 
-    public ArrayList<Object> getGears()
-    {
+    public ArrayList<Object> getGears() {
         return gears;
     }
 
-    public ArrayList<Object> getHydraulicPumps()
-    {
+    public ArrayList<Object> getHydraulicPumps() {
         return hydraulicPumps;
     }
 
-    public ArrayList<Object> getBulkCargoDoors()
-    {
+    public ArrayList<Object> getBulkCargoDoors() {
         return bulkCargoDoors;
     }
 
-    public ArrayList<Object> getCrewDoors()
-    {
+    public ArrayList<Object> getCrewDoors() {
         return crewDoors;
     }
 
-    public ArrayList<Object> getEmergencyExitDoors()
-    {
+    public ArrayList<Object> getEmergencyExitDoors() {
         return emergencyExitDoors;
     }
 
-    public ArrayList<Object> getGearDoors()
-    {
+    public ArrayList<Object> getGearDoors() {
         return gearDoors;
     }
 
-    public ArrayList<Object> getaPUOilTanks()
-    {
+    public ArrayList<Object> getaPUOilTanks() {
         return aPUOilTanks;
     }
 
-    public ArrayList<Object> getBatteries()
-    {
+    public ArrayList<Object> getBatteries() {
         return batteries;
     }
 
-    public ArrayList<Object> getNitrogenBottles()
-    {
+    public ArrayList<Object> getNitrogenBottles() {
         return nitrogenBottles;
     }
 
-    public ArrayList<Object> getOxygenBottles()
-    {
+    public ArrayList<Object> getOxygenBottles() {
         return oxygenBottles;
     }
 
-    public ArrayList<Object> getPotableWaterTanks()
-    {
+    public ArrayList<Object> getPotableWaterTanks() {
         return potableWaterTanks;
     }
 
-    public ArrayList<Object> getWasteWaterTanks()
-    {
+    public ArrayList<Object> getWasteWaterTanks() {
         return wasteWaterTanks;
     }
 
-    public ArrayList<Object> getFireExtinguishers()
-    {
+    public ArrayList<Object> getFireExtinguishers() {
         return fireExtinguishers;
     }
 
-    public ArrayList<Object> getDeIcingSystems()
-    {
+    public ArrayList<Object> getDeIcingSystems() {
         return deIcingSystems;
     }
 
-    public ArrayList<Object> getFirstClassSeats()
-    {
+    public ArrayList<Object> getFirstClassSeats() {
         return firstClassSeats;
     }
 
-    public ArrayList<Object> getBusinessClassSeats()
-    {
+    public ArrayList<Object> getBusinessClassSeats() {
         return businessClassSeats;
     }
 
-    public ArrayList<Object> getTouristClassSeats()
-    {
+    public ArrayList<Object> getTouristClassSeats() {
         return touristClassSeats;
     }
 
-    public ArrayList<Object> getCrewSeats()
-    {
+    public ArrayList<Object> getCrewSeats() {
         return crewSeats;
     }
 
-    public ArrayList<Object> getIceDetectorProbes()
-    {
+    public ArrayList<Object> getIceDetectorProbes() {
         return iceDetectorProbes;
     }
 
-    public ArrayList<Object> getFireDetectors()
-    {
+    public ArrayList<Object> getFireDetectors() {
         return fireDetectors;
     }
 
-    public ArrayList<Object> getOxygenSensors()
-    {
+    public ArrayList<Object> getOxygenSensors() {
         return oxygenSensors;
     }
 
-    public ArrayList<Object> getShockSensors()
-    {
+    public ArrayList<Object> getShockSensors() {
         return shockSensors;
     }
 
-    public ArrayList<Object> getStallingSensors()
-    {
+    public ArrayList<Object> getStallingSensors() {
         return stallingSensors;
     }
 
-    public ArrayList<Object> getTemperatureSensors()
-    {
+    public ArrayList<Object> getTemperatureSensors() {
         return temperatureSensors;
     }
 
-    public ArrayList<Object> getAirflowSensors()
-    {
+    public ArrayList<Object> getAirflowSensors() {
         return airflowSensors;
     }
 
-    public ArrayList<Object> getPitotTubes()
-    {
+    public ArrayList<Object> getPitotTubes() {
         return pitotTubes;
     }
 
-    public ArrayList<Object> getRadarAltimeters()
-    {
+    public ArrayList<Object> getRadarAltimeters() {
         return radarAltimeters;
     }
 
-    public ArrayList<Object> gettCASs()
-    {
+    public ArrayList<Object> gettCASs() {
         return tCASs;
     }
 
+    public ArrayList<Object> getTurbulentAirFlowSensors() {
+        return turbulentAirFlowSensors;
+    }
+
+    public ArrayList<Object> getCameras() {
+        return cameras;
+    }
+
+    public ArrayList<Object> getgPSs() {
+        return gPSs;
+    }
+
+    public ArrayList<Object> getRadars() {
+        return radars;
+    }
+
+    public ArrayList<Object> getSatComs() {
+        return satComs;
+    }
+
+    public ArrayList<Object> getvHFs() {
+        return vHFs;
+    }
+
+    public ArrayList<Object> getAntiCollisionLights() {
+        return antiCollisionLights;
+    }
+
+    public ArrayList<Object> getCargoCompartmentLights() {
+        return cargoCompartmentLights;
+    }
+
+    public ArrayList<Object> getLandingLights() {
+        return landingLights;
+    }
+
+    public ArrayList<Object> getLogoLights() {
+        return logoLights;
+    }
+
+    public ArrayList<Object> getTailNavigationLights() {
+        return tailNavigationLights;
+    }
+
+    public ArrayList<Object> getTaxiLights() {
+        return taxiLights;
+    }
+
+    public ArrayList<Object> gettCASLights() {
+        return tCASLights;
+    }
+
+    public ArrayList<Object> getCargoSystems() {
+        return cargoSystems;
+    }
+
+    public ArrayList<Object> getStowageNumberFives() {
+        return stowageNumberFives;
+    }
+
+    public ArrayList<Object> getAirConditionings() {
+        return airConditionings;
+    }
+
+    public ArrayList<Object> getKitchens() {
+        return kitchens;
+    }
+
+    public ArrayList<Object> getLavatories() {
+        return lavatories;
+    }
+
+    public ArrayList<Object> getWasteSystems() {
+        return wasteSystems;
+    }
+
+    public ArrayList<Object> getWaterSystems() {
+        return waterSystems;
+    }
+
+    public ArrayList<Object> getEscapeSlides() {
+        return escapeSlides;
+    }
+
+    public ArrayList<Object> getCostOptimizers() {
+        return costOptimizers;
+    }
+
+    public ArrayList<Object> getRouteManagements() {
+        return routeManagements;
+    }
+
+    public ArrayList<Object> getSeatManagements() {
+        return seatManagements;
+    }
+
     @Subscribe
-    public void receive(APUDecreaseRPM apuDecreaseRPM) {
-        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+    public void receive(APUStart apuStart) {
+        LogEngine.instance.write("+ Body.receive(" + apuStart + ")");
 
         try {
 
-            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+            Method apuStartMethod = apus.get(0).getClass().getDeclaredMethod("start", int.class);
 
-            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
+            LogEngine.instance.write("apuStartMethode = " + apuStartMethod);
 
-            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
-            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+            apuStartMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuStart.getPhase() + " : apuStarted");
 
-            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuStart.getPhase() + " : apuStarted");
 
             LogEngine.instance.write("+");
 
@@ -445,123 +517,271 @@ public class Body extends Subscriber {
     }
 
 
-    public ArrayList<Object> getTurbulentAirFlowSensors()
-    {
-        return turbulentAirFlowSensors;
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("decreaseRPM", int.class);
+
+            LogEngine.instance.write("decreaseRPMMethod = " + apuDecreaseRPMMethod);
+
+            int decreasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getValue());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : decreasedRPM = " + decreasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : DecreasedRPM = " + decreasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getCameras()
-    {
-        return cameras;
+    @Subscribe
+    public void receive(APUIncreaseRPM apuIncreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuIncreaseRPM + ")");
+
+        try {
+
+            Method apuIncreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("increaseRPMMethod = " + apuIncreaseRPMMethod);
+
+            int increasedRPM = (int) apuIncreaseRPMMethod.invoke(apus.get(0), apuIncreaseRPM.getValue());
+            LogEngine.instance.write(apuIncreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuIncreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getgPSs()
-    {
-        return gPSs;
+    @Subscribe
+    public void receive(APUShutdown apuShutdown) {
+        LogEngine.instance.write("+ Body.receive(" + apuShutdown + ")");
+
+        try {
+
+            Method apuShutdownMethod = apus.get(0).getClass().getDeclaredMethod("shutdown", int.class);
+
+            LogEngine.instance.write("apuStartMethode = " + apuShutdownMethod);
+
+            apuShutdownMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuShutdown.getPhase() + " : apuShutdown");
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuShutdown.getPhase() + " : apuShutdown");
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getRadars()
-    {
-        return radars;
+    @Subscribe
+    public void receive(GearSetType gearSetType) {
+        LogEngine.instance.write("+ Body.receive(" + gearSetType + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearSetTypeMethod = gears.get(i).getClass().getDeclaredMethod("setType", String.class);
+
+                LogEngine.instance.write("increaseRPMMethod = " + gearSetTypeMethod);
+
+                int newGearSetType = (int) gearSetTypeMethod.invoke(gears.get(i), gearSetType.getType());
+                LogEngine.instance.write(gearSetType.getPhase() + " : increasedRPM = " + newGearSetType);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearSetType.getPhase() + " : gearSetType = " + newGearSetType);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getSatComs()
-    {
-        return satComs;
+    @Subscribe
+    public void receive(GearDown gearDown) {
+        LogEngine.instance.write("+ Body.receive(" + gearDown + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearDownMethod = gears.get(i).getClass().getDeclaredMethod("down", String.class);
+
+                LogEngine.instance.write("gearDownMethode = " + gearDownMethod);
+
+                boolean newGearDown = (boolean) gearDownMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearDown.getPhase() + " : gearDown = " + newGearDown);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearDown.getPhase() + " : gearDown = " + gearDown);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getvHFs()
-    {
-        return vHFs;
+    @Subscribe
+    public void receive(GearUp gearUp) {
+        LogEngine.instance.write("+ Body.receive(" + gearUp + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearUpMethod = gears.get(i).getClass().getDeclaredMethod("up", String.class);
+
+                LogEngine.instance.write("gearUpMethode = " + gearUpMethod);
+
+                boolean newGearUp = (boolean) gearUpMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearUp.getPhase() + " : gearUp = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearUp.getPhase() + " : gearUp = " + gearUp);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getAntiCollisionLights()
-    {
-        return antiCollisionLights;
+    @Subscribe
+    public void receive(GearSetBrake gearSetBrake) {
+        LogEngine.instance.write("+ Body.receive(" + gearSetBrake + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearSetBrakeMethod;
+                int newGearUp;
+                if(gearSetBrake.getPercent() == 0)
+                {
+                    gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake");
+                    LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
+                    newGearUp = (int) gearSetBrakeMethod.invoke(gears.get(i));
+                }else
+                {
+                    gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake", int.class);
+
+                    LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
+                    newGearUp = (int) gearSetBrakeMethod.invoke(gears.get(i), gearSetBrake.getPercent());
+                }
+
+                LogEngine.instance.write(gearSetBrake.getPhase() + " : gearSetBrake = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearSetBrake.getPhase() + " : gearSetBrake = " + gearSetBrake);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getCargoCompartmentLights()
-    {
-        return cargoCompartmentLights;
+    @Subscribe
+    public void receive(GearReleaseBrake gearReleaseBrake) {
+        LogEngine.instance.write("+ Body.receive(" + gearReleaseBrake + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearReleaseBrakeMethod = gears.get(i).getClass().getDeclaredMethod("releaseBrake");
+
+                LogEngine.instance.write("gearReleaseBrakeMethode = " + gearReleaseBrakeMethod);
+
+                int newGearUp = (int) gearReleaseBrakeMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearReleaseBrake.getPhase() + " : gearReleaseBrake = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearReleaseBrake.getPhase() + " : gearReleaseBrake = " + gearReleaseBrake);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getLandingLights()
-    {
-        return landingLights;
+
+    //Hydraulic Pump
+    @Subscribe
+    public void receive (HydraulicPumpCompress hydraulicPumpCompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpCompress + ")");
+
+        try {
+            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex < 6;hydraulicPumpCompressIndex++) {
+                Method hydraulicPumpCompressMethod = null;
+                int compress = 0;
+                if (hydraulicPumpCompress.getAmount() == 0){
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress");
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex));
+                }
+                else{
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress", int.class);
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getLogoLights()
-    {
-        return logoLights;
+    @Subscribe
+    public void receive (HydraulicPumpDecompress hydraulicPumpDecompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpDecompress + ")");
+
+        try {
+            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 6;hydraulicPumpDecompressIndex++) {
+                Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
+                LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
+
+                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(hydraulicPumps.get(hydraulicPumpDecompressIndex));
+                LogEngine.instance.write(hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getTailNavigationLights()
-    {
-        return tailNavigationLights;
+    @Subscribe
+    public void receive (HydraulicPumpRefilOil hydraulicPumpRefilOil) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpRefilOil + ")");
+
+        try {
+            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 6;hydraulicPumpRefilOilIndex++) {
+                Method hydraulicPumpRefilOilMethod = null;
+                int refilOil = 0;
+                if (hydraulicPumpRefilOil.getAmount() == 0){
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil");
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex));
+                }
+                else{
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil", int.class);
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<Object> getTaxiLights()
-    {
-        return taxiLights;
-    }
-
-    public ArrayList<Object> gettCASLights()
-    {
-        return tCASLights;
-    }
-
-    public ArrayList<Object> getCargoSystems()
-    {
-        return cargoSystems;
-    }
-
-    public ArrayList<Object> getStowageNumberFives()
-    {
-        return stowageNumberFives;
-    }
-
-    public ArrayList<Object> getAirConditionings()
-    {
-        return airConditionings;
-    }
-
-    public ArrayList<Object> getKitchens()
-    {
-        return kitchens;
-    }
-
-    public ArrayList<Object> getLavatories()
-    {
-        return lavatories;
-    }
-
-    public ArrayList<Object> getWasteSystems()
-    {
-        return wasteSystems;
-    }
-
-    public ArrayList<Object> getWaterSystems()
-    {
-        return waterSystems;
-    }
-
-    public ArrayList<Object> getEscapeSlides()
-    {
-        return escapeSlides;
-    }
-
-    public ArrayList<Object> getCostOptimizers()
-    {
-        return costOptimizers;
-    }
-
-    public ArrayList<Object> getRouteManagements()
-    {
-        return routeManagements;
-    }
-
-    public ArrayList<Object> getSeatManagements()
-    {
-        return seatManagements;
-    }
 }

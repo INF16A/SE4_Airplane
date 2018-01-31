@@ -1,4 +1,3 @@
-package main.java;
 
 import java.lang.reflect.Method;
 
@@ -10,7 +9,7 @@ public class EngineOilTank {
     private String type;
     private String id;
     private int level;
-    private Port port;
+    public Port port;
 
     private EngineOilTank() {
         this.manufacturer="mEngingeOilTank";
@@ -25,7 +24,7 @@ public class EngineOilTank {
     }
 
     public String innerVersion() {
-        return "v1";
+        return "v1.0";
     }
 
     public int innerIncreaseLevel(int value) {
