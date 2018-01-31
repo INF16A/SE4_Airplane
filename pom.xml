@@ -51,7 +51,10 @@
         <module>components/10_SatCom</module>
         <module>components/10_VHF</module>
 
-
+        <module>components/04_BulkCargoDoor</module>
+        <module>components/04_CrewDoor</module>
+        <module>components/04_EmergencyExitDoor</module>
+        <module>components/04_GearDoor</module>
 
         <module>main-application</module>
     </modules>
