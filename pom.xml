@@ -24,6 +24,12 @@
         <module>components/03_Gear</module>
         <module>components/03_HydraulicPump</module>
 
+        <module>components/09_AirflowSensor</module>
+        <module>components/09_PitotTube</module>
+        <module>components/09_RadarAltimeter</module>
+        <module>components/09_TCAS</module>
+        <module>components/09_TurbulentAirFlowSensor</module>
+
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
