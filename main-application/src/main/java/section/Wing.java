@@ -8,13 +8,9 @@ import event.Subscriber;
 import factory.*;
 import event.engine.*;
 import event.flap.FlapSetLevel;
-import event.hydraulicPump.HydraulicPumpCompress;
-import event.hydraulicPump.HydraulicPumpDecompress;
-import event.hydraulicPump.HydraulicPumpRefilOil;
-import event.sensors.airflowSensor.AirflowSensorAlarm;
-import event.sensors.airflowSensor.AirflowSensorMeasure;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import event.hydraulicPump.*;
+import event.sensors.airflowSensor.*;
+import event.sensors.turbulentAirFlowSensor.*;
 import factory.AirflowSensorFactory;
 import factory.CameraFactory;
 import factory.ExhaustGasTemperatureSensorFactory;
@@ -68,7 +64,7 @@ public class Wing extends Subscriber {
     private ArrayList<Object> airflowSensors;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameraPorts;
+    private ArrayList<Object> cameras;
     // light
     private ArrayList<Object> landingLights;
     private ArrayList<Object> leftNavigationLights;
@@ -93,11 +89,11 @@ public class Wing extends Subscriber {
 
         // Flight Controls02
         leftAilerons = new ArrayList<>();
-        // Factory magic 3
+        for (int i = 0; i < 3; i++) leftAilerons.add(LeftAileronFactory.build("", "", ""));
         rightAilerons = new ArrayList<>();
-        // Factory magic 3
+        for (int i = 0; i < 3; i++) rightAilerons.add(RightAileronFactory.build("", "", ""));
         spoilers = new ArrayList<>();
-        // Factory magic 8
+        for (int i = 0; i < 8; i++) spoilers.add(SpoilerFactory.build("", "", ""));
 
         // apu_engine_gear_pump
         engines = new ArrayList<>();
@@ -115,18 +111,11 @@ public class Wing extends Subscriber {
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
-        }
+        for (int i = 0; i < 4; i++) exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
         fuelFlowSensors = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            fuelFlowSensors.add(FuelFlowSensorFactory.build());
-        }
-
+        for (int i = 0; i < 6; i++) fuelFlowSensors.add(FuelFlowSensorFactory.build());
         fuelSensors = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            fuelSensors.add(FuelSensorFactory.build());
-        }
+        for (int i = 0; i < 6; i++) fuelSensors.add(FuelSensorFactory.build());
 
         iceDetectorProbes = new ArrayList<>();
         iceDetectorProbes.add(IceDetectorProbeFactory.build());
@@ -153,16 +142,17 @@ public class Wing extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        //Factory magic 1
-        cameraPorts = new ArrayList<>();
-        cameraPorts.add(CameraFactory.build());
+        cameras = new ArrayList<>();
+        cameras.add(CameraFactory.build());
 
         // light
         landingLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
         leftNavigationLights = new ArrayList<>();
+        for (int i = 0; i < 1; i++) leftNavigationLights.add(LeftNavigationLightFactory.build());
         // Factory magic 1, LightType = red, Position = port
         rightNavigationLights = new ArrayList<>();
+        for (int i = 0; i < 1; i++) rightNavigationLights.add(RightNavigationLightFactory.build());
         // Factory magic 1, LightType = green, Position = starboard
     }
 
@@ -675,11 +665,6 @@ public class Wing extends Subscriber {
 
 
 
-
-
-
-
-
     public ArrayList<Object> getDroopNoses()
     {
         return droopNoses;
@@ -787,7 +772,7 @@ public class Wing extends Subscriber {
 
     public ArrayList<Object> getCameras()
     {
-        return cameraPorts;
+        return cameras;
     }
 
     public ArrayList<Object> getLandingLights()
@@ -804,5 +789,5 @@ public class Wing extends Subscriber {
     {
         return rightNavigationLights;
     }
-
+    
 }
