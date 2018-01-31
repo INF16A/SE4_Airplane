@@ -23,9 +23,7 @@ import java.util.ArrayList;
 
 import factory.CameraFactory;
 import recorder.FlightRecorder;
-import event.camera.CameraOn;
-import event.camera.CameraOff;
-import event.camera.CameraZoomIn;
+import event.Camera.*;
 
 
 public class Wing extends Subscriber {
