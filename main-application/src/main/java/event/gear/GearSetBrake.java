@@ -22,4 +22,9 @@ public class GearSetBrake {
     public String getPhase() {
         return phase;
     }
+
+    public String toString() {
+        return "event - " + phase + " : GearSetBrake";
+    }
+
 }

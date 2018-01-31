@@ -39,6 +39,13 @@ import java.util.ArrayList;
 
 import com.google.common.eventbus.Subscribe;
 import event.apu.APUDecreaseRPM;
+import event.apu.APUIncreaseRPM;
+import event.apu.APUShutdown;
+import event.apu.APUStart;
+import event.gear.*;
+import event.hydraulicPump.HydraulicPumpCompress;
+import event.hydraulicPump.HydraulicPumpDecompress;
+import event.hydraulicPump.HydraulicPumpRefilOil;
 import factory.*;
 import logging.LogEngine;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
@@ -82,6 +89,7 @@ import logging.LogEngine;
 import java.util.ArrayList;
 import recorder.FlightRecorder;
 
+// import factorys for sensor04
 
 
 public class Body extends Subscriber {
@@ -292,7 +300,7 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
-        for (int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
             airConditionings.add(AirConditioningFactory.build());
         // Factory magic 4
         kitchens = new ArrayList<>();
@@ -302,19 +310,19 @@ public class Body extends Subscriber {
         kitchens.add(KitchenFactory.build("ECONOMY"));
         // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
-        for (int i = 0; i < 8; i++)
+        for(int i = 0; i < 8; i++)
             lavatories.add(LavatoryFactory.build());
         // Factory magic 8
         wasteSystems = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
+        for(int i = 0; i < 10; i++)
             wasteSystems.add(WasteSystemFactory.build());
         // Factory magic 10
         waterSystems = new ArrayList<>();
-        for (int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
             waterSystems.add(WaterSystemFactory.build());
         // Factory magic 4
         escapeSlides = new ArrayList<>();
-        for (int i = 0; i < 14; i++)
+        for(int i = 0; i < 14; i++)
             escapeSlides.add(EscapeSlideFactory.build());
         // Factory magic 14
 
@@ -497,29 +505,6 @@ public class Body extends Subscriber {
         return tCASs;
     }
 
-    @Subscribe
-    public void receive(APUDecreaseRPM apuDecreaseRPM) {
-        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
-
-        try {
-
-            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
-
-            LogEngine.instance.write("weatherRadarOnMethod = " + apuDecreaseRPMMethod);
-
-            int increasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getRpm());
-            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
-
-            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
-
-            LogEngine.instance.write("+");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
     public ArrayList<Object> getTurbulentAirFlowSensors() {
         return turbulentAirFlowSensors;
     }
@@ -614,6 +599,296 @@ public class Body extends Subscriber {
 
     public ArrayList<Object> getSeatManagements() {
         return seatManagements;
+    }
+
+    @Subscribe
+    public void receive(APUStart apuStart) {
+        LogEngine.instance.write("+ Body.receive(" + apuStart + ")");
+
+        try {
+
+            Method apuStartMethod = apus.get(0).getClass().getDeclaredMethod("start", int.class);
+
+            LogEngine.instance.write("apuStartMethode = " + apuStartMethod);
+
+            apuStartMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuStart.getPhase() + " : apuStarted");
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuStart.getPhase() + " : apuStarted");
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    @Subscribe
+    public void receive(APUDecreaseRPM apuDecreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuDecreaseRPM + ")");
+
+        try {
+
+            Method apuDecreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("decreaseRPM", int.class);
+
+            LogEngine.instance.write("decreaseRPMMethod = " + apuDecreaseRPMMethod);
+
+            int decreasedRPM = (int) apuDecreaseRPMMethod.invoke(apus.get(0), apuDecreaseRPM.getValue());
+            LogEngine.instance.write(apuDecreaseRPM.getPhase() + " : decreasedRPM = " + decreasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuDecreaseRPM.getPhase() + " : DecreasedRPM = " + decreasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(APUIncreaseRPM apuIncreaseRPM) {
+        LogEngine.instance.write("+ Body.receive(" + apuIncreaseRPM + ")");
+
+        try {
+
+            Method apuIncreaseRPMMethod = apus.get(0).getClass().getDeclaredMethod("increaseRPM", int.class);
+
+            LogEngine.instance.write("increaseRPMMethod = " + apuIncreaseRPMMethod);
+
+            int increasedRPM = (int) apuIncreaseRPMMethod.invoke(apus.get(0), apuIncreaseRPM.getValue());
+            LogEngine.instance.write(apuIncreaseRPM.getPhase() + " : increasedRPM = " + increasedRPM);
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuIncreaseRPM.getPhase() + " : IncreasedRPM = " + increasedRPM);
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(APUShutdown apuShutdown) {
+        LogEngine.instance.write("+ Body.receive(" + apuShutdown + ")");
+
+        try {
+
+            Method apuShutdownMethod = apus.get(0).getClass().getDeclaredMethod("shutdown", int.class);
+
+            LogEngine.instance.write("apuStartMethode = " + apuShutdownMethod);
+
+            apuShutdownMethod.invoke(apus.get(0));
+            LogEngine.instance.write(apuShutdown.getPhase() + " : apuShutdown");
+
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(), apuShutdown.getPhase() + " : apuShutdown");
+
+            LogEngine.instance.write("+");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(GearSetType gearSetType) {
+        LogEngine.instance.write("+ Body.receive(" + gearSetType + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearSetTypeMethod = gears.get(i).getClass().getDeclaredMethod("setType", String.class);
+
+                LogEngine.instance.write("increaseRPMMethod = " + gearSetTypeMethod);
+
+                int newGearSetType = (int) gearSetTypeMethod.invoke(gears.get(i), gearSetType.getType());
+                LogEngine.instance.write(gearSetType.getPhase() + " : increasedRPM = " + newGearSetType);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearSetType.getPhase() + " : gearSetType = " + newGearSetType);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(GearDown gearDown) {
+        LogEngine.instance.write("+ Body.receive(" + gearDown + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearDownMethod = gears.get(i).getClass().getDeclaredMethod("down", String.class);
+
+                LogEngine.instance.write("gearDownMethode = " + gearDownMethod);
+
+                boolean newGearDown = (boolean) gearDownMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearDown.getPhase() + " : gearDown = " + newGearDown);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearDown.getPhase() + " : gearDown = " + gearDown);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(GearUp gearUp) {
+        LogEngine.instance.write("+ Body.receive(" + gearUp + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearUpMethod = gears.get(i).getClass().getDeclaredMethod("up", String.class);
+
+                LogEngine.instance.write("gearUpMethode = " + gearUpMethod);
+
+                boolean newGearUp = (boolean) gearUpMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearUp.getPhase() + " : gearUp = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearUp.getPhase() + " : gearUp = " + gearUp);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(GearSetBrake gearSetBrake) {
+        LogEngine.instance.write("+ Body.receive(" + gearSetBrake + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearSetBrakeMethod;
+                int newGearUp;
+                if(gearSetBrake.getPercent() == 0)
+                {
+                    gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake");
+                    LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
+                    newGearUp = (int) gearSetBrakeMethod.invoke(gears.get(i));
+                }else
+                {
+                    gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake", int.class);
+
+                    LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
+                    newGearUp = (int) gearSetBrakeMethod.invoke(gears.get(i), gearSetBrake.getPercent());
+                }
+
+                LogEngine.instance.write(gearSetBrake.getPhase() + " : gearSetBrake = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearSetBrake.getPhase() + " : gearSetBrake = " + gearSetBrake);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(GearReleaseBrake gearReleaseBrake) {
+        LogEngine.instance.write("+ Body.receive(" + gearReleaseBrake + ")");
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                Method gearReleaseBrakeMethod = gears.get(i).getClass().getDeclaredMethod("releaseBrake");
+
+                LogEngine.instance.write("gearReleaseBrakeMethode = " + gearReleaseBrakeMethod);
+
+                int newGearUp = (int) gearReleaseBrakeMethod.invoke(gears.get(i));
+                LogEngine.instance.write(gearReleaseBrake.getPhase() + " : gearReleaseBrake = " + newGearUp);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), gearReleaseBrake.getPhase() + " : gearReleaseBrake = " + gearReleaseBrake);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    //Hydraulic Pump
+    @Subscribe
+    public void receive (HydraulicPumpCompress hydraulicPumpCompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpCompress + ")");
+
+        try {
+            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex < 6;hydraulicPumpCompressIndex++) {
+                Method hydraulicPumpCompressMethod = null;
+                int compress = 0;
+                if (hydraulicPumpCompress.getAmount() == 0){
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress");
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex));
+                }
+                else{
+                    hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress", int.class);
+                    LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive (HydraulicPumpDecompress hydraulicPumpDecompress) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpDecompress + ")");
+
+        try {
+            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 6;hydraulicPumpDecompressIndex++) {
+                Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
+                LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
+
+                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(hydraulicPumps.get(hydraulicPumpDecompressIndex));
+                LogEngine.instance.write(hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive (HydraulicPumpRefilOil hydraulicPumpRefilOil) {
+        LogEngine.instance.write("+ Body.receive(" + hydraulicPumpRefilOil + ")");
+
+        try {
+            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 6;hydraulicPumpRefilOilIndex++) {
+                Method hydraulicPumpRefilOilMethod = null;
+                int refilOil = 0;
+                if (hydraulicPumpRefilOil.getAmount() == 0){
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil");
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex));
+                }
+                else{
+                    hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil", int.class);
+                    LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
+                }
+                LogEngine.instance.write(hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Subscribe
