@@ -10,8 +10,8 @@ import event.radar.RadarOff;
 import event.radar.RadarScan;
 import event.satcom.SatComOff;
 import event.Subscriber;
-import event.VHF.VHFOff;
-import event.VHF.VHFOn;
+import event.vhf.VHFOff;
+import event.vhf.VHFOn;
 import event.gps.GPSOff;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
 import event.sensors.airflowSensor.AirflowSensorMeasure;
@@ -142,7 +142,7 @@ public class Airplane implements IAirplane {
         String environment = "Cloud, Rain, Wind, CLoud";
         eventBus.post(new RadarScan(phase, environment));
 
-        String phase = "leftTurn";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
