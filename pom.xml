@@ -14,6 +14,11 @@
              drücken und Create Module auswählen
         -->
 
+        <module>components/01_DroopNose</module>
+        <module>components/01_Elevator</module>
+        <module>components/01_Flap</module>
+        <module>components/01_Slat</module>
+
         <module>components/02_LeftAileron</module>
         <module>components/02_RightAileron</module>
         <module>components/02_Rudder</module>
@@ -23,26 +28,6 @@
         <module>components/03_Engine</module>
         <module>components/03_Gear</module>
         <module>components/03_HydraulicPump</module>
-
-        <module>components/09_AirflowSensor</module>
-        <module>components/09_PitotTube</module>
-        <module>components/09_RadarAltimeter</module>
-        <module>components/09_TCAS</module>
-        <module>components/09_TurbulentAirFlowSensor</module>
-
-        <module>components/14_management_costoptimizer</module>
-        <module>components/14_management_routemanagement</module>
-        <module>components/14_management_seatmanagement</module>
-
-        <module>components/12_stowagecargo_stowagenumberfive</module>
-        <module>components/12_stowagecargo_cargosystem</module>
-
-        <module>components/13_airconditioning</module>
-        <module>components/13_kitchen</module>
-        <module>components/13_lavatory</module>
-        <module>components/13_escapeslide</module>
-        <module>components/13_watersystem</module>
-        <module>components/13_wastesystem</module>
 
         <module>components/05_WasteWaterTank</module>
         <module>components/05_FuelTank</module>
@@ -55,12 +40,6 @@
         <module>components/05_EngineOilTank</module>
         <module>components/05_FireExtinguisher</module>
 
-        <module>components/10_Camera</module>
-        <module>components/10_GPS</module>
-        <module>components/10_Radar</module>
-        <module>components/10_SatCom</module>
-        <module>components/10_VHF</module>
-
         <module>components/07_IceDetectorProbe</module>
         <module>components/07_FuelSensor</module>
         <module>components/07_FuelFlowSensor</module>
@@ -72,6 +51,33 @@
         <module>components/08_ShockSensor</module>
         <module>components/08_TemperatureSensor</module>
 
+        <module>components/09_AirflowSensor</module>
+        <module>components/09_PitotTube</module>
+        <module>components/09_RadarAltimeter</module>
+        <module>components/09_TCAS</module>
+        <module>components/09_TurbulentAirFlowSensor</module>
+
+        <module>components/10_Camera</module>
+        <module>components/10_GPS</module>
+        <module>components/10_Radar</module>
+        <module>components/10_SatCom</module>
+        <module>components/10_VHF</module>
+
+        <module>components/12_stowagecargo_stowagenumberfive</module>
+        <module>components/12_stowagecargo_cargosystem</module>
+
+        <module>components/14_management_costoptimizer</module>
+        <module>components/14_management_routemanagement</module>
+        <module>components/14_management_seatmanagement</module>
+
+        <module>components/13_airconditioning</module>
+        <module>components/13_kitchen</module>
+        <module>components/13_lavatory</module>
+        <module>components/13_escapeslide</module>
+        <module>components/13_watersystem</module>
+        <module>components/13_wastesystem</module>
+
+        <!-- have to be built last, because of dependency-->
         <module>components/11_light_anticollisionlight</module>
         <module>components/11_light_cargocompartmentlight</module>
         <module>components/11_light_landinglight</module>
@@ -83,12 +89,8 @@
         <module>components/11_light_tcaslight</module>
 
 
-
-
         <module>main-application</module>
     </modules>
-
-
 
     <build>
         <pluginManagement>
