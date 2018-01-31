@@ -31,7 +31,6 @@ public enum PrimaryFlightDisplay {
     public int rightWingRightAileronDegree;
 
     //Rudder
-    //Rudder
     public int rudderDegree;
 
     //Spoiler
@@ -215,22 +214,28 @@ public enum PrimaryFlightDisplay {
     public boolean isLeftWingTurbulentAirFlowSensorAlarm;
     public boolean isRightWingTurbulentAirFlowSensorAlarm;
 
-    //camera
-    public boolean isCameraOn;
-    public double cameraFactor;
+    //Camera
+    public boolean isBodyCameraOn;
+    public boolean isLeftWingCameraOn;
+    public boolean isRightWingCameraOn;
+    public double bodyCameraFactor;
+    public double leftWingCameraFactor;
+    public double rightWingCameraFactor;
 
     //GPS
     public boolean isGPSOn;
+    public boolean isGPSConnected;
 
     //Radar
     public boolean isRadarOn;
-    public boolean isAirspaceFree;
 
     //SatCom
     public boolean isSatComConnected;
 
     //VHF
     public boolean isVHFOn;
+    public String[] vHFChannelList;
+    public String vHFselectedChannel;
 
     //AntiCollisionLight
     public boolean isAntiCollisionLightOn;
@@ -282,7 +287,7 @@ public enum PrimaryFlightDisplay {
     //Kitchen
     public boolean isKitchenLocked;
     public boolean isKitchenFilled;
-   // public ArrayList<Trolley> kitchenTrolleyList;
+    //public ArrayList<Trolley> kitchenTrolleyList;
 
     //Lavatory
     public boolean isLavatoryLocked;
@@ -303,7 +308,7 @@ public enum PrimaryFlightDisplay {
 
     //CostOptimizer
     public boolean isCostOptimizerOn;
-   // public ArrayList<CheckPoint> costOptimizerCheckPointList;
+    //public ArrayList<CheckPoint> costOptimizerCheckPointList;
     public int costOptimizerCostIndex;
 
     //RouteManagement
@@ -312,7 +317,7 @@ public enum PrimaryFlightDisplay {
     public double routeManagementCostIndex;
 
     //SeatManagement
-   // public ArrayList<Seat> seatManagementSeats;
+    //public ArrayList<Seat> seatManagementSeats;
     public int seatManagementNumberOfPassengersFirstClassAssigned;
     public int seatManagementNumberOfPassengersBusinessClassAssigned;
     public int seatManagementNumberOfPassengersEconomyClassAssigned;
