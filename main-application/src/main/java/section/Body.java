@@ -3,51 +3,18 @@ package section;
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
-import event.sensors.airflowSensor.AirflowSensorAlarm;
-import event.sensors.airflowSensor.AirflowSensorMeasure;
-import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
-import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
-import event.sensors.pitotTube.PitotTubeMeasureVelocity;
-import event.sensors.radarAltimeter.RadarAltimeterMeasureAltitude;
-import event.sensors.radarAltimeter.RadarAltimeterOff;
-import event.sensors.radarAltimeter.RadarAltimeterOn;
-import event.sensors.radarAltimeter.RadarAltimeterReceive;
-import event.sensors.radarAltimeter.RadarAltimeterSend;
-import event.sensors.tCAS.TCASAlarm;
-import event.sensors.tCAS.TCASConnect;
-import event.sensors.tCAS.TCASDetermineAltitude;
-import event.sensors.tCAS.TCASOff;
-import event.sensors.tCAS.TCASOn;
-import event.sensors.tCAS.TCASScann;
-import event.sensors.tCAS.TCASSetAltitude;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
-import factory.CameraFactory;
-import factory.GPSFactory;
-import factory.RadarFactory;
-import factory.SatComFactory;
-import factory.VHFFactory;
-import logging.LogEngine;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import base.PrimaryFlightDisplay;
-import com.google.common.eventbus.Subscribe;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import com.google.common.eventbus.Subscribe;
 import event.apu.APUDecreaseRPM;
 import event.apu.APUIncreaseRPM;
 import event.apu.APUShutdown;
 import event.apu.APUStart;
-import event.gear.*;
+import event.gear.GearDown;
+import event.gear.GearReleaseBrake;
+import event.gear.GearSetBrake;
+import event.gear.GearSetType;
+import event.gear.GearUp;
 import event.hydraulicPump.HydraulicPumpCompress;
 import event.hydraulicPump.HydraulicPumpDecompress;
 import event.hydraulicPump.HydraulicPumpRefilOil;
-import factory.*;
-import logging.LogEngine;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
 import event.sensors.airflowSensor.AirflowSensorMeasure;
 import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
@@ -67,29 +34,36 @@ import event.sensors.tCAS.TCASScann;
 import event.sensors.tCAS.TCASSetAltitude;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
 import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import factory.APUOilTankFactory;
+import factory.AirConditioningFactory;
 import factory.AirflowSensorFactory;
+import factory.BatteryFactory;
 import factory.CameraFactory;
+import factory.DeIcingSystemFactory;
+import factory.EscapeSlideFactory;
+import factory.FireExtinguisherFactory;
 import factory.GPSFactory;
+import factory.IceDetectorProbeFactory;
+import factory.KitchenFactory;
+import factory.LavatoryFactory;
+import factory.NitrogenBottleFactory;
+import factory.OxygenBottleFactory;
 import factory.PitotTubeFactory;
+import factory.PotableWaterTankFactory;
 import factory.RadarAltimeterFactory;
 import factory.RadarFactory;
 import factory.SatComFactory;
 import factory.TCASFactory;
 import factory.TurbulentAirFlowSensorFactory;
 import factory.VHFFactory;
+import factory.WasteSystemFactory;
+import factory.WasteWaterTankFactory;
+import factory.WaterSystemFactory;
 import logging.LogEngine;
-
-import javax.print.DocFlavor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import factory.IceDetectorProbeFactory;
-import logging.LogEngine;
-
-import java.util.ArrayList;
 import recorder.FlightRecorder;
 
-// import factorys for sensor04
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 
 public class Body extends Subscriber {
