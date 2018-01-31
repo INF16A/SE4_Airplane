@@ -1,9 +1,9 @@
-package event.SatCom;
+package event.satcom;
 
-public class SatComOn {
+public class SatComOff {
     private String phase;
 
-    public SatComOn(String phase) {
+    public SatComOff(String phase) {
         this.phase = phase;
     }
 
@@ -12,6 +12,6 @@ public class SatComOn {
     }
 
     public String toString() {
-        return "event - " + phase + " : SatComOn";
+        return "event - " + phase + " : SatComOff";
     }
 }

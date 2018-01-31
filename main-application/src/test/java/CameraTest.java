@@ -23,6 +23,7 @@ public class CameraTest {
         assertNotNull(componentPort);
     }
 
+
     @Test
     public void testVersion(){
         componentPort = CameraFactory.build();
@@ -42,9 +43,9 @@ public class CameraTest {
         componentPort = CameraFactory.build();
 
         try {
-            Method onMethod = componentPort.getClass().getDeclaredMethod("setType");
+            Method onMethod = componentPort.getClass().getDeclaredMethod("setType", String.class);
             Enum type = (Enum)onMethod.invoke(componentPort, new Object[]{CameraType.tail.toString()});
-            assertEquals(CameraType.tail, type);
+            assertEquals(CameraType.tail.toString(), type.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -68,7 +69,7 @@ public class CameraTest {
         componentPort = CameraFactory.build();
 
         try {
-            Method onMethod = componentPort.getClass().getDeclaredMethod("on");
+            Method onMethod = componentPort.getClass().getDeclaredMethod("record");
             String record = (String)onMethod.invoke(componentPort);
             assertEquals("Camera EADS", record);
         } catch (Exception e) {
@@ -76,12 +77,13 @@ public class CameraTest {
         }
     }
 
+
     @Test
     public void testZoomIn(){
         componentPort = CameraFactory.build();
 
         try {
-            Method onMethod = componentPort.getClass().getDeclaredMethod("zoomIn");
+            Method onMethod = componentPort.getClass().getDeclaredMethod("zoomIn", boolean.class);
             double zoom = (double)onMethod.invoke(componentPort, new Object[]{false});
             assertEquals(2.0, zoom, this.DELTA);
         } catch (Exception e) {

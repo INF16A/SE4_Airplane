@@ -23,6 +23,10 @@ import java.util.ArrayList;
 
 import factory.CameraFactory;
 import recorder.FlightRecorder;
+import event.camera.CameraOn;
+import event.camera.CameraOff;
+import event.camera.CameraZoomIn;
+
 
 public class Wing extends Subscriber {
     private int wingIndex;
@@ -57,7 +61,7 @@ public class Wing extends Subscriber {
     private ArrayList<Object> airflowSensors;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameras;
+    private ArrayList<Object> cameraPorts;
     // light
     private ArrayList<Object> landingLights;
     private ArrayList<Object> leftNavigationLights;
@@ -135,8 +139,9 @@ public class Wing extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        cameras = new ArrayList<>();
-        cameras.add(CameraFactory.build());
+        //Factory magic 1
+        cameraPorts = new ArrayList<>();
+        cameraPorts.add(CameraFactory.build());
 
         // light
         landingLights = new ArrayList<>();
@@ -189,6 +194,69 @@ public class Wing extends Subscriber {
         }
     }
 
+    @Subscribe
+    public void receive(CameraOn cameraOn){
+        LogEngine.instance.write("+ Body.receive(" + cameraOn + ")");
+
+        try{
+                Method cameraOnMethod = cameraPorts.get(0).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOnMethod + "");
+
+                boolean isCameraOn = (boolean)cameraOnMethod.invoke(cameraPorts.get(0));
+
+                LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
+
+                LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(CameraOff cameraOff){
+        LogEngine.instance.write("+ Body.receive(" + cameraOff + ")");
+
+        try{
+            Method cameraOffMethod = cameraPorts.get(0).getClass().getDeclaredMethod("off");
+            LogEngine.instance.write("cameraOffMethod = " + cameraOffMethod + "");
+
+            boolean isCameraOff = (boolean)cameraOffMethod.invoke(cameraPorts.get(0));
+
+            LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOff = " + isCameraOff + "");
+
+            PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
+
+            LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void receive(CameraZoomIn cameraZoomIn){
+        LogEngine.instance.write("+ Body.receive(" + cameraZoomIn + ")");
+
+        try{
+            Method cameraZoomInMethod = cameraPorts.get(0).getClass().getDeclaredMethod("zoomIn", boolean.class);
+            LogEngine.instance.write("cameraZoomInMethod = " + cameraZoomInMethod + "");
+
+            double cameraFactor = (double)cameraZoomInMethod.invoke(cameraPorts.get(0), new Object[]{true});
+
+            LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
+
+            PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraZoomIn.getPhase() + " : camera (Factor) = " + cameraFactor);
+
+            LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    // please add here
     //Engine
     @Subscribe
     public void receive(EngineDecreaseRPM engineDecreaseRPM) {
@@ -472,6 +540,11 @@ public class Wing extends Subscriber {
 
 
 
+
+
+
+
+
     public ArrayList<Object> getDroopNoses()
     {
         return droopNoses;
@@ -579,7 +652,7 @@ public class Wing extends Subscriber {
 
     public ArrayList<Object> getCameras()
     {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getLandingLights()
@@ -596,5 +669,5 @@ public class Wing extends Subscriber {
     {
         return rightNavigationLights;
     }
-    
+
 }

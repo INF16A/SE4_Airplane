@@ -1,9 +1,9 @@
-package event.GPS;
+package event.camera;
 
-public class GPSOff {
+public class CameraOn {
     private String phase;
 
-    public GPSOff(String phase) {
+    public CameraOn(String phase) {
         this.phase = phase;
     }
 
@@ -12,6 +12,6 @@ public class GPSOff {
     }
 
     public String toString() {
-        return "event - " + phase + " : GPSOff";
+        return "event - " + phase + " : CameraOn";
     }
 }

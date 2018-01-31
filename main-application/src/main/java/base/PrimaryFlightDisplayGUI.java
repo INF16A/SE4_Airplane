@@ -20,6 +20,13 @@ import recorder.FlightRecorder;
 
 public class PrimaryFlightDisplayGUI extends Application {
     private PrimaryFlightDisplayEntry weatherRadarIsOnEntry;
+    private PrimaryFlightDisplayEntry cameraIsOnEntry;
+    private PrimaryFlightDisplayEntry radarIsOnEntry;
+    private PrimaryFlightDisplayEntry satComConnectedEntry;
+    private PrimaryFlightDisplayEntry gpsOnEntry;
+    private PrimaryFlightDisplayEntry isVhfOnEntry;
+    private PrimaryFlightDisplayEntry cameraFactorEntry;
+    private PrimaryFlightDisplayEntry radarScanEntry;
 
     private ArrayList<PrimaryFlightDisplayEntry> dataList;
     private ObservableList data;
@@ -160,6 +167,24 @@ public class PrimaryFlightDisplayGUI extends Application {
 
         // please add value(s)
         dataList.add(weatherRadarIsOnEntry);
+
+        // sensor04
+        cameraIsOnEntry = new PrimaryFlightDisplayEntry("camera (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
+        dataList.add(cameraIsOnEntry);
+        cameraFactorEntry = new PrimaryFlightDisplayEntry("camera (ZoomFactor)", Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
+        dataList.add(cameraFactorEntry);
+        radarIsOnEntry = new PrimaryFlightDisplayEntry( "Radar (isOn", Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn) );
+        dataList.add(radarIsOnEntry);
+        radarScanEntry = new PrimaryFlightDisplayEntry( "Radar (scan)", Boolean.toString(PrimaryFlightDisplay.instance.isAirspaceFree) );
+        dataList.add(radarScanEntry);
+        radarIsOnEntry = new PrimaryFlightDisplayEntry("Radar (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn));
+        dataList.add(radarIsOnEntry);
+        satComConnectedEntry = new PrimaryFlightDisplayEntry("SatCom (isConnected)", Boolean.toString(PrimaryFlightDisplay.instance.isSatComConnected));
+        dataList.add(satComConnectedEntry);
+        gpsOnEntry = new PrimaryFlightDisplayEntry("GPS (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isGPSOn));
+        dataList.add(gpsOnEntry);
+        isVhfOnEntry = new PrimaryFlightDisplayEntry("VHF (isOn)", Boolean.toString(PrimaryFlightDisplay.instance.isVHFOn));
+        dataList.add(isVhfOnEntry);
     }
 
     private ObservableList getInitialTableData() {
@@ -170,6 +195,14 @@ public class PrimaryFlightDisplayGUI extends Application {
 
     public void update() {
         // please add value(s)
+        cameraIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isCameraOn));
+        cameraFactorEntry.setValue(Double.toString(PrimaryFlightDisplay.instance.cameraFactor));
+        radarIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn));
+        radarScanEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isAirspaceFree));
+        radarIsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isRadarOn));
+        satComConnectedEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isSatComConnected));
+        gpsOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isGPSOn));
+        isVhfOnEntry.setValue(Boolean.toString(PrimaryFlightDisplay.instance.isVHFOn));
         tableView.refresh();
     }
 

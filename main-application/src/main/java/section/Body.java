@@ -1,6 +1,14 @@
 package section;
 
 import base.PrimaryFlightDisplay;
+import java.util.ArrayList;
+import java.lang.reflect.Method;
+import base.PrimaryFlightDisplay;
+import com.google.common.eventbus.Subscribe;
+import event.gps.GPSOff;
+import event.gps.GPSOn;
+import event.satcom.SatComOff;
+import event.satcom.SatComOn;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
 import event.apu.*;
@@ -17,6 +25,20 @@ import recorder.FlightRecorder;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+// imports for sensor04
+import factory.CameraFactory;
+import factory.GPSFactory;
+import factory.RadarFactory;
+import factory.SatComFactory;
+import factory.VHFFactory;
+import event.camera.CameraOff;
+import event.camera.CameraOn;
+import event.camera.CameraZoomIn;
+import event.radar.RadarOff;
+import event.radar.RadarOn;
+import event.radar.RadarScan;
+import event.vhf.VHFOff;
+import event.vhf.VHFOn;
 
 
 public class Body extends Subscriber {
@@ -63,11 +85,11 @@ public class Body extends Subscriber {
     private ArrayList<Object> tCASs;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameras;
-    private ArrayList<Object> gPSs;
-    private ArrayList<Object> radars;
-    private ArrayList<Object> satComs;
-    private ArrayList<Object> vHFs;
+    private ArrayList<Object> cameraPorts;
+    private ArrayList<Object> gpsPorts;
+    private ArrayList<Object> radarPorts;
+    private ArrayList<Object> satComPorts;
+    private ArrayList<Object> vhfPorts;
     // light
     private ArrayList<Object> antiCollisionLights;
     private ArrayList<Object> cargoCompartmentLights;
@@ -94,6 +116,7 @@ public class Body extends Subscriber {
     public Body() {
         build();
         printStatus();
+        FlightRecorder.instance.startup();
     }
 
     public void build() {
@@ -187,16 +210,26 @@ public class Body extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        cameras = new ArrayList<>();
-        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++) cameras.add(CameraFactory.build());
-        gPSs = new ArrayList<>();
-        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++) gPSs.add(GPSFactory.build());
-        radars = new ArrayList<>();
-        for (int radarIndex = 0;radarIndex < 2;radarIndex++) radars.add(RadarFactory.build());
-        satComs = new ArrayList<>();
-        for (int satComIndex = 0;satComIndex < 2;satComIndex++) satComs.add(SatComFactory.build());
-        vHFs = new ArrayList<>();
-        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++) vHFs.add(VHFFactory.build());
+        // Factory magic 2
+        cameraPorts = new ArrayList<>();
+        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
+            cameraPorts.add(CameraFactory.build());
+        // Factory magic 2
+        gpsPorts = new ArrayList<>();
+        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
+            gpsPorts.add(GPSFactory.build());
+        // Factory magic 2
+        radarPorts = new ArrayList<>();
+        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
+            radarPorts.add(RadarFactory.build());
+        // Factory magic 2
+        satComPorts = new ArrayList<>();
+        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
+            satComPorts.add(SatComFactory.build());
+        // Factory magic 2
+        vhfPorts = new ArrayList<>();
+        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
+            vhfPorts.add(VHFFactory.build());
 
         // light
         antiCollisionLights = new ArrayList<>();
@@ -421,23 +454,23 @@ public class Body extends Subscriber {
     }
 
     public ArrayList<Object> getCameras() {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getgPSs() {
-        return gPSs;
+        return gpsPorts;
     }
 
     public ArrayList<Object> getRadars() {
-        return radars;
+        return radarPorts;
     }
 
     public ArrayList<Object> getSatComs() {
-        return satComs;
+        return satComPorts;
     }
 
     public ArrayList<Object> getvHFs() {
-        return vHFs;
+        return vhfPorts;
     }
 
     public ArrayList<Object> getAntiCollisionLights() {
@@ -576,6 +609,284 @@ public class Body extends Subscriber {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    // please add here
+
+    @Subscribe
+    public void receive(CameraOn cameraOn){
+        LogEngine.instance.write("+ Body.receive(" + cameraOn + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+                Method cameraOnMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOnMethod + "");
+
+                boolean isCameraOn = (boolean)cameraOnMethod.invoke(cameraPorts.get(cameraIndex));
+
+                LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(CameraOff cameraOff){
+        LogEngine.instance.write("+ Body.receive(" + cameraOff + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+                Method cameraOffMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOffMethod + "");
+
+                boolean isCameraOff = (boolean)cameraOffMethod.invoke(cameraPorts.get(cameraIndex));
+
+                LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOn = " + isCameraOff + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(CameraZoomIn cameraZoomIn){
+        LogEngine.instance.write("+ Body.receive(" + cameraZoomIn + ")");
+
+        try{
+            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
+                Method cameraZoomInMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("zoomIn", boolean.class);
+                LogEngine.instance.write("cameraZoomInMethod = " + cameraZoomInMethod + "");
+
+                double cameraFactor = (double) cameraZoomInMethod.invoke(cameraPorts.get(cameraIndex), new Object[]{true});
+
+                LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
+
+                PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraZoomIn.getPhase() + " : camera (Factor) = " + cameraFactor);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarOn radarOn){
+        LogEngine.instance.write("+ Body.receive(" + radarOn + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarOnMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("radarOnMethod = " + radarOnMethod + "");
+
+                boolean isRadarOn = (boolean)radarOnMethod.invoke(radarPorts.get(radarIndex));
+
+                LogEngine.instance.write(radarOn.getPhase() + " : isRadarOn = " + isRadarOn + "");
+
+                PrimaryFlightDisplay.instance.isRadarOn = isRadarOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOn.getPhase() + " : Radar (isOn) = " + isRadarOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarOff radarOff){
+        LogEngine.instance.write("+ Body.receive(" + radarOff + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarOffMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("radarOffMethod = " + radarOffMethod + "");
+
+                boolean isRadarOff = (boolean)radarOffMethod.invoke(radarPorts.get(radarIndex));
+
+                LogEngine.instance.write(radarOff.getPhase() + " : isRadarOff = " + isRadarOff + "");
+
+                PrimaryFlightDisplay.instance.isRadarOn = isRadarOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOff.getPhase() + " : Radar (isOn) = " + isRadarOff);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(RadarScan radarScan){
+        LogEngine.instance.write("+ Body.receive(" + radarScan + ")");
+
+        try{
+            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+                Method radarScanMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("scan",String.class);
+                LogEngine.instance.write("radarScanMethod = " + radarScanMethod + "");
+
+                boolean scanResult = (boolean)radarScanMethod.invoke(radarPorts.get(radarIndex), new Object[]{radarScan.getEnvironment()});
+
+                LogEngine.instance.write(radarScan.getPhase() + " : scanResult = " + scanResult + "");
+
+                PrimaryFlightDisplay.instance.isAirspaceFree = scanResult;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarScan.getPhase() + " : Radar (scan) = " + scanResult);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(GPSOn isGpsOn){
+        LogEngine.instance.write("+ Body.receive(" + isGpsOn + ")");
+
+        try{
+            for(int gpsOnIndex = 0; gpsOnIndex < 2; gpsOnIndex++){
+                Method gpsOnMethod = gpsPorts.get(gpsOnIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("radarScanMethod = " + gpsOnMethod + "");
+
+                boolean isGPSOn = (boolean)gpsOnMethod.invoke(gpsPorts.get(gpsOnIndex));
+
+                LogEngine.instance.write(isGpsOn.getPhase() + " : isGPSOn = " + isGPSOn + "");
+
+                PrimaryFlightDisplay.instance.isGPSOn = isGPSOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isGpsOn.getPhase() + " : GPS (isOn) = " + isGPSOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(GPSOff isGpsOff){
+        LogEngine.instance.write("+ Body.receive(" + isGpsOff + ")");
+
+        try{
+            for(int gpsOffIndex = 0; gpsOffIndex < 2; gpsOffIndex++){
+                Method gpsOffMethod = gpsPorts.get(gpsOffIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("radarScanMethod = " + gpsOffMethod + "");
+
+                boolean isGPSOff = (boolean)gpsOffMethod.invoke(gpsPorts.get(gpsOffIndex));
+
+                LogEngine.instance.write(isGpsOff.getPhase() + " : isGPSOff = " + isGPSOff + "");
+
+                PrimaryFlightDisplay.instance.isGPSOn = isGPSOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isGpsOff.getPhase() + " : GPS (isOff) = " + isGPSOff);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(SatComOn isSatComOn){
+        LogEngine.instance.write("+ Body.receive(" + isSatComOn + ")");
+
+        try{
+            for(int satComIndex = 0; satComIndex < 2; satComIndex++){
+                Method satComOnMethod = satComPorts.get(satComIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("radarScanMethod = " + satComOnMethod + "");
+
+                boolean isSatComConnected = (boolean)satComOnMethod.invoke(satComPorts.get(satComIndex));
+
+                LogEngine.instance.write(isSatComOn.getPhase() + " : isSatComConnected = " + isSatComConnected + "");
+
+                PrimaryFlightDisplay.instance.isSatComConnected = isSatComConnected;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isSatComOn.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(SatComOff isSatComOff){
+        LogEngine.instance.write("+ Body.receive(" + isSatComOff + ")");
+
+        try{
+            for(int satComIndex = 0; satComIndex < 2; satComIndex++){
+                Method satComOffMethod = satComPorts.get(satComIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("radarScanMethod = " + satComOffMethod + "");
+
+                boolean isSatComConnected = (boolean)satComOffMethod.invoke(satComPorts.get(satComIndex));
+
+                LogEngine.instance.write(isSatComOff.getPhase() + " : isSatComConnected = " + isSatComConnected + "");
+
+                PrimaryFlightDisplay.instance.isSatComConnected = isSatComConnected;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isSatComOff.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(VHFOn isVHFOn){
+        LogEngine.instance.write("+ Body.receive(" + isVHFOn + ")");
+
+        try{
+            for(int vhfOnIndex = 0; vhfOnIndex < 2; vhfOnIndex++){
+                Method vhfOnMethod = vhfPorts.get(vhfOnIndex).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("vhfOnMethod = " + vhfOnMethod + "");
+
+                boolean isVhfOn = (boolean)vhfOnMethod.invoke(vhfPorts.get(vhfOnIndex));
+
+                LogEngine.instance.write(isVHFOn.getPhase() + " : isVHFOn = " + isVhfOn + "");
+
+                PrimaryFlightDisplay.instance.isVHFOn = isVhfOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isVHFOn.getPhase() + " : VHFOn (isOn) = " + isVhfOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(VHFOff isVHFOn){
+        LogEngine.instance.write("+ Body.receive(" + isVHFOn + ")");
+
+        try{
+            for(int vhfOffIndex = 0; vhfOffIndex < 2; vhfOffIndex++){
+                Method vhfOffMethod = vhfPorts.get(vhfOffIndex).getClass().getDeclaredMethod("off");
+                LogEngine.instance.write("vhfOnMethod = " + vhfOffMethod + "");
+
+                boolean isVhfOn = (boolean)vhfOffMethod.invoke(vhfPorts.get(vhfOffIndex));
+
+                LogEngine.instance.write(isVHFOn.getPhase() + " : isVhfOff = " + isVhfOn + "");
+
+                PrimaryFlightDisplay.instance.isVHFOn = isVhfOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isVHFOn.getPhase() + " : VHFOff (isOn) = " + isVhfOn);
+
+                LogEngine.instance.write("+");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

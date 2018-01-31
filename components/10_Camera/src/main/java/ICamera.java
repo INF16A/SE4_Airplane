@@ -4,6 +4,6 @@ public interface ICamera {
     public CameraType setType(String type);
     public boolean on();
     public String record();
-    public double zoomIn(boolean factor);
+    public double zoomIn(boolean f);
     public boolean off();
 }
