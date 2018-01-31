@@ -1,4 +1,4 @@
-package event.camera;
+package event.Camera;
 
 public class CameraOn {
     private String phase;

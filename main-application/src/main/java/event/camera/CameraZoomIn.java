@@ -1,4 +1,4 @@
-package event.camera;
+package event.Camera;
 
 public class CameraZoomIn {
     private String phase;

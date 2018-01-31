@@ -1,18 +1,14 @@
 package base;
 
 import com.google.common.eventbus.EventBus;
-import event.camera.CameraOff;
-import event.camera.CameraOn;
-import event.camera.CameraZoomIn;
-import event.gps.GPSOn;
-import event.satcom.SatComOn;
+import event.Camera.*;
+import event.GPS.*;
+import event.SatCom.*;
 import event.radar.RadarOff;
 import event.radar.RadarScan;
-import event.satcom.SatComOff;
 import event.Subscriber;
 import event.vhf.VHFOff;
 import event.vhf.VHFOn;
-import event.gps.GPSOff;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
 import event.sensors.airflowSensor.AirflowSensorMeasure;
 import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
