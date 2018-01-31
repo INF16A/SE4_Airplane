@@ -3,11 +3,8 @@ package section;
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
-import event.engine.EngineDecreaseRPM;
-import event.engine.EngineExtinguishFire;
-import event.engine.EngineIncreaseRPM;
-import event.engine.EngineShutdown;
-import event.engine.EngineStart;
+import factory.*;
+import event.engine.*;
 import event.hydraulicPump.HydraulicPumpCompress;
 import event.hydraulicPump.HydraulicPumpDecompress;
 import event.hydraulicPump.HydraulicPumpRefilOil;
@@ -21,12 +18,15 @@ import factory.ExhaustGasTemperatureSensorFactory;
 import factory.FuelFlowSensorFactory;
 import factory.FuelSensorFactory;
 import factory.IceDetectorProbeFactory;
-import factory.TurbulentAirFlowSensorFactory;
 import logging.LogEngine;
-import recorder.FlightRecorder;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
+// Factory import for sensor04
+
+import factory.CameraFactory;
+import recorder.FlightRecorder;
 
 public class Wing extends Subscriber {
     private int wingIndex;
@@ -94,40 +94,36 @@ public class Wing extends Subscriber {
 
         // apu_engine_gear_pump
         engines = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) engines.add(EngineFactory.build());
         hydraulicPumps = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) hydraulicPumps.add(HydraulicPumpFactory.build());
 
         // tank_bottle
         engineOilTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) engineOilTanks.add(EngineOilTankFactory.build());
         fuelTanks = new ArrayList<>();
-        // Factory magic 3
+        for (int i = 0; i < 3; i++) fuelTanks.add(FuelTankFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
         }
-        // Factory magic 4
         fuelFlowSensors = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             fuelFlowSensors.add(FuelFlowSensorFactory.build());
         }
-        // Factory magic 6
 
         fuelSensors = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             fuelSensors.add(FuelSensorFactory.build());
         }
-        // Factory magic 6
 
         iceDetectorProbes = new ArrayList<>();
         iceDetectorProbes.add(IceDetectorProbeFactory.build());
         iceDetectorProbes.add(IceDetectorProbeFactory.build());
-        // Factory magic 2
 
         // sensor02
         fireDetectors = new ArrayList<>();
@@ -150,7 +146,6 @@ public class Wing extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        //Factory magic 1
         cameras = new ArrayList<>();
         cameras.add(CameraFactory.build());
 
