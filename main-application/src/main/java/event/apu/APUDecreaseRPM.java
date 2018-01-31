@@ -5,19 +5,23 @@ package event.apu;
  */
 public class APUDecreaseRPM {
     private String phase;
-    private int rpm;
+    private int value;
 
-    public APUDecreaseRPM(String phase, int rpm) {
+    public APUDecreaseRPM(String phase, int value) {
         this.phase = phase;
-        this.rpm = rpm;
+        this.value = value;
     }
 
 
-    public int getRpm() {
-        return rpm;
+    public int getValue() {
+        return value;
     }
 
     public String getPhase() {
         return phase;
+    }
+
+    public String toString() {
+        return "event - " + phase + " : APUDecreaseRPM";
     }
 }
