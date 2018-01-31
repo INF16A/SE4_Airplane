@@ -3,37 +3,14 @@ package section;
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
-import event.apu.APUDecreaseRPM;
-import event.apu.APUIncreaseRPM;
-import event.apu.APUShutdown;
-import event.apu.APUStart;
-import event.gear.GearDown;
-import event.gear.GearReleaseBrake;
-import event.gear.GearSetBrake;
-import event.gear.GearSetType;
-import event.gear.GearUp;
-import event.hydraulicPump.HydraulicPumpCompress;
-import event.hydraulicPump.HydraulicPumpDecompress;
-import event.hydraulicPump.HydraulicPumpRefilOil;
-import event.sensors.airflowSensor.AirflowSensorAlarm;
-import event.sensors.airflowSensor.AirflowSensorMeasure;
-import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
-import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
-import event.sensors.pitotTube.PitotTubeMeasureVelocity;
-import event.sensors.radarAltimeter.RadarAltimeterMeasureAltitude;
-import event.sensors.radarAltimeter.RadarAltimeterOff;
-import event.sensors.radarAltimeter.RadarAltimeterOn;
-import event.sensors.radarAltimeter.RadarAltimeterReceive;
-import event.sensors.radarAltimeter.RadarAltimeterSend;
-import event.sensors.tCAS.TCASAlarm;
-import event.sensors.tCAS.TCASConnect;
-import event.sensors.tCAS.TCASDetermineAltitude;
-import event.sensors.tCAS.TCASOff;
-import event.sensors.tCAS.TCASOn;
-import event.sensors.tCAS.TCASScann;
-import event.sensors.tCAS.TCASSetAltitude;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
-import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import event.apu.*;
+import event.gear.*;
+import event.hydraulicPump.*;
+import event.sensors.airflowSensor.*;
+import event.sensors.pitotTube.*;
+import event.sensors.radarAltimeter.*;
+import event.sensors.tCAS.*;
+import event.sensors.turbulentAirFlowSensor.*;
 import factory.*;
 import logging.LogEngine;
 import recorder.FlightRecorder;
@@ -126,7 +103,7 @@ public class Body extends Subscriber {
 
         // Flight Controls02
         rudders = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) rudders.add(RudderFactory.build("","",""));
 
         // apu_engine_gear_pump
         apus = new ArrayList<>();
@@ -223,19 +200,19 @@ public class Body extends Subscriber {
 
         // light
         antiCollisionLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) antiCollisionLights.add(AntiCollisionLightFactory.build());
         cargoCompartmentLights = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) cargoCompartmentLights.add(CargoCompartmentLightFactory.build());
         landingLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
         logoLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) logoLights.add(LogoLightFactory.build());
         tailNavigationLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) tailNavigationLights.add(TailNavigationLightFactory.build());
         taxiLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) taxiLights.add(TaxiLightFactory.build());
         tCASLights = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
 
         // stowage_cargo
         cargoSystems = new ArrayList<>();
@@ -245,26 +222,20 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
-        for(int i = 0; i < 4; i++)
-            airConditionings.add(AirConditioningFactory.build());
+        for(int i = 0; i < 4; i++) airConditionings.add(AirConditioningFactory.build());
         kitchens = new ArrayList<>();
         kitchens.add(KitchenFactory.build("FIRST"));
         kitchens.add(KitchenFactory.build("BUSINESS"));
         kitchens.add(KitchenFactory.build("ECONOMY"));
         kitchens.add(KitchenFactory.build("ECONOMY"));
-        // Factory magic 4 1x First, 1x Business, 2x Economy
         lavatories = new ArrayList<>();
-        for(int i = 0; i < 8; i++)
-            lavatories.add(LavatoryFactory.build());
+        for(int i = 0; i < 8; i++) lavatories.add(LavatoryFactory.build());
         wasteSystems = new ArrayList<>();
-        for(int i = 0; i < 10; i++)
-            wasteSystems.add(WasteSystemFactory.build());
+        for(int i = 0; i < 10; i++) wasteSystems.add(WasteSystemFactory.build());
         waterSystems = new ArrayList<>();
-        for(int i = 0; i < 4; i++)
-            waterSystems.add(WaterSystemFactory.build());
+        for(int i = 0; i < 4; i++) waterSystems.add(WaterSystemFactory.build());
         escapeSlides = new ArrayList<>();
-        for(int i = 0; i < 14; i++)
-            escapeSlides.add(EscapeSlideFactory.build());
+        for(int i = 0; i < 14; i++) escapeSlides.add(EscapeSlideFactory.build());
 
         // management
         costOptimizers = new ArrayList<>();
