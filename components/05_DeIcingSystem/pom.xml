@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>05_DeIcingSystem</artifactId> <!-- TODO: CHANGE MODULE NAME HERE -->
+    <artifactId>05_DeIcingSystem</artifactId>
     <version>1.0.0</version>
 
     <build>
@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>deicingsystem</finalName> <!-- TODO: CHANGE OUTPUT NAME HERE -->
+                    <finalName>deicingsystem</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
