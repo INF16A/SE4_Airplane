@@ -60,8 +60,8 @@ import event.camera.CameraZoomIn;
 import event.radar.RadarOff;
 import event.radar.RadarOn;
 import event.radar.RadarScan;
-import event.VHF.VHFOff;
-import event.VHF.VHFOn;
+import event.vhf.VHFOff;
+import event.vhf.VHFOn;
 
 
 public class Body extends Subscriber {
@@ -139,6 +139,7 @@ public class Body extends Subscriber {
     public Body() {
         build();
         printStatus();
+        FlightRecorder.instance.startup();
     }
 
     public void build() {
