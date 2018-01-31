@@ -12,7 +12,7 @@ public class RadarAltimeterTest {
 
     @Test
     public void off(){
-        Assert.assertFalse(port.on());
+        Assert.assertFalse(port.off());
     }
 
     @Test
