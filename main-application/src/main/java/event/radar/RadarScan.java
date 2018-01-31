@@ -8,12 +8,12 @@ public class RadarScan {
         this.phase = phase;
         this.environment = environment;
     }
+    public String getEnvironment() {
+        return environment;
+    }
 
     public String getPhase() {
         return phase;
-    }
-    public String getEnvironment() {
-        return environment;
     }
 
     public String toString() {
