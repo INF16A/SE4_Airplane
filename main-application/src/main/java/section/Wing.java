@@ -145,12 +145,12 @@ public class Wing extends Subscriber {
 
         // light
         landingLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
+        //for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
         leftNavigationLights = new ArrayList<>();
-        for (int i = 0; i < 1; i++) leftNavigationLights.add(LeftNavigationLightFactory.build());
+        //for (int i = 0; i < 1; i++) leftNavigationLights.add(LeftNavigationLightFactory.build());
         // Factory magic 1, LightType = red, Position = port
         rightNavigationLights = new ArrayList<>();
-        for (int i = 0; i < 1; i++) rightNavigationLights.add(RightNavigationLightFactory.build());
+        //for (int i = 0; i < 1; i++) rightNavigationLights.add(RightNavigationLightFactory.build());
         // Factory magic 1, LightType = green, Position = starboard
     }
 
