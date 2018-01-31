@@ -166,13 +166,13 @@ public class Body extends Subscriber {
 
         // seats
         firstClassSeats = new ArrayList<>();
-        for (int i = 0; i < 16; i++) firstClassSeats.add(SeatFactory.buildFirstSeat());
+        //for (int i = 0; i < 16; i++) firstClassSeats.add(SeatFactory.buildFirstSeat());
         businessClassSeats = new ArrayList<>();
-        for (int i = 0; i < 72; i++) businessClassSeats.add(SeatFactory.buildBusinessSeat());
+        //for (int i = 0; i < 72; i++) businessClassSeats.add(SeatFactory.buildBusinessSeat());
         touristClassSeats = new ArrayList<>();
-        for (int i = 0; i < 480; i++) touristClassSeats.add(SeatFactory.buildTouristSeat());
+        //for (int i = 0; i < 480; i++) touristClassSeats.add(SeatFactory.buildTouristSeat());
         crewSeats = new ArrayList<>();
-        for (int i = 0; i < 14; i++) crewSeats.add(SeatFactory.buildCrewSeat());
+        //for (int i = 0; i < 14; i++) crewSeats.add(SeatFactory.buildCrewSeat());
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
