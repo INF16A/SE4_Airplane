@@ -215,27 +215,21 @@ public enum PrimaryFlightDisplay {
     public boolean isRightWingTurbulentAirFlowSensorAlarm;
 
     //Camera
-    public boolean isBodyCameraOn;
-    public boolean isLeftWingCameraOn;
-    public boolean isRightWingCameraOn;
-    public double bodyCameraFactor;
-    public double leftWingCameraFactor;
-    public double rightWingCameraFactor;
+    public boolean isCameraOn;
+    public double cameraFactor;
 
     //GPS
     public boolean isGPSOn;
-    public boolean isGPSConnected;
 
     //Radar
     public boolean isRadarOn;
+    public boolean isAirspaceFree;
 
     //SatCom
     public boolean isSatComConnected;
 
     //VHF
     public boolean isVHFOn;
-    public String[] vHFChannelList;
-    public String vHFselectedChannel;
 
     //AntiCollisionLight
     public boolean isAntiCollisionLightOn;

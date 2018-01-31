@@ -427,23 +427,23 @@ public class Body extends Subscriber {
     }
 
     public ArrayList<Object> getCameras() {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getgPSs() {
-        return gPSs;
+        return gpsPorts;
     }
 
     public ArrayList<Object> getRadars() {
-        return radars;
+        return radarPorts;
     }
 
     public ArrayList<Object> getSatComs() {
-        return satComs;
+        return satComPorts;
     }
 
     public ArrayList<Object> getvHFs() {
-        return vHFs;
+        return vhfPorts;
     }
 
     public ArrayList<Object> getAntiCollisionLights() {
@@ -584,14 +584,6 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
-
-    @Subscribe
-    public void receive(APUShutdown apuShutdown) {
-        LogEngine.instance.write("+ Body.receive(" + apuShutdown + ")");
-
-        try {
-
-            Method apuShutdownMethod = apus.get(0).getClass().getDeclaredMethod("shutdown", int.class);
 
     // please add here
 
@@ -870,6 +862,15 @@ public class Body extends Subscriber {
             e.printStackTrace();
         }
     }
+
+    @Subscribe
+    public void receive(APUShutdown apuShutdown) {
+        LogEngine.instance.write("+ Body.receive(" + apuShutdown + ")");
+
+        try {
+
+            Method apuShutdownMethod = apus.get(0).getClass().getDeclaredMethod("shutdown", int.class);
+
             LogEngine.instance.write("apuStartMethode = " + apuShutdownMethod);
 
             apuShutdownMethod.invoke(apus.get(0));

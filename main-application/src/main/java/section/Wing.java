@@ -551,7 +551,7 @@ public class Wing extends Subscriber {
 
     public ArrayList<Object> getCameras()
     {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getLandingLights()
