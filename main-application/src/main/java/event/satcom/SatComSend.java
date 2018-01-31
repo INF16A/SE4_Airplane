@@ -1,10 +1,10 @@
-package event.GPS;
+package event.satcom;
 
-public class GPSSend {
+public class SatComSend {
     private String phase;
     private String request;
 
-    public GPSSend(String phase, String request) {
+    public SatComSend(String phase, String request) {
         this.phase = phase;
         this.request = request;
     }
@@ -14,6 +14,6 @@ public class GPSSend {
     }
 
     public String toString() {
-        return "event - " + phase + " : GPSSend, request: " + request;
+        return "event - " + phase + " : SatComSend with message: " + request;
     }
 }

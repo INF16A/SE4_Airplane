@@ -1,7 +1,18 @@
 package base;
 
 import com.google.common.eventbus.EventBus;
+import event.camera.CameraOff;
+import event.camera.CameraOn;
+import event.camera.CameraZoomIn;
+import event.gps.GPSOn;
+import event.satcom.SatComOn;
+import event.radar.RadarOff;
+import event.radar.RadarScan;
+import event.satcom.SatComOff;
 import event.Subscriber;
+import event.vhf.VHFOff;
+import event.vhf.VHFOn;
+import event.gps.GPSOff;
 import event.sensors.airflowSensor.AirflowSensorAlarm;
 import event.sensors.airflowSensor.AirflowSensorMeasure;
 import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
@@ -53,6 +64,10 @@ public class Airplane implements IAirplane {
 
     public void startup() {
         String phase = "startup";
+        eventBus.post(new CameraOn(phase));
+        eventBus.post(new GPSOn(phase));
+        eventBus.post(new SatComOn(phase));
+        eventBus.post(new VHFOn(phase));
         eventBus.post(new RadarAltimeterOn(phase));
         eventBus.post(new TCASOn(phase));
         eventBus.post(new TCASConnect(phase,"123"));
@@ -73,7 +88,9 @@ public class Airplane implements IAirplane {
     }
 
     public void takeoff() {
+        boolean cameraFactor = true;
         String phase = "takeoff";
+        eventBus.post(new CameraZoomIn(phase, cameraFactor));
         eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
@@ -81,7 +98,11 @@ public class Airplane implements IAirplane {
     }
 
     public void climbing() {
-        String phase = "climbing";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+        String phase = "climbing";
+        String environment = "Cloud, Rain, Wind, CLoud";
+        eventBus.post(new RadarScan(phase, environment));
+
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
@@ -96,7 +117,11 @@ public class Airplane implements IAirplane {
     }
 
     public void rightTurn() {
-        String phase = "rightTurn";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+        String phase = "rightTurn";
+        String environment = "Cloud, Rain, Wind, CLoud";
+        eventBus.post(new RadarScan(phase, environment));
+
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
@@ -112,7 +137,12 @@ public class Airplane implements IAirplane {
     }
 
     public void leftTurn() {
-        String phase = "leftTurn";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+
+        String phase = "leftTurn";
+        String environment = "Cloud, Rain, Wind, CLoud";
+        eventBus.post(new RadarScan(phase, environment));
+
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
@@ -128,7 +158,11 @@ public class Airplane implements IAirplane {
     }
 
     public void descent() {
-        String phase = "descent";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+        String phase = "descent";
+        String environment = "Cloud, Rain, Wind, CLoud";
+        eventBus.post(new RadarScan(phase, environment));
+
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
@@ -144,7 +178,10 @@ public class Airplane implements IAirplane {
     }
 
     public void landing() {
-        String phase = "landing";eventBus.post(new AirflowSensorMeasure(phase,"645"));
+        String phase = "landing";
+        String environment = "Cloud, Rain, Wind, CLoud";
+        eventBus.post(new AirflowSensorMeasure(phase,"645"));
+
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new AirflowSensorAlarm(phase,5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
@@ -161,6 +198,13 @@ public class Airplane implements IAirplane {
 
     public void shutdown() {
         String phase = "shutdown";
+
+        eventBus.post(new CameraOff(phase));
+        eventBus.post(new RadarOff(phase));
+        eventBus.post(new SatComOff(phase));
+        eventBus.post(new GPSOff(phase));
+        eventBus.post(new VHFOff(phase));
+
         eventBus.post(new RadarAltimeterOff(phase));
         eventBus.post(new TCASOff(phase));
     }

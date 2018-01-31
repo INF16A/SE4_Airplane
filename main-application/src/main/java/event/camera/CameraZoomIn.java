@@ -1,4 +1,4 @@
-package event.Camera;
+package event.camera;
 
 public class CameraZoomIn {
     private String phase;
@@ -12,6 +12,8 @@ public class CameraZoomIn {
     public String getPhase() {
         return phase;
     }
+
+    public boolean getFactor() {return factor; }
 
     public String toString() {
         return "event - " + phase + " : CameraZoomIn with " + factor;

@@ -87,8 +87,8 @@ public class VHFTest {
         componentPort = VHFFactory.build();
 
         try {
-            Method onMethod = componentPort.getClass().getDeclaredMethod("selectChannel");
-            String selectedChannel = (String)onMethod.invoke(componentPort);
+            Method onMethod = componentPort.getClass().getDeclaredMethod("selectChannel", String.class);
+            String selectedChannel = (String)onMethod.invoke(componentPort, new Object[]{"182.98"});
             assertEquals("182.98", selectedChannel);
         } catch (Exception e) {
             System.out.println(e.getMessage());
