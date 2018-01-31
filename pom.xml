@@ -24,6 +24,12 @@
         <module>components/03_Gear</module>
         <module>components/03_HydraulicPump</module>
 
+        <module>components/09_AirflowSensor</module>
+        <module>components/09_PitotTube</module>
+        <module>components/09_RadarAltimeter</module>
+        <module>components/09_TCAS</module>
+        <module>components/09_TurbulentAirFlowSensor</module>
+
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
@@ -60,11 +66,11 @@
         <module>components/07_FuelFlowSensor</module>
         <module>components/07_ExhaustGasTemperatureSensor</module>
 
-        <!--module>components/08_FireDetector</module>
+        <module>components/08_FireDetector</module>
         <module>components/08_OxygenSensor</module>
         <module>components/08_StallingSensor</module>
         <module>components/08_ShockSensor</module>
-        <module>components/08_TemperatureSensor</module-->
+        <module>components/08_TemperatureSensor</module>
 
         <module>components/11_light_anticollisionlight</module>
         <module>components/11_light_cargocompartmentlight</module>
