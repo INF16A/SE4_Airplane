@@ -230,19 +230,19 @@ public class Body extends Subscriber {
 
         // light
         antiCollisionLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) antiCollisionLights.add(AntiCollisionLightFactory.build());
+        //for (int i = 0; i < 2; i++) antiCollisionLights.add(AntiCollisionLightFactory.build());
         cargoCompartmentLights = new ArrayList<>();
-        for (int i = 0; i < 4; i++) cargoCompartmentLights.add(CargoCompartmentLightFactory.build());
+        //for (int i = 0; i < 4; i++) cargoCompartmentLights.add(CargoCompartmentLightFactory.build());
         landingLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
+        //for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
         logoLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) logoLights.add(LogoLightFactory.build());
+        //for (int i = 0; i < 2; i++) logoLights.add(LogoLightFactory.build());
         tailNavigationLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) tailNavigationLights.add(TailNavigationLightFactory.build());
+        //for (int i = 0; i < 2; i++) tailNavigationLights.add(TailNavigationLightFactory.build());
         taxiLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) taxiLights.add(TaxiLightFactory.build());
+        //for (int i = 0; i < 2; i++) taxiLights.add(TaxiLightFactory.build());
         tCASLights = new ArrayList<>();
-        for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
+        //for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
 
         // stowage_cargo
         cargoSystems = new ArrayList<>();
