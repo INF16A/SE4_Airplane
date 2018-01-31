@@ -15,17 +15,14 @@ public class OxygenSensor {
 
     public class Port implements IOxygenSensor {
 
-        @Override
         public String version() {
             return innerVersion();
         }
 
-        @Override
         public int measure(String airFlow) {
             return airFlow.hashCode();
         }
 
-        @Override
         public boolean alarm() {
             return isAlarm;
         }

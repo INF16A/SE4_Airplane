@@ -1,14 +1,22 @@
 package section;
 
+import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Slat.SlatSetFix;
 import event.Slat.SlatSetVariable;
 import event.Subscriber;
+import factory.*;
 import event.engine.*;
 import event.flap.FlapSetLevel;
 import event.hydraulicPump.HydraulicPumpCompress;
 import event.hydraulicPump.HydraulicPumpDecompress;
 import event.hydraulicPump.HydraulicPumpRefilOil;
+import event.sensors.airflowSensor.AirflowSensorAlarm;
+import event.sensors.airflowSensor.AirflowSensorMeasure;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import factory.AirflowSensorFactory;
+import factory.CameraFactory;
 import factory.ExhaustGasTemperatureSensorFactory;
 import factory.FuelFlowSensorFactory;
 import factory.FuelSensorFactory;
@@ -19,8 +27,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 // Factory import for sensor04
+
 import factory.CameraFactory;
 import recorder.FlightRecorder;
+import event.camera.CameraOn;
+import event.camera.CameraOff;
+import event.camera.CameraZoomIn;
+
 
 public class Wing extends Subscriber {
     private int wingIndex;
@@ -55,7 +68,7 @@ public class Wing extends Subscriber {
     private ArrayList<Object> airflowSensors;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameras;
+    private ArrayList<Object> cameraPorts;
     // light
     private ArrayList<Object> landingLights;
     private ArrayList<Object> leftNavigationLights;
@@ -88,40 +101,36 @@ public class Wing extends Subscriber {
 
         // apu_engine_gear_pump
         engines = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) engines.add(EngineFactory.build());
         hydraulicPumps = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) hydraulicPumps.add(HydraulicPumpFactory.build());
 
         // tank_bottle
         engineOilTanks = new ArrayList<>();
-        // Factory magic 4
+        for (int i = 0; i < 4; i++) engineOilTanks.add(EngineOilTankFactory.build());
         fuelTanks = new ArrayList<>();
-        // Factory magic 3
+        for (int i = 0; i < 3; i++) fuelTanks.add(FuelTankFactory.build());
         deIcingSystems = new ArrayList<>();
-        // Factory magic 2
+        for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // sensor01
         exhaustGasTemperatureSensors = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             exhaustGasTemperatureSensors.add(ExhaustGasTemperatureSensorFactory.build());
         }
-        // Factory magic 4
         fuelFlowSensors = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             fuelFlowSensors.add(FuelFlowSensorFactory.build());
         }
-        // Factory magic 6
 
         fuelSensors = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             fuelSensors.add(FuelSensorFactory.build());
         }
-        // Factory magic 6
 
         iceDetectorProbes = new ArrayList<>();
         iceDetectorProbes.add(IceDetectorProbeFactory.build());
         iceDetectorProbes.add(IceDetectorProbeFactory.build());
-        // Factory magic 2
 
         // sensor02
         fireDetectors = new ArrayList<>();
@@ -135,14 +144,18 @@ public class Wing extends Subscriber {
 
         // sensor03
         airflowSensors = new ArrayList<>();
-        // Factory magic 2
+        airflowSensors.add(AirflowSensorFactory.build());
+        airflowSensors.add(AirflowSensorFactory.build());
         turbulentAirFlowSensors = new ArrayList<>();
-        // Factory magic 4
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
+        turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
         //Factory magic 1
-        cameras = new ArrayList<>();
-        cameras.add(CameraFactory.build());
+        cameraPorts = new ArrayList<>();
+        cameraPorts.add(CameraFactory.build());
 
         // light
         landingLights = new ArrayList<>();
@@ -170,6 +183,21 @@ public class Wing extends Subscriber {
                 String hydraulicPumpVersion = (String) hydraulicPumpVersionMethod.invoke(hydraulicPumps.get(hydraulicPumpIndex));
                 LogEngine.instance.write("hydraulicPumpPort : " + hydraulicPumps.get(hydraulicPumpIndex).hashCode() + " - " + hydraulicPumpVersion);
             }
+
+            //AirflowSensor
+            for (Object port : airflowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("AirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //TurbulentAirFlowSensor
+            for (Object port : turbulentAirFlowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
             // please add here
 
             LogEngine.instance.write("");
@@ -178,6 +206,69 @@ public class Wing extends Subscriber {
         }
     }
 
+    @Subscribe
+    public void receive(CameraOn cameraOn){
+        LogEngine.instance.write("+ Body.receive(" + cameraOn + ")");
+
+        try{
+                Method cameraOnMethod = cameraPorts.get(0).getClass().getDeclaredMethod("on");
+                LogEngine.instance.write("cameraOnMethod = " + cameraOnMethod + "");
+
+                boolean isCameraOn = (boolean)cameraOnMethod.invoke(cameraPorts.get(0));
+
+                LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
+
+                PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
+
+                LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void receive(CameraOff cameraOff){
+        LogEngine.instance.write("+ Body.receive(" + cameraOff + ")");
+
+        try{
+            Method cameraOffMethod = cameraPorts.get(0).getClass().getDeclaredMethod("off");
+            LogEngine.instance.write("cameraOffMethod = " + cameraOffMethod + "");
+
+            boolean isCameraOff = (boolean)cameraOffMethod.invoke(cameraPorts.get(0));
+
+            LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOff = " + isCameraOff + "");
+
+            PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
+
+            LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void receive(CameraZoomIn cameraZoomIn){
+        LogEngine.instance.write("+ Body.receive(" + cameraZoomIn + ")");
+
+        try{
+            Method cameraZoomInMethod = cameraPorts.get(0).getClass().getDeclaredMethod("zoomIn", boolean.class);
+            LogEngine.instance.write("cameraZoomInMethod = " + cameraZoomInMethod + "");
+
+            double cameraFactor = (double)cameraZoomInMethod.invoke(cameraPorts.get(0), new Object[]{true});
+
+            LogEngine.instance.write(cameraZoomIn.getPhase() + " : cameraFactor = " + cameraFactor + "");
+
+            PrimaryFlightDisplay.instance.cameraFactor = cameraFactor;
+            FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraZoomIn.getPhase() + " : camera (Factor) = " + cameraFactor);
+
+            LogEngine.instance.write("+");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    // please add here
     //Engine
     @Subscribe
     public void receive(EngineDecreaseRPM engineDecreaseRPM) {
@@ -496,6 +587,99 @@ public class Wing extends Subscriber {
         }
     }
 
+    //sensor03
+    @Subscribe
+    public void recieve(AirflowSensorAlarm airflowSensorAlarm) {
+        LogEngine.instance.write("+ Wing.receive(" + airflowSensorAlarm + ")");
+        try {
+            for (int i = 0; i < airflowSensors.size(); i++) {
+                Method alarmMethod = airflowSensors.get(i).getClass().getDeclaredMethod("alarm", int.class);
+                LogEngine.instance.write("airflowSensorAlarmMethod = " + alarmMethod);
+
+                boolean alarmResult = (boolean) alarmMethod.invoke(airflowSensors.get(i), airflowSensorAlarm.getThreshhold());
+                LogEngine.instance.write(airflowSensorAlarm.getPhase() + " : isAlarm" + alarmResult);
+                if (wingIndex == 0)
+                    PrimaryFlightDisplay.instance.isLeftWingAirflowSensorAlarm = alarmResult;
+                else
+                    PrimaryFlightDisplay.instance.isRightWingAirflowSensorAlarm = alarmResult;
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(AirflowSensorMeasure airflowSensorMeasure) {
+        LogEngine.instance.write("+ Wing.receive(" + airflowSensorMeasure + ")");
+        try {
+            for (int i = 0; i < airflowSensors.size(); i++) {
+                Method measureMethod = airflowSensors.get(i).getClass().getDeclaredMethod("measure", String.class);
+                LogEngine.instance.write("airflowSensorMeasureMethod = " + measureMethod);
+
+                int measureResult = (int) measureMethod.invoke(airflowSensors.get(i), airflowSensorMeasure.getAirFlow());
+                LogEngine.instance.write(airflowSensorMeasure.getPhase() + " : measure" + measureResult);
+                if (wingIndex == 0)
+                    PrimaryFlightDisplay.instance.leftWingAirflowSensorAirPressure = measureResult;
+                else
+                    PrimaryFlightDisplay.instance.rightWingAirflowSensorAirPressure = measureResult;
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(TurbulentAirFlowSensorAlarm turbulentAirFlowSensorAlarm) {
+        LogEngine.instance.write("+ Wing.receive(" + turbulentAirFlowSensorAlarm + ")");
+
+        try {
+            for (int momSensor = 0; momSensor < turbulentAirFlowSensors.size(); momSensor++) {
+                Method turbulentAirFlowSensorAlarmMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("alarm");
+                LogEngine.instance.write("turbulentAirFlowSensorMeasureMethod = " + turbulentAirFlowSensorAlarmMethod);
+
+                boolean measuredValue = (boolean) turbulentAirFlowSensorAlarmMethod.invoke(turbulentAirFlowSensors.get(momSensor));
+                LogEngine.instance.write(turbulentAirFlowSensorAlarm.getPhase() + " : turbulentAirFlowSensorAlarm = " + measuredValue);
+
+                if (wingIndex == 0)
+                    PrimaryFlightDisplay.instance.isLeftWingTurbulentAirFlowSensorAlarm = measuredValue;
+                else
+                    PrimaryFlightDisplay.instance.isRightWingTurbulentAirFlowSensorAlarm = measuredValue;
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(TurbulentAirFlowSensorMeasure turbulentAirFlowSensorMeasure) {
+        LogEngine.instance.write("+ Wing.receive(" + turbulentAirFlowSensorMeasure + ")");
+
+        try {
+            for (int momSensor = 0; momSensor < turbulentAirFlowSensors.size(); momSensor++) {
+                Method turbulentAirFlowSensorMeasureMethod = turbulentAirFlowSensors.get(momSensor).getClass().getDeclaredMethod("measure", int.class);
+                LogEngine.instance.write("turbulentAirFlowSensorMeasureMethod = " + turbulentAirFlowSensorMeasureMethod);
+
+                int measuredValue = (int) turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor), turbulentAirFlowSensorMeasure.getAirFlow());
+                LogEngine.instance.write(turbulentAirFlowSensorMeasure.getPhase() + " : turbulentAirFlowSensorMeasure = " + measuredValue);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
     public ArrayList<Object> getDroopNoses()
     {
         return droopNoses;
@@ -603,7 +787,7 @@ public class Wing extends Subscriber {
 
     public ArrayList<Object> getCameras()
     {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getLandingLights()

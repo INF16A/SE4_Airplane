@@ -13,7 +13,7 @@ public class EscapeSlideFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/13_escapeslide.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/escapeslide.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EscapeSlideFactory.class.getClassLoader());
             Class escapeSlideClass = Class.forName("EscapeSlide",true,urlClassLoader);
             Object escapeSlideInstance = escapeSlideClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
