@@ -1,4 +1,4 @@
-package main.java;
+
 
 import java.lang.reflect.Method;
 
@@ -8,7 +8,7 @@ public class FireExtinguisher {
     private String type;
     private String id;
     private int percentage;
-    private Port port;
+    public Port port;
     private static FireExtinguisher instance = new FireExtinguisher();
 
     private FireExtinguisher() {
@@ -27,9 +27,9 @@ public class FireExtinguisher {
         return "v1.0";
     }
 
-    public int innerRefill() {
+    public boolean innerRefill() {
         percentage = 100;
-        return percentage;
+        return true;
     }
 
     public int innerApply() {
@@ -51,7 +51,7 @@ public class FireExtinguisher {
             return innerVersion();
         }
 
-        public int refill() {
+        public boolean refill() {
             return innerRefill();
         }
 
