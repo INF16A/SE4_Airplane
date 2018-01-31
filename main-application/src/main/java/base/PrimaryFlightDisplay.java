@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum PrimaryFlightDisplay {
     instance;
-
+    
     // please add value(s)
 
     //DroopNose
