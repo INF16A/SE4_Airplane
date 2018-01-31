@@ -79,11 +79,11 @@ public class Wing extends Subscriber {
     public void build() {
         // Flight Controls01
         droopNoses = new ArrayList<>();
-        for (int i = 0; i < 2; i++) droopNoses.add(DroopNoseFactory.build());
+        //for (int i = 0; i < 2; i++) droopNoses.add(DroopNoseFactory.build());
         flaps = new ArrayList<>();
-        for (int i = 0; i < 2; i++) flaps.add(FlapFactory.build());
+        //for (int i = 0; i < 2; i++) flaps.add(FlapFactory.build());
         slats = new ArrayList<>();
-        for (int i = 0; i < 6; i++) slats.add(SlapFactory.build());
+        //for (int i = 0; i < 6; i++) slats.add(SlapFactory.build());
 
         // Flight Controls02
         leftAilerons = new ArrayList<>();
