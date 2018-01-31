@@ -60,11 +60,11 @@
         <module>components/07_FuelFlowSensor</module>
         <module>components/07_ExhaustGasTemperatureSensor</module>
 
-        <!--module>components/08_FireDetector</module>
+        <module>components/08_FireDetector</module>
         <module>components/08_OxygenSensor</module>
         <module>components/08_StallingSensor</module>
         <module>components/08_ShockSensor</module>
-        <module>components/08_TemperatureSensor</module-->
+        <module>components/08_TemperatureSensor</module>
 
         <module>components/11_light_anticollisionlight</module>
         <module>components/11_light_cargocompartmentlight</module>
