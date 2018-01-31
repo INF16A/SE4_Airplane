@@ -1,4 +1,4 @@
-package event.VHF;
+package event.vhf;
 
 public class VHFOn {
     private String phase;

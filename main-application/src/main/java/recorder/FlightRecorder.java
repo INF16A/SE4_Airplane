@@ -22,6 +22,9 @@ public enum FlightRecorder {
             Class.forName("org.hsqldb.jdbcDriver");
             String databaseURL = driverName + Configuration.instance.databaseFile;
             connection = DriverManager.getConnection(databaseURL,username,password);
+            if(connection == null) {
+                throw new Exception("could not connect to databas");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

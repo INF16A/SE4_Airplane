@@ -24,6 +24,12 @@
         <module>components/03_Gear</module>
         <module>components/03_HydraulicPump</module>
 
+        <module>components/09_AirflowSensor</module>
+        <module>components/09_PitotTube</module>
+        <module>components/09_RadarAltimeter</module>
+        <module>components/09_TCAS</module>
+        <module>components/09_TurbulentAirFlowSensor</module>
+
         <module>components/14_management_costoptimizer</module>
         <module>components/14_management_routemanagement</module>
         <module>components/14_management_seatmanagement</module>
@@ -112,6 +118,11 @@
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>2.4.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -126,6 +137,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
         </dependency>
     </dependencies>
 </project>
