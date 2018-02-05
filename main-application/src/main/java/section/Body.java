@@ -12,11 +12,19 @@ import event.Subscriber;
 import event.apu.*;
 import event.gear.*;
 import event.hydraulicPump.*;
+import event.potablewatertank.PotableWaterTankLock;
+import event.potablewatertank.PotableWaterTankRefill;
+import event.potablewatertank.PotableWaterTankTakeOut;
+import event.potablewatertank.PotableWaterTankUnlock;
 import event.sensors.airflowSensor.*;
 import event.sensors.pitotTube.*;
 import event.sensors.radarAltimeter.*;
 import event.sensors.tCAS.*;
 import event.sensors.turbulentAirFlowSensor.*;
+import event.wastewatertank.WasteWaterLock;
+import event.wastewatertank.WasteWaterTankAdd;
+import event.wastewatertank.WasteWaterTankPumpOut;
+import event.wastewatertank.WasteWaterUnlock;
 import factory.*;
 import logging.LogEngine;
 import recorder.FlightRecorder;
@@ -1473,6 +1481,170 @@ public class Body extends Subscriber {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    //// TANK BOTTLES
+    // WasteWaterTank
+    @Subscribe
+    public void receive(WasteWaterTankAdd wasteWaterTankAdd){
+        LogEngine.instance.write("+ Body.receive(" + wasteWaterTankAdd + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method wasteWaterTankAddMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("add", int.class);
+                LogEngine.instance.write("wasteWaterTankAddMethod = " + wasteWaterTankAddMethod);
+
+                int value = (int) wasteWaterTankAddMethod.invoke(wasteWaterTanks.get(i), wasteWaterTankAdd.getFillValue());
+                LogEngine.instance.write(wasteWaterTankAdd.getPhase() + " : wasteWaterTankAdd = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(WasteWaterTankPumpOut wasteWaterTankPumpOut){
+        LogEngine.instance.write("+ Body.receive(" + wasteWaterTankPumpOut + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method wasteWaterTankPumpOutMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("pumpOut");
+                LogEngine.instance.write("wasteWaterTankPumpOut = " + wasteWaterTankPumpOutMethod);
+
+                int value = (int) wasteWaterTankPumpOutMethod.invoke(wasteWaterTanks.get(i));
+                LogEngine.instance.write(wasteWaterTankPumpOut.getPhase() + " : wasteWaterTankPumpOut = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(WasteWaterLock wasteWaterLock){
+        LogEngine.instance.write("+ Body.receive(" + wasteWaterLock + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method wasteWaterLockMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("lock");
+                LogEngine.instance.write("wasteWaterLock = " + wasteWaterLockMethod);
+
+                boolean value = (boolean) wasteWaterLockMethod.invoke(wasteWaterTanks.get(i));
+                LogEngine.instance.write(wasteWaterLock.getPhase() + " : wasteWaterLock = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(WasteWaterUnlock wasteWaterUnlock){
+        LogEngine.instance.write("+ Body.receive(" + wasteWaterUnlock + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method wasteWaterUnlockMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("unlock");
+                LogEngine.instance.write("wasteWaterUnlock = " + wasteWaterUnlock);
+
+                boolean value = (boolean) wasteWaterUnlockMethod.invoke(wasteWaterTanks.get(i));
+                LogEngine.instance.write(wasteWaterUnlock.getPhase() + " : wasteWaterUnlock = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // PotableWaterTank
+    @Subscribe
+    public void receive(PotableWaterTankRefill potableWaterTankRefill){
+        LogEngine.instance.write("+ Body.receive(" + potableWaterTankRefill + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method potableWaterTankRefillMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("refill", int.class);
+                LogEngine.instance.write("potableWaterTankRefillMethod = " + potableWaterTankRefillMethod);
+
+                int value = (int) potableWaterTankRefillMethod.invoke(wasteWaterTanks.get(i), potableWaterTankRefill.getFillValue());
+                LogEngine.instance.write(potableWaterTankRefill.getPhase() + " : potableWaterTankRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(PotableWaterTankTakeOut potableWaterTankTakeOut){
+        LogEngine.instance.write("+ Body.receive(" + potableWaterTankTakeOut + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method potableWaterTankTakeOutMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+                LogEngine.instance.write("potableWaterTankTakeOut = " + potableWaterTankTakeOutMethod);
+
+                int value = (int) potableWaterTankTakeOutMethod.invoke(wasteWaterTanks.get(i), potableWaterTankTakeOut.getFillValue());
+                LogEngine.instance.write(potableWaterTankTakeOut.getPhase() + " : potableWaterTankTakeOut = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(PotableWaterTankLock potableWaterTankLock){
+        LogEngine.instance.write("+ Body.receive(" + potableWaterTankLock + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method potableWaterTankLockMethode = wasteWaterTanks.get(i).getClass().getDeclaredMethod("lock");
+                LogEngine.instance.write("potableWaterTankLockMethode = " + potableWaterTankLockMethode);
+
+                boolean value = (boolean) potableWaterTankLockMethode.invoke(wasteWaterTanks.get(i));
+                LogEngine.instance.write(potableWaterTankLock.getPhase() + " : potableWaterTankLock = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(PotableWaterTankUnlock potableWaterTankUnlock){
+        LogEngine.instance.write("+ Body.receive(" + potableWaterTankUnlock + ")");
+
+        try {
+
+            for (int i = 0; i < wasteWaterTanks.size(); i++) {
+                Method potableWaterTankUnlockMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("unlock");
+                LogEngine.instance.write("potableWaterTankUnlockMethod = " + potableWaterTankUnlockMethod);
+
+                boolean value = (boolean) potableWaterTankUnlockMethod.invoke(wasteWaterTanks.get(i));
+                LogEngine.instance.write(potableWaterTankUnlock.getPhase() + " : wasteWaterUnlock = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Oxygen Bottle
+    @Subscribe
+    public void receive(){
+
     }
 
 }

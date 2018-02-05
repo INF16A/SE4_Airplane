@@ -1,9 +1,9 @@
 package event.wastewatertank;
 
-public class WasteWaterTankPumpOut {
+public class WasteWaterUnlock {
 	private String phase;
 
-	public WasteWaterTankPumpOut(String phase) {
+	public WasteWaterUnlock(String phase, boolean locked) {
 		this.phase = phase;
 	}
 
@@ -12,6 +12,6 @@ public class WasteWaterTankPumpOut {
 	}
 
 	public String toString() {
-		return "event - " + phase + " : WasteWaterTankTakeOut :";
+		return "event - " + phase + " : WasteWaterUnlock" ;
 	}
 }
