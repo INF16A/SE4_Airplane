@@ -9,10 +9,6 @@ public class OxygenBottleTakeOut {
 
 	private int fillValue;
 
-	/*public OxygenBottleTakeOut(String phase) {
-		this.phase = phase;
-		fillValue = 100;
-	}*/
 	public OxygenBottleTakeOut(String phase, int value) {
 		this.phase = phase;
 		fillValue = value;

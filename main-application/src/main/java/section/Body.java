@@ -12,6 +12,10 @@ import event.Subscriber;
 import event.apu.*;
 import event.gear.*;
 import event.hydraulicPump.*;
+import event.nitrogenbottle.NitrogenBottleRefill;
+import event.nitrogenbottle.NitrogenBottleTakeOut;
+import event.oxygenbottle.OxygenBottleRefill;
+import event.oxygenbottle.OxygenBottleTakeOut;
 import event.potablewatertank.PotableWaterTankLock;
 import event.potablewatertank.PotableWaterTankRefill;
 import event.potablewatertank.PotableWaterTankTakeOut;
@@ -1570,11 +1574,11 @@ public class Body extends Subscriber {
 
         try {
 
-            for (int i = 0; i < wasteWaterTanks.size(); i++) {
-                Method potableWaterTankRefillMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("refill", int.class);
+            for (int i = 0; i < potableWaterTanks.size(); i++) {
+                Method potableWaterTankRefillMethod = potableWaterTanks.get(i).getClass().getDeclaredMethod("refill", int.class);
                 LogEngine.instance.write("potableWaterTankRefillMethod = " + potableWaterTankRefillMethod);
 
-                int value = (int) potableWaterTankRefillMethod.invoke(wasteWaterTanks.get(i), potableWaterTankRefill.getFillValue());
+                int value = (int) potableWaterTankRefillMethod.invoke(potableWaterTanks.get(i), potableWaterTankRefill.getFillValue());
                 LogEngine.instance.write(potableWaterTankRefill.getPhase() + " : potableWaterTankRefill = " + value);
 
                 LogEngine.instance.write("+");
@@ -1589,11 +1593,11 @@ public class Body extends Subscriber {
 
         try {
 
-            for (int i = 0; i < wasteWaterTanks.size(); i++) {
-                Method potableWaterTankTakeOutMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+            for (int i = 0; i < potableWaterTanks.size(); i++) {
+                Method potableWaterTankTakeOutMethod = potableWaterTanks.get(i).getClass().getDeclaredMethod("takeOut", int.class);
                 LogEngine.instance.write("potableWaterTankTakeOut = " + potableWaterTankTakeOutMethod);
 
-                int value = (int) potableWaterTankTakeOutMethod.invoke(wasteWaterTanks.get(i), potableWaterTankTakeOut.getFillValue());
+                int value = (int) potableWaterTankTakeOutMethod.invoke(potableWaterTanks.get(i), potableWaterTankTakeOut.getFillValue());
                 LogEngine.instance.write(potableWaterTankTakeOut.getPhase() + " : potableWaterTankTakeOut = " + value);
 
                 LogEngine.instance.write("+");
@@ -1608,11 +1612,11 @@ public class Body extends Subscriber {
 
         try {
 
-            for (int i = 0; i < wasteWaterTanks.size(); i++) {
-                Method potableWaterTankLockMethode = wasteWaterTanks.get(i).getClass().getDeclaredMethod("lock");
+            for (int i = 0; i < potableWaterTanks.size(); i++) {
+                Method potableWaterTankLockMethode = potableWaterTanks.get(i).getClass().getDeclaredMethod("lock");
                 LogEngine.instance.write("potableWaterTankLockMethode = " + potableWaterTankLockMethode);
 
-                boolean value = (boolean) potableWaterTankLockMethode.invoke(wasteWaterTanks.get(i));
+                boolean value = (boolean) potableWaterTankLockMethode.invoke(potableWaterTanks.get(i));
                 LogEngine.instance.write(potableWaterTankLock.getPhase() + " : potableWaterTankLock = " + value);
 
                 LogEngine.instance.write("+");
@@ -1627,11 +1631,11 @@ public class Body extends Subscriber {
 
         try {
 
-            for (int i = 0; i < wasteWaterTanks.size(); i++) {
-                Method potableWaterTankUnlockMethod = wasteWaterTanks.get(i).getClass().getDeclaredMethod("unlock");
+            for (int i = 0; i < potableWaterTanks.size(); i++) {
+                Method potableWaterTankUnlockMethod = potableWaterTanks.get(i).getClass().getDeclaredMethod("unlock");
                 LogEngine.instance.write("potableWaterTankUnlockMethod = " + potableWaterTankUnlockMethod);
 
-                boolean value = (boolean) potableWaterTankUnlockMethod.invoke(wasteWaterTanks.get(i));
+                boolean value = (boolean) potableWaterTankUnlockMethod.invoke(potableWaterTanks.get(i));
                 LogEngine.instance.write(potableWaterTankUnlock.getPhase() + " : wasteWaterUnlock = " + value);
 
                 LogEngine.instance.write("+");
@@ -1643,8 +1647,73 @@ public class Body extends Subscriber {
 
     // Oxygen Bottle
     @Subscribe
-    public void receive(){
+    public void receive(OxygenBottleRefill oxygenBottleRefill){
+        try {
 
+            for (int i = 0; i < oxygenBottles.size(); i++) {
+                Method oxygenBottleRefillMethod = oxygenBottles.get(i).getClass().getDeclaredMethod("refill", int.class);
+                LogEngine.instance.write("oxygenBottleRefillMethod = " + oxygenBottleRefillMethod);
+
+                int value = (int) oxygenBottleRefillMethod.invoke(oxygenBottles.get(i), oxygenBottleRefill.getFillValue());
+                LogEngine.instance.write(oxygenBottleRefill.getPhase() + " : oxygenBottleRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(OxygenBottleTakeOut oxygenBottleTakeOut){
+        try {
+
+            for (int i = 0; i < oxygenBottles.size(); i++) {
+                Method oxygenBottleTakeOutMethod = oxygenBottles.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+                LogEngine.instance.write("oxygenBottleTakeOutMethod = " + oxygenBottleTakeOutMethod);
+
+                int value = (int) oxygenBottleTakeOutMethod.invoke(oxygenBottles.get(i), oxygenBottleTakeOut.getFillValue());
+                LogEngine.instance.write(oxygenBottleTakeOut.getPhase() + " : oxygenBottleTakeOut = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    // Nitrogen Bottle
+    @Subscribe
+    public void receive(NitrogenBottleRefill nitrogenBottleRefill){
+        try {
+
+            for (int i = 0; i < nitrogenBottles.size(); i++) {
+                Method nitrogenBottleRefillMethod = nitrogenBottles.get(i).getClass().getDeclaredMethod("refill", int.class);
+                LogEngine.instance.write("nitrogenBottleRefillMethod = " + nitrogenBottleRefillMethod);
+
+                int value = (int) nitrogenBottleRefillMethod.invoke(nitrogenBottles.get(i), nitrogenBottleRefill.getFillValue());
+                LogEngine.instance.write(nitrogenBottleRefill.getPhase() + " : oxygenBottleRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(NitrogenBottleTakeOut nitrogenBottleTakeOut){
+        try {
+
+            for (int i = 0; i < nitrogenBottles.size(); i++) {
+                Method nitrogenBottleTakeOutMethod = nitrogenBottles.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+                LogEngine.instance.write("nitrogenBottleTakeOutMethod = " + nitrogenBottleTakeOutMethod);
+
+                int value = (int) nitrogenBottleTakeOutMethod.invoke(nitrogenBottles.get(i), nitrogenBottleTakeOut.getFillValue());
+                LogEngine.instance.write(nitrogenBottleTakeOut.getPhase() + " : nitrogenBottleTakeOut = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
