@@ -11,6 +11,8 @@ import event.engineoiltank.EngineOilTankDecreaseLevel;
 import event.engineoiltank.EngineOilTankIncreaseLevel;
 import event.flap.*;
 import event.Subscriber;
+import event.fueltank.FuelTankRefill;
+import event.fueltank.FuelTankTakeOut;
 import factory.*;
 import event.engine.*;
 import event.hydraulicPump.*;
@@ -667,6 +669,7 @@ public class Wing extends Subscriber {
         }
     }
 
+
     @Subscribe
     public void receive(EngineOilTankIncreaseLevel engineOilTankIncreaseLevel){
         try {
@@ -684,6 +687,7 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
     public void receive(EngineOilTankDecreaseLevel engineOilTankDecreaseLevel){
         try {
@@ -694,6 +698,28 @@ public class Wing extends Subscriber {
 
                 int value = (int) method.invoke(engineOilTanks.get(i), engineOilTankDecreaseLevel.getFillValue());
                 LogEngine.instance.write(engineOilTankDecreaseLevel.getPhase() + " : engineOilTankDecreaseLevel = " + value);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //// TANK BOTTLES
+    // FuelTank
+    @Subscribe
+    public void receive(FuelTankRefill fuelTankRefill){
+        LogEngine.instance.write("+ Wing.receive(" + fuelTankRefill + ")");
+
+        try {
+
+            for (int i = 0; i < fuelTanks.size(); i++) {
+                Method fuelTankRefillMethod = fuelTanks.get(i).getClass().getDeclaredMethod("refill", int.class);
+                LogEngine.instance.write("fuelTankRefillMethod = " + fuelTankRefillMethod);
+
+                int fillValue = (int) fuelTankRefillMethod.invoke(fuelTanks.get(i), fuelTankRefill.getFillValue());
+                LogEngine.instance.write(fuelTankRefill.getPhase() + " : fuelTankRefill = " + fillValue);
+
 
                 LogEngine.instance.write("+");
             }
@@ -701,6 +727,7 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
 
     @Subscribe
     public void receive(DeIcingSystemActivate deIcingSystemActivate){
@@ -732,6 +759,24 @@ public class Wing extends Subscriber {
 
                 int value = (int) method.invoke(deIcingSystems.get(i));
                 LogEngine.instance.write(deIcingSystemDeactivate.getPhase() + " : deIcingSystemDeactivate = " + value);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(FuelTankTakeOut fuelTankTakeOut){
+        LogEngine.instance.write("+ Wing.receive(" + fuelTankTakeOut + ")");
+
+        try {
+
+            for (int i = 0; i < fuelTanks.size(); i++) {
+                Method fuelTankTakeOutMethod = fuelTanks.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+                LogEngine.instance.write("fuelTankTakeOutMethod = " + fuelTankTakeOutMethod);
+
+                int fillValue = (int) fuelTankTakeOutMethod.invoke(fuelTanks.get(i), fuelTankTakeOut.getFillValue());
+                LogEngine.instance.write(fuelTankTakeOut.getPhase() + " : fuelTankRefill = " + fillValue);
 
                 LogEngine.instance.write("+");
             }
@@ -739,6 +784,7 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
 
     @Subscribe
     public void receive(DeIcingSystemDeIce deIcingSystemDeIce){
@@ -777,6 +823,8 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
+
 
 
 
