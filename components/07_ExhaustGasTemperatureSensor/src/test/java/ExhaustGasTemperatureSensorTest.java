@@ -5,7 +5,7 @@ public class ExhaustGasTemperatureSensorTest {
 
     @Test
     public void TestVersion() {
-        Assert.assertNotNull( ExhaustGasTemperatureSensor.getInstance().version());
+        Assert.assertNotNull(ExhaustGasTemperatureSensor.getInstance().version());
     }
 
     @Test

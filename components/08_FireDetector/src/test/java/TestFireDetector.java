@@ -1,9 +1,9 @@
 import org.junit.Test;
 
-public class TestFireDetector extends FireDetector{
+public class TestFireDetector extends FireDetector {
 
     @Test
-    public void test(){
+    public void test() {
 
     }
 }

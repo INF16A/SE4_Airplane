@@ -1,18 +1,20 @@
 public class RadarAltimeter {
 
     private static RadarAltimeter Instance = new RadarAltimeter();
-
-    public static RadarAltimeter getInstance() {
-        return Instance;
-    }
-
     public Port port = new Port();
-
     private String manufacturer = "Die Manufaktur";
     private String type = "1Radar";
     private String id = "79846512";
     private boolean isOn = false;
     private int altitude = 10;
+
+    public static RadarAltimeter getInstance() {
+        return Instance;
+    }
+
+    public String innerVersion() {
+        return "RadarAltimeter (id: " + id + ") by " + manufacturer + " with Type " + type;
+    }
 
     public class Port implements IRadarAltimeter {
 
@@ -47,10 +49,6 @@ public class RadarAltimeter {
             isOn = false;
             return isOn;
         }
-    }
-
-    public String innerVersion() {
-        return "RadarAltimeter (id: " + id + ") by " + manufacturer + " with Type " + type;
     }
 
 }

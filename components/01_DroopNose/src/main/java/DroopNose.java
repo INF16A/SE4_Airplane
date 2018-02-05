@@ -1,7 +1,6 @@
 public class DroopNose {
-    public Port port;
     private static DroopNose instance = new DroopNose();
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
@@ -25,12 +24,12 @@ public class DroopNose {
     private int innerNeutral() {
         int stepsTaken = 0;
         if (degree < 0) {
-            for(;degree < 0; degree++) {
+            for (; degree < 0; degree++) {
                 stepsTaken++;
                 //send NoseUp Event
             }
-        } else if(degree > 0) {
-            for(;degree > 0; degree--) {
+        } else if (degree > 0) {
+            for (; degree > 0; degree--) {
                 stepsTaken++;
                 //send NoseDown Event
             }
@@ -40,16 +39,16 @@ public class DroopNose {
 
     private int innerFullDown() {
         int stepsTaken = 0;
-        for(; degree > -maxDegree; degree--) {
+        for (; degree > -maxDegree; degree--) {
             stepsTaken++;
             //send NoseDown Event
         }
         return stepsTaken;
     }
 
-    private int innerDown(int degree)  {
-        for(int i = 0; i < degree; i++) {
-            if(degree > -maxDegree) {
+    private int innerDown(int degree) {
+        for (int i = 0; i < degree; i++) {
+            if (degree > -maxDegree) {
                 degree--;
                 //send NoseDown Event
             }
@@ -58,8 +57,8 @@ public class DroopNose {
     }
 
     private int innerUp(int degree) {
-        for(int i = 0; i < degree; i++) {
-            if(degree < maxDegree) {
+        for (int i = 0; i < degree; i++) {
+            if (degree < maxDegree) {
                 degree++;
                 //send NoseDown Event
             }

@@ -1,15 +1,13 @@
-public class VHF{
+public class VHF {
 
+    private static VHF instance = new VHF();
+    public Port port;
     private String manufacturer = "EADS";
     private String type;
     private String id = "27";
     private boolean isOn;
     private String[] channelList = {"182.67", "133.70", "123.45", "120.42"};
     private String selectedChannel;
-
-    private static VHF instance = new VHF();
-
-    public Port port;
 
     private VHF() {
         port = new Port();
@@ -25,7 +23,9 @@ public class VHF{
 
     public class Port implements IVHF {
 
-        public String version(){ return innerVersion();}
+        public String version() {
+            return innerVersion();
+        }
 
         public boolean on() {
             isOn = true;

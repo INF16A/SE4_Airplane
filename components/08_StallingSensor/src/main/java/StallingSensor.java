@@ -1,17 +1,19 @@
 public class StallingSensor {
 
     private static StallingSensor Instance = new StallingSensor();
+    public Port port = new Port();
+    private String manufacturer = "Salingrad";
+    private String type = "Bester";
+    private String id = "23622";
+    private boolean isAlarm = false;
 
     public static StallingSensor getInstance() {
         return Instance;
     }
 
-    public Port port = new Port();
-
-    private String manufacturer = "Salingrad";
-    private String type ="Bester";
-    private String id = "23622";
-    private boolean isAlarm = false;
+    public String innerVersion() {
+        return "StallingSensor(id: " + id + ") by " + manufacturer + " with Type " + type;
+    }
 
     public class Port implements IStallingSensor {
 
@@ -27,10 +29,6 @@ public class StallingSensor {
             return isAlarm;
         }
 
-    }
-
-    public String innerVersion() {
-        return "StallingSensor(id: " + id + ") by " + manufacturer + " with Type " + type;
     }
 
 }

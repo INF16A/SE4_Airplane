@@ -1,11 +1,9 @@
-
-
 import static org.junit.Assert.*;
 
 public class TestRudder {
 
     @org.junit.Test
-    public void testManufacturer(){
+    public void testManufacturer() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.setManufacturer("Boeing");
@@ -14,7 +12,7 @@ public class TestRudder {
     }
 
     @org.junit.Test
-    public void testMaxDegree(){
+    public void testMaxDegree() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.fullRight();
@@ -23,7 +21,7 @@ public class TestRudder {
     }
 
     @org.junit.Test
-    public void testMaxDegreeAsLimit(){
+    public void testMaxDegreeAsLimit() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.fullRight();
@@ -34,7 +32,7 @@ public class TestRudder {
 
 
     @org.junit.Test
-    public void testMinDegreeAsLimit(){
+    public void testMinDegreeAsLimit() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.fullLeft();
@@ -44,7 +42,7 @@ public class TestRudder {
     }
 
     @org.junit.Test
-    public void testNeutral(){
+    public void testNeutral() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.fullRight();
@@ -54,7 +52,7 @@ public class TestRudder {
     }
 
     @org.junit.Test
-    public void testReturns(){
+    public void testReturns() {
         Rudder.Port rudder = Rudder.getInstance().port;
 
         rudder.neutral();

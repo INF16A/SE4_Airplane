@@ -4,13 +4,12 @@ import java.lang.reflect.Method;
  * Created by SolDeEcuador on 30/01/2018.
  */
 public class LogoLight {
+    private static LogoLight instance = new LogoLight();
+    public LogoLight.Port port;
     private String manufacturer;
     private String type;
     private String id;
     private boolean isOn;
-
-    private static LogoLight instance = new LogoLight();
-    public LogoLight.Port port;
 
     private LogoLight() {
         port = new LogoLight.Port();
@@ -18,6 +17,10 @@ public class LogoLight {
 
     public static LogoLight getInstance() {
         return instance;
+    }
+
+    public String innerMethodGetVersion() {
+        return "LogoLight";
     }
 
     public class Port implements ILogoLight {
@@ -38,9 +41,5 @@ public class LogoLight {
         public boolean off() {
             return isOn = false;
         }
-    }
-
-    public String innerMethodGetVersion() {
-        return "LogoLight";
     }
 }

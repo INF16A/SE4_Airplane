@@ -1,24 +1,43 @@
 public class LeftAileron {
 
+    public static final int MAX_DEGREE = 21;
+    public static final int MIN_DEGREE = -21;
     private static LeftAileron instance = new LeftAileron();
-
-    public static LeftAileron getInstance() {
-        return instance;
-    }
-
     public Port port;
-
-    private LeftAileron() {
-        port = new Port();
-    }
-
     private String manufacturer;
     private String type;
     private String id;
     private int degree;
 
-    public static final int MAX_DEGREE = 21;
-    public static final int MIN_DEGREE = -21;
+    private LeftAileron() {
+        port = new Port();
+    }
+
+    public static LeftAileron getInstance() {
+        return instance;
+    }
+
+    private void innerAddDegree(int addValue) {
+        innerSetDegree(this.degree + addValue);
+    }
+
+    private void innerSetDegree(int totalValue) {
+        if (totalValue < MIN_DEGREE) {
+            this.degree = MIN_DEGREE;
+        } else if (totalValue > MAX_DEGREE) {
+            this.degree = MAX_DEGREE;
+        } else {
+            this.degree = totalValue;
+        }
+    }
+
+    private int innerGetDegree() {
+        return degree;
+    }
+
+    private String innerMethodGetVersion() {
+        return manufacturer + " - " + type + ", v0.01";
+    }
 
     public class Port implements ILeftAileron {
 
@@ -84,27 +103,5 @@ public class LeftAileron {
             innerAddDegree(degree * -1);
             return innerGetDegree();
         }
-    }
-
-    private void innerAddDegree(int addValue) {
-        innerSetDegree(this.degree + addValue);
-    }
-
-    private void innerSetDegree(int totalValue) {
-        if (totalValue < MIN_DEGREE) {
-            this.degree = MIN_DEGREE;
-        } else if (totalValue > MAX_DEGREE) {
-            this.degree = MAX_DEGREE;
-        } else {
-            this.degree = totalValue;
-        }
-    }
-
-    private int innerGetDegree() {
-        return degree;
-    }
-
-    private String innerMethodGetVersion() {
-        return manufacturer + " - " + type + ", v0.01";
     }
 }

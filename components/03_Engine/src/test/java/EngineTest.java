@@ -7,12 +7,12 @@ public class EngineTest {
     private Engine.Port port;
 
     @Before
-    public void init(){
+    public void init() {
         port = Engine.getInstance().port;
     }
 
     @Test
-    public void version(){
+    public void version() {
         Assert.assertEquals("Engine 1.0", port.version());
     }
 
@@ -37,7 +37,7 @@ public class EngineTest {
     }
 
     @Test
-    public  void extinguishFire(){
+    public void extinguishFire() {
         Assert.assertFalse(port.extinguishFire());
     }
 

@@ -3,6 +3,8 @@
  */
 public interface ITCASLight {
     public String version();
+
     public boolean on();
+
     public String off();
 }

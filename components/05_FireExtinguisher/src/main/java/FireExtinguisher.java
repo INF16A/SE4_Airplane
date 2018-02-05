@@ -1,15 +1,13 @@
-
-
 import java.lang.reflect.Method;
 
 public class FireExtinguisher {
 
+    private static FireExtinguisher instance = new FireExtinguisher();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int percentage;
-    public Port port;
-    private static FireExtinguisher instance = new FireExtinguisher();
 
     private FireExtinguisher() {
         this.manufacturer = "MFireExinguisher";
@@ -19,7 +17,7 @@ public class FireExtinguisher {
         this.port = new Port();
     }
 
-    public static FireExtinguisher getInstance(){
+    public static FireExtinguisher getInstance() {
         return instance;
     }
 
@@ -36,6 +34,7 @@ public class FireExtinguisher {
         percentage = 0;
         return percentage;
     }
+
     public class Port implements IFireExtinguisher {
         private Method[] methods = getClass().getMethods();
 
