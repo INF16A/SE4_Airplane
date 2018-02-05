@@ -1,17 +1,16 @@
-package main.java.event.tank_bottle;
+package event.deicingsystem;
 
 public class DeIcingSystemDeIce {
     private String phase;
-
-    public int getFillValue() {
-        return fillValue;
-    }
-
     private int fillValue;
 
     public DeIcingSystemDeIce(String phase, int value) {
         this.phase = phase;
         fillValue = value;
+    }
+
+    public int getFillValue() {
+        return fillValue;
     }
 
     public String getPhase() {

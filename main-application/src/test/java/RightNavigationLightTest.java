@@ -1,31 +1,29 @@
-import factory.AntiCollisionLightFactory;
-import factory.LeftNavigationLightFactory;
-import javafx.scene.effect.Light;
+import factory.RightNavigationLightFactory;
 import org.junit.Test;
+
 import java.lang.reflect.Method;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Endrit Callaki on 30.01.2018.
  */
-public class LeftNavigationLightTest {
-
+public class RightNavigationLightTest {
     private Object componentPort;
-
 
     @Test
     public void build() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         assertNotNull(componentPort);
     }
 
     @Test
     public void testVersion() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         try {
             Method method = componentPort.getClass().getDeclaredMethod("version");
             String version = (String) method.invoke(componentPort);
-            assertEquals("LeftNavigationLight", version);
+            assertEquals("RightNavigationLight", version);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -34,7 +32,7 @@ public class LeftNavigationLightTest {
 
     @Test
     public void testOn() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         try {
             Method method = componentPort.getClass().getDeclaredMethod("on");
             boolean on = (boolean) method.invoke(componentPort);
@@ -47,7 +45,7 @@ public class LeftNavigationLightTest {
 
     @Test
     public void testoff() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         try {
             Method method = componentPort.getClass().getDeclaredMethod("off");
             boolean off = (boolean) method.invoke(componentPort);
@@ -60,11 +58,11 @@ public class LeftNavigationLightTest {
 
     @Test
     public void testSetLightType() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         try {
             Method method = componentPort.getClass().getDeclaredMethod("setLightType", String.class);
-            Enum type = (Enum) method.invoke(componentPort, new Object[]{LightType.red.toString()});
-            assertEquals(LightType.red, type);
+            Enum type = (Enum) method.invoke(componentPort, new Object[]{LightType.green.toString()});
+            assertEquals(LightType.green, type);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -73,11 +71,11 @@ public class LeftNavigationLightTest {
 
     @Test
     public void testSetPosition() {
-        componentPort = LeftNavigationLightFactory.build();
+        componentPort = RightNavigationLightFactory.build();
         try {
             Method method = componentPort.getClass().getDeclaredMethod("setPosition", String.class);
-            Enum type = (Enum) method.invoke(componentPort, new Object[]{Position.port.toString()});
-            assertEquals(Position.port, type);
+            Enum type = (Enum) method.invoke(componentPort, new Object[]{Position.starboard.toString()});
+            assertEquals(Position.starboard, type);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

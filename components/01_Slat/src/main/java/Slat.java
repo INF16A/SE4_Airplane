@@ -1,14 +1,53 @@
-
-
 public class Slat {
+    private static Slat instance = new Slat();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int degree;
 
-    public Port port;
+    private Slat() {
+        port = new Port();
+    }
 
-    public class Port implements main.java.ISlat {
+    public static Slat getInstance() {
+        return instance;
+    }
+
+    private int innerUp(int innerDegree) {
+        int tempDegree = degree + innerDegree;
+
+        if (tempDegree > 45) {
+            int tempOver = tempDegree - 45;
+            innerDegree -= tempOver;
+        }
+        degree += innerDegree;
+        return degree;
+    }
+
+    private int innerDown(int innerDegree) {
+        degree -= innerDegree;
+        if (degree < -45) {
+            degree = 45;
+        }
+        return degree;
+    }
+
+    private int innerFullDown() {
+        degree = -45;
+        return degree;
+    }
+
+    private int innerNeutral() {
+        degree = 0;
+        return degree;
+    }
+
+    private String innerVersion() {
+        return "main.java.slat XYZ";
+    }
+
+    public class Port implements ISlat {
         @Override
         public String version() {
             return innerVersion();
@@ -33,42 +72,5 @@ public class Slat {
         public int up(int degree) {
             return innerUp(degree);
         }
-    }
-
-    private int innerUp(int innerDegree) {
-        int tempDegree = degree + innerDegree;
-
-        if(tempDegree>45){
-            int tempOver = tempDegree-45;
-            innerDegree-=tempOver;
-        }
-        degree+= innerDegree;
-        return degree;
-    }
-
-    private int innerDown(int innerDegree) {
-        degree-= innerDegree;
-        if(degree<-45){
-            degree=45;
-        }
-        return degree;
-    }
-
-    private int innerFullDown() {
-        degree = -45;
-        return degree;
-    }
-
-    private int innerNeutral() {
-        degree = 0;
-        return degree;
-    }
-
-    private Slat() {
-        port = new Port();
-    }
-
-    private String innerVersion() {
-        return "main.java.Slat XYZ";
     }
 }

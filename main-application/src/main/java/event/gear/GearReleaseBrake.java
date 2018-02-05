@@ -5,6 +5,7 @@ package event.gear;
  */
 public class GearReleaseBrake {
     private String phase;
+
     public GearReleaseBrake(String phase) {
         this.phase = phase;
     }

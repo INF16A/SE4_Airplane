@@ -6,9 +6,11 @@ package event.hydraulicPump;
 public class HydraulicPumpCompress {
     private String phase;
     private int amount;
+
     public HydraulicPumpCompress(String phase) {
         this.phase = phase;
     }
+
     public HydraulicPumpCompress(String phase, int amount) {
         this.phase = phase;
         this.amount = amount;

@@ -15,8 +15,8 @@ public class RightAileronFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "rightaileron.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, RightAileronFactory.class.getClassLoader());
-            Class rightAileronClass = Class.forName("RightAileron",true,urlClassLoader);
-            Object rightAileronInstance = rightAileronClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class rightAileronClass = Class.forName("RightAileron", true, urlClassLoader);
+            Object rightAileronInstance = rightAileronClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = rightAileronClass.getDeclaredField("port").get(rightAileronInstance);
 
             Method setId = componentPort.getClass().getMethod("setId", String.class);

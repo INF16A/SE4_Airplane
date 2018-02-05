@@ -9,6 +9,7 @@ public class RightAileronUp {
         this.id = id;
         this.degree = degree;
     }
+
     public int getId() {
         return id;
     }
@@ -16,6 +17,7 @@ public class RightAileronUp {
     public int getDegree() {
         return degree;
     }
+
     public String toString() {
 
         return "{ LeftAileronUp : id = " + id + ", degree = " + degree + " }";

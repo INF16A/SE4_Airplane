@@ -1,18 +1,17 @@
-
 import java.lang.reflect.Method;
 
 public class EngineOilTank {
 
 
     private static EngineOilTank instance = new EngineOilTank();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int level;
-    public Port port;
 
     private EngineOilTank() {
-        this.manufacturer="mEngingeOilTank";
+        this.manufacturer = "mEngingeOilTank";
         this.type = "TEngingeOilTank";
         this.id = "ID54";
         this.level = 10;
@@ -33,7 +32,7 @@ public class EngineOilTank {
     }
 
     public int innerDecreaseLevel(int value) {
-        this.level -=value;
+        this.level -= value;
         if (this.level < 0) {
             level = 0;
         }

@@ -1,11 +1,7 @@
-import factory.APUFactory;
-import factory.CameraFactory;
 import factory.EngineFactory;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class EngineTest {
 

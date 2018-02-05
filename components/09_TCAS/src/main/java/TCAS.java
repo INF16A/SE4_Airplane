@@ -1,13 +1,7 @@
 public class TCAS {
 
     private static TCAS Instance = new TCAS();
-
-    public static TCAS getInstance() {
-        return Instance;
-    }
-
     public Port port = new Port();
-
     private String manufacturer = "ExampleManufacturer 1";
     private String type = "Tube101";
     private String id = "1";
@@ -15,6 +9,14 @@ public class TCAS {
     private boolean isConnected;
     private boolean isAlarm = false;
     private int altitude;
+
+    public static TCAS getInstance() {
+        return Instance;
+    }
+
+    public String innerVersion() {
+        return "TCAS(id: " + id + ") by " + manufacturer + " type: " + type;
+    }
 
     public class Port implements ITCAS {
 
@@ -58,10 +60,6 @@ public class TCAS {
         public boolean off() {
             return isOn = false;
         }
-    }
-
-    public String innerVersion() {
-        return "TCAS(id: " + id + ") by " + manufacturer + " type: " + type;
     }
 
 }

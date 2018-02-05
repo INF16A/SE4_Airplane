@@ -1,4 +1,3 @@
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,7 @@ public class EngineOilTankTest {
     }
 
     @Test
-    public void version(){
+    public void version() {
         Assert.assertEquals("v1.0", port.version());
     }
 
@@ -21,14 +20,14 @@ public class EngineOilTankTest {
     public void increase() {
         int cur = port.increaseLevel(0);
         int after = port.increaseLevel(10);
-        Assert.assertTrue(after == cur+10);
+        Assert.assertTrue(after == cur + 10);
     }
 
     @Test
     public void decrease() {
         int cur = port.decreaseLevel(0);
         int after = port.decreaseLevel(10);
-        Assert.assertTrue(after == cur-10);
+        Assert.assertTrue(after == cur - 10);
     }
 
 

@@ -11,10 +11,10 @@ public class EngineOilTankFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/engineoiltank.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "engineoiltank.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineOilTankFactory.class.getClassLoader());
-            Class fuelTankClass = Class.forName("EngineOilTank",true,urlClassLoader);
-            Object fuelTankInstance = fuelTankClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class fuelTankClass = Class.forName("EngineOilTank", true, urlClassLoader);
+            Object fuelTankInstance = fuelTankClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = fuelTankClass.getDeclaredField("port").get(fuelTankInstance);
         } catch (Exception e) {
             e.printStackTrace();

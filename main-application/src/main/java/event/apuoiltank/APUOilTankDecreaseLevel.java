@@ -1,17 +1,16 @@
-package main.java.event.fueltank;
+package event.apuoiltank;
 
 public class APUOilTankDecreaseLevel {
     private String phase;
-
-    public int getFillValue() {
-        return fillValue;
-    }
-
     private int fillValue;
 
     public APUOilTankDecreaseLevel(String phase, int value) {
         this.phase = phase;
         fillValue = value;
+    }
+
+    public int getFillValue() {
+        return fillValue;
     }
 
     public String getPhase() {

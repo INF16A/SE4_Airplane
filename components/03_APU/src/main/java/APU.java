@@ -2,10 +2,8 @@
  * Created by Lenovo on 30.01.2018.
  */
 public class APU {
-    public Port port;
     private static APU instance = new APU();
-
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
@@ -13,8 +11,7 @@ public class APU {
     private int rpm;
 
 
-    private APU()
-    {
+    private APU() {
         port = new Port();
         this.id = "1";
         this.type = "Best APU";
@@ -22,12 +19,11 @@ public class APU {
         this.rpm = 0;
     }
 
-    public static APU getInstance(){
+    public static APU getInstance() {
         return instance;
     }
 
-    public class Port implements IAPU
-    {
+    public class Port implements IAPU {
 
         @Override
         public String version() {
@@ -42,7 +38,7 @@ public class APU {
 
         @Override
         public int increaseRPM(int value) {
-            if(value <= 0)
+            if (value <= 0)
                 return rpm;
             rpm += value;
             return rpm;
@@ -50,7 +46,7 @@ public class APU {
 
         @Override
         public int decreaseRPM(int value) {
-            if(value <= 0)
+            if (value <= 0)
                 return rpm;
             rpm -= value;
             return rpm;

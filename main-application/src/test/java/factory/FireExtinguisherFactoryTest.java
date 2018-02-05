@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class FireExtinguisherFactoryTest {
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(FireExtinguisherFactory.build());
 
     }

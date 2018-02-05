@@ -1,4 +1,4 @@
-package event.SatCom;
+package event.satcom;
 
 public class SatComSend {
     private String phase;

@@ -11,10 +11,10 @@ public class DeIcingSystemFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/deicingsystem.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "deicingsystem.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, DeIcingSystemFactory.class.getClassLoader());
-            Class fuelTankClass = Class.forName("DeIcingSystem",true,urlClassLoader);
-            Object fuelTankInstance = fuelTankClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class fuelTankClass = Class.forName("DeIcingSystem", true, urlClassLoader);
+            Object fuelTankInstance = fuelTankClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = fuelTankClass.getDeclaredField("port").get(fuelTankInstance);
         } catch (Exception e) {
             e.printStackTrace();

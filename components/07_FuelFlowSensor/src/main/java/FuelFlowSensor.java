@@ -5,6 +5,7 @@ public class FuelFlowSensor {
     private String type = "zero";
     private String id = "0";
     private int fuelFlow = 10;
+
     private FuelFlowSensor() {
 
     }

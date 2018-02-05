@@ -1,12 +1,7 @@
-package main.java.event.fueltank;
+package event.battery;
 
 public class BatteryDischarge {
     private String phase;
-
-    public int getFillValue() {
-        return fillValue;
-    }
-
     private int fillValue;
 
     public BatteryDischarge(String phase) {
@@ -17,6 +12,10 @@ public class BatteryDischarge {
     public BatteryDischarge(String phase, int value) {
         this.phase = phase;
         fillValue = value;
+    }
+
+    public int getFillValue() {
+        return fillValue;
     }
 
     public String getPhase() {
