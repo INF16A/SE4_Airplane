@@ -1,8 +1,9 @@
-package event.Camera;
+package event.camera;
 
 public class CameraSetType {
     private String phase;
     private String type;
+
     public CameraSetType(String phase, String type) {
         this.phase = phase;
         this.type = type;

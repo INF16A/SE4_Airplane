@@ -1,8 +1,9 @@
-import factory.AntiCollisionLightFactory;
 import factory.LeftNavigationLightFactory;
-import javafx.scene.effect.Light;
+import org.junit.Assert;
 import org.junit.Test;
+
 import java.lang.reflect.Method;
+
 import static org.junit.Assert.*;
 
 /**
@@ -64,7 +65,7 @@ public class LeftNavigationLightTest {
         try {
             Method method = componentPort.getClass().getDeclaredMethod("setLightType", String.class);
             Enum type = (Enum) method.invoke(componentPort, new Object[]{LightType.red.toString()});
-            assertEquals(LightType.red, type);
+            Assert.assertEquals(LightType.red, type);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class LeftNavigationLightTest {
         try {
             Method method = componentPort.getClass().getDeclaredMethod("setPosition", String.class);
             Enum type = (Enum) method.invoke(componentPort, new Object[]{Position.port.toString()});
-            assertEquals(Position.port, type);
+            Assert.assertEquals(Position.port, type);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

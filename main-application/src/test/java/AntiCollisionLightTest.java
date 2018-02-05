@@ -1,12 +1,9 @@
 import factory.AntiCollisionLightFactory;
-import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.Method;
+
+import static org.junit.Assert.*;
 
 
 public class AntiCollisionLightTest {

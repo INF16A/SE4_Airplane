@@ -13,7 +13,9 @@ public class RudderFullRight {
 
         return "{ RudderFullRight : id = " + id + " }";
 
-    } public int getId() {
+    }
+
+    public int getId() {
         return id;
     }
 }

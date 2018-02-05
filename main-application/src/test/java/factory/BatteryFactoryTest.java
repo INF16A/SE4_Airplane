@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class BatteryFactoryTest {
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(BatteryFactory.build());
 
     }

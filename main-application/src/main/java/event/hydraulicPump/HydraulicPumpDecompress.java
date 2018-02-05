@@ -5,6 +5,7 @@ package event.hydraulicPump;
  */
 public class HydraulicPumpDecompress {
     private String phase;
+
     public HydraulicPumpDecompress(String phase) {
         this.phase = phase;
     }

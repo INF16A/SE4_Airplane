@@ -13,6 +13,7 @@ public class LeftAileronUp {
     public int getDegree() {
         return degree;
     }
+
     public String toString() {
 
         return "{ LeftAileronUp : id = " + id + ", degree = " + degree + " }";

@@ -2,16 +2,15 @@ package event.fireextinguisher;
 
 public class FireExtinguisherRefill {
     private String phase;
-
-    public int getFillValue() {
-        return fillValue;
-    }
-
     private int fillValue;
 
     public FireExtinguisherRefill(String phase) {
         this.phase = phase;
         fillValue = 100;
+    }
+
+    public int getFillValue() {
+        return fillValue;
     }
 
     public String getPhase() {

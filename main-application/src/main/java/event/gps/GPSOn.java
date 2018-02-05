@@ -1,17 +1,17 @@
-package event.GPS;
+package event.gps;
 
 public class GPSOn {
-        private String phase;
+    private String phase;
 
-        public GPSOn(String phase) {
-            this.phase = phase;
-        }
+    public GPSOn(String phase) {
+        this.phase = phase;
+    }
 
-        public String getPhase() {
-            return phase;
-        }
+    public String getPhase() {
+        return phase;
+    }
 
-        public String toString() {
-            return "event - " + phase + " : GPSOn";
-        }
+    public String toString() {
+        return "event - " + phase + " : GPSOn";
+    }
 }

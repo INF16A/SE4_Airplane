@@ -1,5 +1,3 @@
-
-
 public class Slat {
     private String manufacturer;
     private String type;
@@ -8,7 +6,13 @@ public class Slat {
 
     public Port port;
 
-    public class Port implements main.java.ISlat {
+    private static Slat instance = new Slat();
+
+    public static Slat getInstance() {
+        return instance;
+    }
+
+    public class Port implements ISlat {
         @Override
         public String version() {
             return innerVersion();
@@ -69,6 +73,6 @@ public class Slat {
     }
 
     private String innerVersion() {
-        return "main.java.Slat XYZ";
+        return "main.java.slat XYZ";
     }
 }

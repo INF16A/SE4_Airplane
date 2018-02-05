@@ -1,5 +1,3 @@
-package main.java;
-
 public interface ISlat {
     public String version();
     public int neutral();

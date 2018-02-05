@@ -1,3 +1,4 @@
 package event;
 
-public abstract class Subscriber {}
+public abstract class Subscriber {
+}

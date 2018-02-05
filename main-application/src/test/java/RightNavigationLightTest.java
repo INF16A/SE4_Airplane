@@ -4,7 +4,6 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Endrit Callaki on 30.01.2018.

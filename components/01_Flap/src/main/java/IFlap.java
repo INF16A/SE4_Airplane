@@ -1,5 +1,3 @@
-package main.java;
-
 public interface IFlap {
     public String version();
     public int neutral();

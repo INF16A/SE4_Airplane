@@ -1,6 +1,7 @@
 import factory.TCASLightFactory;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
@@ -24,8 +25,7 @@ public class TCASLightTest {
             Method method = componentPort.getClass().getDeclaredMethod("version");
             String version = (String) method.invoke(componentPort);
             assertEquals("TCASLight", version);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

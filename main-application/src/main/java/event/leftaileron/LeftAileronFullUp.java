@@ -9,7 +9,6 @@ public class LeftAileronFullUp {
     }
 
 
-
     public String toString() {
 
         return "{ LeftAileronFullUp : id = " + id + " }";

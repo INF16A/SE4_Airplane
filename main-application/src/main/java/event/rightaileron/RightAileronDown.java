@@ -19,6 +19,7 @@ public class RightAileronDown {
         return "{ RightAileronDown : id = " + id + ", degree = " + degree + " }";
 
     }
+
     public int getId() {
         return id;
     }

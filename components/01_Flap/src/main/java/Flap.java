@@ -1,5 +1,3 @@
-
-
 public class Flap {
     private String manufacturer;
     private String type;
@@ -8,7 +6,13 @@ public class Flap {
 
     public Port port;
 
-    public class Port implements main.java.IFlap {
+    private static Flap instance = new Flap();
+
+    public static Flap getInstance() {
+        return instance;
+    }
+
+    public class Port implements IFlap {
         @Override
         public String version() {
             return innerVersion();

@@ -5,6 +5,7 @@ package event.gear;
  */
 public class GearDown {
     private String phase;
+
     public GearDown(String phase) {
         this.phase = phase;
     }

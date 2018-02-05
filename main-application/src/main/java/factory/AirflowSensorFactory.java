@@ -14,7 +14,6 @@ public class AirflowSensorFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "airflowsensor.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, AirflowSensorFactory.class.getClassLoader());
-            System.out.println(urls[0].getPath());
             Class airFlowSensorClass = Class.forName("AirflowSensor", true, urlClassLoader);
             Object airFlowSensorInstance = airFlowSensorClass.getMethod("getInstance").invoke(null);
             componentPort = airFlowSensorClass.getDeclaredField("port").get(airFlowSensorInstance);

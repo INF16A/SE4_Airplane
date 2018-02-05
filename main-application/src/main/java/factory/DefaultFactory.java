@@ -16,8 +16,8 @@ public class DefaultFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + jarName).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, DefaultFactory.class.getClassLoader());
-            Class clazz = Class.forName(className,true,urlClassLoader);
-            Object instance = clazz.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class clazz = Class.forName(className, true, urlClassLoader);
+            Object instance = clazz.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = clazz.getDeclaredField("port").get(instance);
         } catch (Exception e) {
             e.printStackTrace();

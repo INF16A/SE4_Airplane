@@ -1,28 +1,28 @@
 package event.potablewatertank;
 
 public class PotableWaterTankRefill {
-	private String phase;
+    private String phase;
+    private int fillValue;
 
-	public int getFillValue() {
-		return fillValue;
-	}
+    public PotableWaterTankRefill(String phase) {
+        this.phase = phase;
+        fillValue = 1000;
+    }
 
-	private int fillValue;
+    public PotableWaterTankRefill(String phase, int value) {
+        this.phase = phase;
+        fillValue = value;
+    }
 
-	public PotableWaterTankRefill(String phase) {
-		this.phase = phase;
-		fillValue = 1000;
-	}
-	public PotableWaterTankRefill(String phase, int value) {
-		this.phase = phase;
-		fillValue = value;
-	}
+    public int getFillValue() {
+        return fillValue;
+    }
 
-	public String getPhase() {
-		return phase;
-	}
+    public String getPhase() {
+        return phase;
+    }
 
-	public String toString() {
-		return "event - " + phase + " : PotableWaterTankRefill :" + fillValue;
-	}
+    public String toString() {
+        return "event - " + phase + " : PotableWaterTankRefill :" + fillValue;
+    }
 }

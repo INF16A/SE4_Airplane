@@ -17,7 +17,7 @@ public class HydraulicPumpFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/hydraulicpump.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "hydraulicpump.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
             Class hydraulicPumpClass = Class.forName("HydraulicPump", true, urlClassLoader);
             Object engineInstance = hydraulicPumpClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);

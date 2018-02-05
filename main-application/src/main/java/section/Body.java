@@ -1,28 +1,31 @@
 package section;
 
-import event.apuoiltank.*;
-
 import base.PrimaryFlightDisplay;
-import java.util.ArrayList;
-import java.lang.reflect.Method;
-import base.PrimaryFlightDisplay;
-import com.google.common.eventbus.Subscribe;
-import event.GPS.*;
-import event.SatCom.*;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
-import event.apu.*;
+import event.apu.APUDecreaseRPM;
+import event.apu.APUIncreaseRPM;
+import event.apu.APUShutdown;
+import event.apu.APUStart;
+import event.apuoiltank.APUOilTankDecreaseLevel;
+import event.apuoiltank.APUOilTankIncreaseLevel;
 import event.battery.BatteryCharge;
 import event.battery.BatteryDischarge;
+import event.camera.CameraOff;
+import event.camera.CameraOn;
+import event.camera.CameraZoomIn;
 import event.deicingsystem.DeIcingSystemActivate;
 import event.deicingsystem.DeIcingSystemDeIce;
 import event.deicingsystem.DeIcingSystemDeactivate;
 import event.deicingsystem.DeIcingSystemRefill;
-import event.engineoiltank.EngineOilTankIncreaseLevel;
 import event.fireextinguisher.FireExtinguisherApply;
 import event.fireextinguisher.FireExtinguisherRefill;
 import event.gear.*;
-import event.hydraulicPump.*;
+import event.gps.GPSOff;
+import event.gps.GPSOn;
+import event.hydraulicPump.HydraulicPumpCompress;
+import event.hydraulicPump.HydraulicPumpDecompress;
+import event.hydraulicPump.HydraulicPumpRefilOil;
 import event.nitrogenbottle.NitrogenBottleRefill;
 import event.nitrogenbottle.NitrogenBottleTakeOut;
 import event.oxygenbottle.OxygenBottleRefill;
@@ -31,11 +34,22 @@ import event.potablewatertank.PotableWaterTankLock;
 import event.potablewatertank.PotableWaterTankRefill;
 import event.potablewatertank.PotableWaterTankTakeOut;
 import event.potablewatertank.PotableWaterTankUnlock;
-import event.sensors.airflowSensor.*;
-import event.sensors.pitotTube.*;
+import event.radar.RadarOff;
+import event.radar.RadarOn;
+import event.radar.RadarScan;
+import event.satcom.SatComOff;
+import event.satcom.SatComOn;
+import event.sensors.airflowSensor.AirflowSensorAlarm;
+import event.sensors.airflowSensor.AirflowSensorMeasure;
+import event.sensors.pitotTube.PitotTubeMeasureStaticPressure;
+import event.sensors.pitotTube.PitotTubeMeasureTotalPressure;
+import event.sensors.pitotTube.PitotTubeMeasureVelocity;
 import event.sensors.radarAltimeter.*;
 import event.sensors.tCAS.*;
-import event.sensors.turbulentAirFlowSensor.*;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
+import event.vhf.VHFOff;
+import event.vhf.VHFOn;
 import event.wastewatertank.WasteWaterLock;
 import event.wastewatertank.WasteWaterTankAdd;
 import event.wastewatertank.WasteWaterTankPumpOut;
@@ -46,18 +60,8 @@ import recorder.FlightRecorder;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
 // imports for sensor04
-import factory.CameraFactory;
-import factory.GPSFactory;
-import factory.RadarFactory;
-import factory.SatComFactory;
-import factory.VHFFactory;
-import event.Camera.*;
-import event.radar.RadarOff;
-import event.radar.RadarOn;
-import event.radar.RadarScan;
-import event.vhf.VHFOff;
-import event.vhf.VHFOn;
 
 
 public class Body extends Subscriber {
@@ -141,12 +145,12 @@ public class Body extends Subscriber {
     public void build() {
         // Flight Controls01
         elevators = new ArrayList<>();
-        //for (int i = 0; i < 4; i++) elevators.add(ElevatorFactory.build());
+        for (int i = 0; i < 4; i++) elevators.add(ElevatorFactory.build());
         // Factory magic 4 (full = +/- 45 degrees, left -; right +)
 
         // Flight Controls02
         rudders = new ArrayList<>();
-        for (int i = 0; i < 2; i++) rudders.add(RudderFactory.build("","",""));
+        for (int i = 0; i < 2; i++) rudders.add(RudderFactory.build("", "", ""));
 
         // apu_engine_gear_pump
         apus = new ArrayList<>();
@@ -157,13 +161,22 @@ public class Body extends Subscriber {
         for (int i = 0; i < 6; i++) hydraulicPumps.add(HydraulicPumpFactory.build());
 
         // doors
+
+        // TODO: Add a lot of doors
+
         bulkCargoDoors = new ArrayList<>();
         // Factory magic 2
+
         crewDoors = new ArrayList<>();
+        //for (int i = 0; i < 2; i++)
         // Factory magic 2
+
         emergencyExitDoors = new ArrayList<>();
+        //for (int i = 0; i < 2; i++)
         // Factory magic 14
+
         gearDoors = new ArrayList<>();
+        //for (int i = 0; i < 2; i++)
         // Factory magic 6 (2 front, 4 gear)
 
         // tank_bottle
@@ -185,6 +198,7 @@ public class Body extends Subscriber {
         for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
         // seats
+        // TODO: Add a LOTTTTT of seats
         firstClassSeats = new ArrayList<>();
         //for (int i = 0; i < 16; i++) firstClassSeats.add(SeatFactory.buildFirstSeat());
         businessClassSeats = new ArrayList<>();
@@ -201,6 +215,8 @@ public class Body extends Subscriber {
         // Factory magic 2
 
         // sensor02
+        // TODO: Add a lot of sensors
+
         fireDetectors = new ArrayList<>();
         // Factory magic 14
         oxygenSensors = new ArrayList<>();
@@ -232,42 +248,44 @@ public class Body extends Subscriber {
         // sensor04
         // Factory magic 2
         cameraPorts = new ArrayList<>();
-        for (int cameraIndex = 0;cameraIndex < 2;cameraIndex++)
+        for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++)
             cameraPorts.add(CameraFactory.build());
         // Factory magic 2
         gpsPorts = new ArrayList<>();
-        for (int gpsIndex = 0;gpsIndex < 2;gpsIndex++)
+        for (int gpsIndex = 0; gpsIndex < 2; gpsIndex++)
             gpsPorts.add(GPSFactory.build());
         // Factory magic 2
         radarPorts = new ArrayList<>();
-        for (int radarIndex = 0;radarIndex < 2;radarIndex++)
+        for (int radarIndex = 0; radarIndex < 2; radarIndex++)
             radarPorts.add(RadarFactory.build());
         // Factory magic 2
         satComPorts = new ArrayList<>();
-        for (int satComIndex = 0;satComIndex < 2;satComIndex++)
+        for (int satComIndex = 0; satComIndex < 2; satComIndex++)
             satComPorts.add(SatComFactory.build());
         // Factory magic 2
         vhfPorts = new ArrayList<>();
-        for (int vhfIndex = 0;vhfIndex < 2;vhfIndex++)
+        for (int vhfIndex = 0; vhfIndex < 2; vhfIndex++)
             vhfPorts.add(VHFFactory.build());
 
         // light
         antiCollisionLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) antiCollisionLights.add(AntiCollisionLightFactory.build());
+        for (int i = 0; i < 2; i++) antiCollisionLights.add(AntiCollisionLightFactory.build());
         cargoCompartmentLights = new ArrayList<>();
-        //for (int i = 0; i < 4; i++) cargoCompartmentLights.add(CargoCompartmentLightFactory.build());
+        for (int i = 0; i < 4; i++) cargoCompartmentLights.add(CargoCompartmentLightFactory.build());
         landingLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
+        for (int i = 0; i < 2; i++) landingLights.add(LandingLightFactory.build());
         logoLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) logoLights.add(LogoLightFactory.build());
+        for (int i = 0; i < 2; i++) logoLights.add(LogoLightFactory.build());
         tailNavigationLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) tailNavigationLights.add(TailNavigationLightFactory.build());
+        for (int i = 0; i < 2; i++) tailNavigationLights.add(TailNavigationLightFactory.build());
         taxiLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) taxiLights.add(TaxiLightFactory.build());
+        for (int i = 0; i < 2; i++) taxiLights.add(TaxiLightFactory.build());
         tCASLights = new ArrayList<>();
-        //for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
+        for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
 
         // stowage_cargo
+        // TODO: Add some of these too
+
         cargoSystems = new ArrayList<>();
         // Factory magic 2
         stowageNumberFives = new ArrayList<>();
@@ -275,22 +293,23 @@ public class Body extends Subscriber {
 
         // cabin
         airConditionings = new ArrayList<>();
-        for(int i = 0; i < 4; i++) airConditionings.add(AirConditioningFactory.build());
+        for (int i = 0; i < 4; i++) airConditionings.add(AirConditioningFactory.build());
         kitchens = new ArrayList<>();
         kitchens.add(KitchenFactory.build("FIRST"));
         kitchens.add(KitchenFactory.build("BUSINESS"));
         kitchens.add(KitchenFactory.build("ECONOMY"));
         kitchens.add(KitchenFactory.build("ECONOMY"));
         lavatories = new ArrayList<>();
-        for(int i = 0; i < 8; i++) lavatories.add(LavatoryFactory.build());
+        for (int i = 0; i < 8; i++) lavatories.add(LavatoryFactory.build());
         wasteSystems = new ArrayList<>();
-        for(int i = 0; i < 10; i++) wasteSystems.add(WasteSystemFactory.build());
+        for (int i = 0; i < 10; i++) wasteSystems.add(WasteSystemFactory.build());
         waterSystems = new ArrayList<>();
-        for(int i = 0; i < 4; i++) waterSystems.add(WaterSystemFactory.build());
+        for (int i = 0; i < 4; i++) waterSystems.add(WaterSystemFactory.build());
         escapeSlides = new ArrayList<>();
-        for(int i = 0; i < 14; i++) escapeSlides.add(EscapeSlideFactory.build());
+        for (int i = 0; i < 14; i++) escapeSlides.add(EscapeSlideFactory.build());
 
         // management
+        // TODO: Add management stuff
         costOptimizers = new ArrayList<>();
         // Factory magic 2
         routeManagements = new ArrayList<>();
@@ -353,7 +372,7 @@ public class Body extends Subscriber {
         return rudders;
     }
 
-    public ArrayList<Object> getApus() {
+    public ArrayList<Object> getAPUs() {
         return apus;
     }
 
@@ -381,7 +400,7 @@ public class Body extends Subscriber {
         return gearDoors;
     }
 
-    public ArrayList<Object> getaPUOilTanks() {
+    public ArrayList<Object> getAPUOilTanks() {
         return aPUOilTanks;
     }
 
@@ -635,57 +654,57 @@ public class Body extends Subscriber {
     // please add here
 
     @Subscribe
-    public void receive(CameraOn cameraOn){
+    public void receive(CameraOn cameraOn) {
         LogEngine.instance.write("+ Body.receive(" + cameraOn + ")");
 
-        try{
-            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+        try {
+            for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
                 Method cameraOnMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("cameraOnMethod = " + cameraOnMethod + "");
 
-                boolean isCameraOn = (boolean)cameraOnMethod.invoke(cameraPorts.get(cameraIndex));
+                boolean isCameraOn = (boolean) cameraOnMethod.invoke(cameraPorts.get(cameraIndex));
 
                 LogEngine.instance.write(cameraOn.getPhase() + " : isCameraOn = " + isCameraOn + "");
 
                 PrimaryFlightDisplay.instance.isCameraOn = isCameraOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraOn.getPhase() + " : camera (isOn) = " + isCameraOn);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(CameraOff cameraOff){
+    public void receive(CameraOff cameraOff) {
         LogEngine.instance.write("+ Body.receive(" + cameraOff + ")");
 
-        try{
-            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++){
+        try {
+            for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
                 Method cameraOffMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("cameraOnMethod = " + cameraOffMethod + "");
 
-                boolean isCameraOff = (boolean)cameraOffMethod.invoke(cameraPorts.get(cameraIndex));
+                boolean isCameraOff = (boolean) cameraOffMethod.invoke(cameraPorts.get(cameraIndex));
 
                 LogEngine.instance.write(cameraOff.getPhase() + " : isCameraOn = " + isCameraOff + "");
 
                 PrimaryFlightDisplay.instance.isCameraOn = isCameraOff;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), cameraOff.getPhase() + " : camera (isOff) = " + isCameraOff);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(CameraZoomIn cameraZoomIn){
+    public void receive(CameraZoomIn cameraZoomIn) {
         LogEngine.instance.write("+ Body.receive(" + cameraZoomIn + ")");
 
-        try{
-            for(int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
+        try {
+            for (int cameraIndex = 0; cameraIndex < 2; cameraIndex++) {
                 Method cameraZoomInMethod = cameraPorts.get(cameraIndex).getClass().getDeclaredMethod("zoomIn", boolean.class);
                 LogEngine.instance.write("cameraZoomInMethod = " + cameraZoomInMethod + "");
 
@@ -698,214 +717,214 @@ public class Body extends Subscriber {
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(RadarOn radarOn){
+    public void receive(RadarOn radarOn) {
         LogEngine.instance.write("+ Body.receive(" + radarOn + ")");
 
-        try{
-            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+        try {
+            for (int radarIndex = 0; radarIndex < 2; radarIndex++) {
                 Method radarOnMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("radarOnMethod = " + radarOnMethod + "");
 
-                boolean isRadarOn = (boolean)radarOnMethod.invoke(radarPorts.get(radarIndex));
+                boolean isRadarOn = (boolean) radarOnMethod.invoke(radarPorts.get(radarIndex));
 
                 LogEngine.instance.write(radarOn.getPhase() + " : isRadarOn = " + isRadarOn + "");
 
                 PrimaryFlightDisplay.instance.isRadarOn = isRadarOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOn.getPhase() + " : Radar (isOn) = " + isRadarOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), radarOn.getPhase() + " : Radar (isOn) = " + isRadarOn);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(RadarOff radarOff){
+    public void receive(RadarOff radarOff) {
         LogEngine.instance.write("+ Body.receive(" + radarOff + ")");
 
-        try{
-            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
+        try {
+            for (int radarIndex = 0; radarIndex < 2; radarIndex++) {
                 Method radarOffMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("radarOffMethod = " + radarOffMethod + "");
 
-                boolean isRadarOff = (boolean)radarOffMethod.invoke(radarPorts.get(radarIndex));
+                boolean isRadarOff = (boolean) radarOffMethod.invoke(radarPorts.get(radarIndex));
 
                 LogEngine.instance.write(radarOff.getPhase() + " : isRadarOff = " + isRadarOff + "");
 
                 PrimaryFlightDisplay.instance.isRadarOn = isRadarOff;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarOff.getPhase() + " : Radar (isOn) = " + isRadarOff);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), radarOff.getPhase() + " : Radar (isOn) = " + isRadarOff);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(RadarScan radarScan){
+    public void receive(RadarScan radarScan) {
         LogEngine.instance.write("+ Body.receive(" + radarScan + ")");
 
-        try{
-            for(int radarIndex = 0; radarIndex < 2; radarIndex++){
-                Method radarScanMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("scan",String.class);
+        try {
+            for (int radarIndex = 0; radarIndex < 2; radarIndex++) {
+                Method radarScanMethod = radarPorts.get(radarIndex).getClass().getDeclaredMethod("scan", String.class);
                 LogEngine.instance.write("radarScanMethod = " + radarScanMethod + "");
 
-                boolean scanResult = (boolean)radarScanMethod.invoke(radarPorts.get(radarIndex), new Object[]{radarScan.getEnvironment()});
+                boolean scanResult = (boolean) radarScanMethod.invoke(radarPorts.get(radarIndex), new Object[]{radarScan.getEnvironment()});
 
                 LogEngine.instance.write(radarScan.getPhase() + " : scanResult = " + scanResult + "");
 
                 PrimaryFlightDisplay.instance.isAirspaceFree = scanResult;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),radarScan.getPhase() + " : Radar (scan) = " + scanResult);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), radarScan.getPhase() + " : Radar (scan) = " + scanResult);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(GPSOn isGpsOn){
+    public void receive(GPSOn isGpsOn) {
         LogEngine.instance.write("+ Body.receive(" + isGpsOn + ")");
 
-        try{
-            for(int gpsOnIndex = 0; gpsOnIndex < 2; gpsOnIndex++){
+        try {
+            for (int gpsOnIndex = 0; gpsOnIndex < 2; gpsOnIndex++) {
                 Method gpsOnMethod = gpsPorts.get(gpsOnIndex).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("radarScanMethod = " + gpsOnMethod + "");
 
-                boolean isGPSOn = (boolean)gpsOnMethod.invoke(gpsPorts.get(gpsOnIndex));
+                boolean isGPSOn = (boolean) gpsOnMethod.invoke(gpsPorts.get(gpsOnIndex));
 
                 LogEngine.instance.write(isGpsOn.getPhase() + " : isGPSOn = " + isGPSOn + "");
 
                 PrimaryFlightDisplay.instance.isGPSOn = isGPSOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isGpsOn.getPhase() + " : GPS (isOn) = " + isGPSOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isGpsOn.getPhase() + " : GPS (isOn) = " + isGPSOn);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(GPSOff isGpsOff){
+    public void receive(GPSOff isGpsOff) {
         LogEngine.instance.write("+ Body.receive(" + isGpsOff + ")");
 
-        try{
-            for(int gpsOffIndex = 0; gpsOffIndex < 2; gpsOffIndex++){
+        try {
+            for (int gpsOffIndex = 0; gpsOffIndex < 2; gpsOffIndex++) {
                 Method gpsOffMethod = gpsPorts.get(gpsOffIndex).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("radarScanMethod = " + gpsOffMethod + "");
 
-                boolean isGPSOff = (boolean)gpsOffMethod.invoke(gpsPorts.get(gpsOffIndex));
+                boolean isGPSOff = (boolean) gpsOffMethod.invoke(gpsPorts.get(gpsOffIndex));
 
                 LogEngine.instance.write(isGpsOff.getPhase() + " : isGPSOff = " + isGPSOff + "");
 
                 PrimaryFlightDisplay.instance.isGPSOn = isGPSOff;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isGpsOff.getPhase() + " : GPS (isOff) = " + isGPSOff);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isGpsOff.getPhase() + " : GPS (isOff) = " + isGPSOff);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(SatComOn isSatComOn){
+    public void receive(SatComOn isSatComOn) {
         LogEngine.instance.write("+ Body.receive(" + isSatComOn + ")");
 
-        try{
-            for(int satComIndex = 0; satComIndex < 2; satComIndex++){
+        try {
+            for (int satComIndex = 0; satComIndex < 2; satComIndex++) {
                 Method satComOnMethod = satComPorts.get(satComIndex).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("radarScanMethod = " + satComOnMethod + "");
 
-                boolean isSatComConnected = (boolean)satComOnMethod.invoke(satComPorts.get(satComIndex));
+                boolean isSatComConnected = (boolean) satComOnMethod.invoke(satComPorts.get(satComIndex));
 
                 LogEngine.instance.write(isSatComOn.getPhase() + " : isSatComConnected = " + isSatComConnected + "");
 
                 PrimaryFlightDisplay.instance.isSatComConnected = isSatComConnected;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isSatComOn.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isSatComOn.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(SatComOff isSatComOff){
+    public void receive(SatComOff isSatComOff) {
         LogEngine.instance.write("+ Body.receive(" + isSatComOff + ")");
 
-        try{
-            for(int satComIndex = 0; satComIndex < 2; satComIndex++){
+        try {
+            for (int satComIndex = 0; satComIndex < 2; satComIndex++) {
                 Method satComOffMethod = satComPorts.get(satComIndex).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("radarScanMethod = " + satComOffMethod + "");
 
-                boolean isSatComConnected = (boolean)satComOffMethod.invoke(satComPorts.get(satComIndex));
+                boolean isSatComConnected = (boolean) satComOffMethod.invoke(satComPorts.get(satComIndex));
 
                 LogEngine.instance.write(isSatComOff.getPhase() + " : isSatComConnected = " + isSatComConnected + "");
 
                 PrimaryFlightDisplay.instance.isSatComConnected = isSatComConnected;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isSatComOff.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isSatComOff.getPhase() + " : SatCom (isConnected) = " + isSatComConnected);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(VHFOn isVHFOn){
+    public void receive(VHFOn isVHFOn) {
         LogEngine.instance.write("+ Body.receive(" + isVHFOn + ")");
 
-        try{
-            for(int vhfOnIndex = 0; vhfOnIndex < 2; vhfOnIndex++){
+        try {
+            for (int vhfOnIndex = 0; vhfOnIndex < 2; vhfOnIndex++) {
                 Method vhfOnMethod = vhfPorts.get(vhfOnIndex).getClass().getDeclaredMethod("on");
                 LogEngine.instance.write("vhfOnMethod = " + vhfOnMethod + "");
 
-                boolean isVhfOn = (boolean)vhfOnMethod.invoke(vhfPorts.get(vhfOnIndex));
+                boolean isVhfOn = (boolean) vhfOnMethod.invoke(vhfPorts.get(vhfOnIndex));
 
                 LogEngine.instance.write(isVHFOn.getPhase() + " : isVHFOn = " + isVhfOn + "");
 
                 PrimaryFlightDisplay.instance.isVHFOn = isVhfOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isVHFOn.getPhase() + " : VHFOn (isOn) = " + isVhfOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isVHFOn.getPhase() + " : VHFOn (isOn) = " + isVhfOn);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void receive(VHFOff isVHFOn){
+    public void receive(VHFOff isVHFOn) {
         LogEngine.instance.write("+ Body.receive(" + isVHFOn + ")");
 
-        try{
-            for(int vhfOffIndex = 0; vhfOffIndex < 2; vhfOffIndex++){
+        try {
+            for (int vhfOffIndex = 0; vhfOffIndex < 2; vhfOffIndex++) {
                 Method vhfOffMethod = vhfPorts.get(vhfOffIndex).getClass().getDeclaredMethod("off");
                 LogEngine.instance.write("vhfOnMethod = " + vhfOffMethod + "");
 
-                boolean isVhfOn = (boolean)vhfOffMethod.invoke(vhfPorts.get(vhfOffIndex));
+                boolean isVhfOn = (boolean) vhfOffMethod.invoke(vhfPorts.get(vhfOffIndex));
 
                 LogEngine.instance.write(isVHFOn.getPhase() + " : isVhfOff = " + isVhfOn + "");
 
                 PrimaryFlightDisplay.instance.isVHFOn = isVhfOn;
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),isVHFOn.getPhase() + " : VHFOff (isOn) = " + isVhfOn);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), isVHFOn.getPhase() + " : VHFOff (isOn) = " + isVhfOn);
 
                 LogEngine.instance.write("+");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1006,13 +1025,11 @@ public class Body extends Subscriber {
             for (int i = 0; i < 3; i++) {
                 Method gearSetBrakeMethod;
                 int newGearUp;
-                if(gearSetBrake.getPercent() == 0)
-                {
+                if (gearSetBrake.getPercent() == 0) {
                     gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake");
                     LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
                     newGearUp = (int) gearSetBrakeMethod.invoke(gears.get(i));
-                }else
-                {
+                } else {
                     gearSetBrakeMethod = gears.get(i).getClass().getDeclaredMethod("setBrake", int.class);
 
                     LogEngine.instance.write("gearSetBrakeMethode = " + gearSetBrakeMethod);
@@ -1055,26 +1072,25 @@ public class Body extends Subscriber {
 
     //Hydraulic Pump
     @Subscribe
-    public void receive (HydraulicPumpCompress hydraulicPumpCompress) {
+    public void receive(HydraulicPumpCompress hydraulicPumpCompress) {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpCompress + ")");
 
         try {
-            for (int hydraulicPumpCompressIndex = 0;hydraulicPumpCompressIndex < 6;hydraulicPumpCompressIndex++) {
+            for (int hydraulicPumpCompressIndex = 0; hydraulicPumpCompressIndex < 6; hydraulicPumpCompressIndex++) {
                 Method hydraulicPumpCompressMethod = null;
                 int compress = 0;
-                if (hydraulicPumpCompress.getAmount() == 0){
+                if (hydraulicPumpCompress.getAmount() == 0) {
                     hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress");
                     LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
                     compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex));
-                }
-                else{
+                } else {
                     hydraulicPumpCompressMethod = hydraulicPumps.get(hydraulicPumpCompressIndex).getClass().getDeclaredMethod("compress", int.class);
                     LogEngine.instance.write("hydraulicPumpCompress = " + hydraulicPumpCompressMethod);
-                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex),hydraulicPumpCompress.getAmount());
+                    compress = (int) hydraulicPumpCompressMethod.invoke(hydraulicPumps.get(hydraulicPumpCompressIndex), hydraulicPumpCompress.getAmount());
                 }
                 LogEngine.instance.write(hydraulicPumpCompress.getPhase() + " : compress = " + compress);
 
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpCompress.getPhase() + " : compress = " + compress);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), hydraulicPumpCompress.getPhase() + " : compress = " + compress);
 
                 LogEngine.instance.write("+");
             }
@@ -1084,18 +1100,18 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive (HydraulicPumpDecompress hydraulicPumpDecompress) {
+    public void receive(HydraulicPumpDecompress hydraulicPumpDecompress) {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpDecompress + ")");
 
         try {
-            for (int hydraulicPumpDecompressIndex = 0;hydraulicPumpDecompressIndex < 6;hydraulicPumpDecompressIndex++) {
+            for (int hydraulicPumpDecompressIndex = 0; hydraulicPumpDecompressIndex < 6; hydraulicPumpDecompressIndex++) {
                 Method hydraulicPumpDecompressMethod = hydraulicPumps.get(hydraulicPumpDecompressIndex).getClass().getDeclaredMethod("decompress");
                 LogEngine.instance.write("hydraulicPumpDecompress = " + hydraulicPumpDecompressMethod);
 
-                int    decompress = (int) hydraulicPumpDecompressMethod.invoke(hydraulicPumps.get(hydraulicPumpDecompressIndex));
+                int decompress = (int) hydraulicPumpDecompressMethod.invoke(hydraulicPumps.get(hydraulicPumpDecompressIndex));
                 LogEngine.instance.write(hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
 
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), hydraulicPumpDecompress.getPhase() + " : decompress = " + decompress);
 
                 LogEngine.instance.write("+");
             }
@@ -1105,26 +1121,25 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive (HydraulicPumpRefilOil hydraulicPumpRefilOil) {
+    public void receive(HydraulicPumpRefilOil hydraulicPumpRefilOil) {
         LogEngine.instance.write("+ Body.receive(" + hydraulicPumpRefilOil + ")");
 
         try {
-            for (int hydraulicPumpRefilOilIndex = 0;hydraulicPumpRefilOilIndex < 6;hydraulicPumpRefilOilIndex++) {
+            for (int hydraulicPumpRefilOilIndex = 0; hydraulicPumpRefilOilIndex < 6; hydraulicPumpRefilOilIndex++) {
                 Method hydraulicPumpRefilOilMethod = null;
                 int refilOil = 0;
-                if (hydraulicPumpRefilOil.getAmount() == 0){
+                if (hydraulicPumpRefilOil.getAmount() == 0) {
                     hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil");
                     LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
                     refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex));
-                }
-                else{
+                } else {
                     hydraulicPumpRefilOilMethod = hydraulicPumps.get(hydraulicPumpRefilOilIndex).getClass().getDeclaredMethod("refilOil", int.class);
                     LogEngine.instance.write("hydraulicPumpRefilOil = " + hydraulicPumpRefilOilMethod);
-                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex),hydraulicPumpRefilOil.getAmount());
+                    refilOil = (int) hydraulicPumpRefilOilMethod.invoke(hydraulicPumps.get(hydraulicPumpRefilOilIndex), hydraulicPumpRefilOil.getAmount());
                 }
                 LogEngine.instance.write(hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
 
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(),hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), hydraulicPumpRefilOil.getPhase() + " : refilOil = " + refilOil);
 
                 LogEngine.instance.write("+");
             }
@@ -1502,7 +1517,7 @@ public class Body extends Subscriber {
     //// TANK BOTTLES
     // WasteWaterTank
     @Subscribe
-    public void receive(WasteWaterTankAdd wasteWaterTankAdd){
+    public void receive(WasteWaterTankAdd wasteWaterTankAdd) {
         LogEngine.instance.write("+ Body.receive(" + wasteWaterTankAdd + ")");
 
         try {
@@ -1520,8 +1535,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(WasteWaterTankPumpOut wasteWaterTankPumpOut){
+    public void receive(WasteWaterTankPumpOut wasteWaterTankPumpOut) {
         LogEngine.instance.write("+ Body.receive(" + wasteWaterTankPumpOut + ")");
 
         try {
@@ -1539,8 +1555,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(WasteWaterLock wasteWaterLock){
+    public void receive(WasteWaterLock wasteWaterLock) {
         LogEngine.instance.write("+ Body.receive(" + wasteWaterLock + ")");
 
         try {
@@ -1558,8 +1575,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(WasteWaterUnlock wasteWaterUnlock){
+    public void receive(WasteWaterUnlock wasteWaterUnlock) {
         LogEngine.instance.write("+ Body.receive(" + wasteWaterUnlock + ")");
 
         try {
@@ -1580,7 +1598,7 @@ public class Body extends Subscriber {
 
     // PotableWaterTank
     @Subscribe
-    public void receive(PotableWaterTankRefill potableWaterTankRefill){
+    public void receive(PotableWaterTankRefill potableWaterTankRefill) {
         LogEngine.instance.write("+ Body.receive(" + potableWaterTankRefill + ")");
 
         try {
@@ -1598,8 +1616,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(PotableWaterTankTakeOut potableWaterTankTakeOut){
+    public void receive(PotableWaterTankTakeOut potableWaterTankTakeOut) {
         LogEngine.instance.write("+ Body.receive(" + potableWaterTankTakeOut + ")");
 
         try {
@@ -1617,8 +1636,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(PotableWaterTankLock potableWaterTankLock){
+    public void receive(PotableWaterTankLock potableWaterTankLock) {
         LogEngine.instance.write("+ Body.receive(" + potableWaterTankLock + ")");
 
         try {
@@ -1636,8 +1656,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(PotableWaterTankUnlock potableWaterTankUnlock){
+    public void receive(PotableWaterTankUnlock potableWaterTankUnlock) {
         LogEngine.instance.write("+ Body.receive(" + potableWaterTankUnlock + ")");
 
         try {
@@ -1658,7 +1679,7 @@ public class Body extends Subscriber {
 
     // Oxygen Bottle
     @Subscribe
-    public void receive(OxygenBottleRefill oxygenBottleRefill){
+    public void receive(OxygenBottleRefill oxygenBottleRefill) {
         LogEngine.instance.write("+ Body.receive(" + oxygenBottleRefill + ")");
         try {
 
@@ -1675,8 +1696,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(OxygenBottleTakeOut oxygenBottleTakeOut){
+    public void receive(OxygenBottleTakeOut oxygenBottleTakeOut) {
         LogEngine.instance.write("+ Body.receive(" + oxygenBottleTakeOut + ")");
         try {
 
@@ -1693,9 +1715,10 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     // Nitrogen Bottle
     @Subscribe
-    public void receive(NitrogenBottleRefill nitrogenBottleRefill){
+    public void receive(NitrogenBottleRefill nitrogenBottleRefill) {
         LogEngine.instance.write("+ Body.receive(" + nitrogenBottleRefill + ")");
         try {
 
@@ -1712,8 +1735,9 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
     @Subscribe
-    public void receive(NitrogenBottleTakeOut nitrogenBottleTakeOut){
+    public void receive(NitrogenBottleTakeOut nitrogenBottleTakeOut) {
         LogEngine.instance.write("+ Body.receive(" + nitrogenBottleTakeOut + ")");
         try {
 
@@ -1732,7 +1756,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(APUOilTankDecreaseLevel apuOilTankDecreaseLevel){
+    public void receive(APUOilTankDecreaseLevel apuOilTankDecreaseLevel) {
         LogEngine.instance.write("+ Body.receive(" + apuOilTankDecreaseLevel + ")");
         try {
 
@@ -1751,7 +1775,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(APUOilTankIncreaseLevel apuOilTankIncreaseLevel){
+    public void receive(APUOilTankIncreaseLevel apuOilTankIncreaseLevel) {
         LogEngine.instance.write("+ Body.receive(" + apuOilTankIncreaseLevel + ")");
         try {
 
@@ -1770,7 +1794,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(BatteryCharge batteryCharge){
+    public void receive(BatteryCharge batteryCharge) {
         LogEngine.instance.write("+ Body.receive(" + batteryCharge + ")");
         try {
 
@@ -1789,7 +1813,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(BatteryDischarge batteryDischarge){
+    public void receive(BatteryDischarge batteryDischarge) {
         LogEngine.instance.write("+ Body.receive(" + batteryDischarge + ")");
         try {
 
@@ -1808,7 +1832,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(FireExtinguisherApply fireExtinguisherApply){
+    public void receive(FireExtinguisherApply fireExtinguisherApply) {
         LogEngine.instance.write("+ Body.receive(" + fireExtinguisherApply + ")");
         try {
 
@@ -1827,7 +1851,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(FireExtinguisherRefill fireExtinguisherRefill){
+    public void receive(FireExtinguisherRefill fireExtinguisherRefill) {
         LogEngine.instance.write("+ Body.receive(" + fireExtinguisherRefill + ")");
         try {
 
@@ -1846,7 +1870,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(DeIcingSystemActivate deIcingSystemActivate){
+    public void receive(DeIcingSystemActivate deIcingSystemActivate) {
         LogEngine.instance.write("+ Body.receive(" + deIcingSystemActivate + ")");
         try {
 
@@ -1865,7 +1889,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(DeIcingSystemDeactivate deIcingSystemDeactivate){
+    public void receive(DeIcingSystemDeactivate deIcingSystemDeactivate) {
         LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeactivate + ")");
         try {
 
@@ -1884,7 +1908,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(DeIcingSystemDeIce deIcingSystemDeIce){
+    public void receive(DeIcingSystemDeIce deIcingSystemDeIce) {
         LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeIce + ")");
         try {
 
@@ -1903,7 +1927,7 @@ public class Body extends Subscriber {
     }
 
     @Subscribe
-    public void receive(DeIcingSystemRefill deIcingSystemRefill){
+    public void receive(DeIcingSystemRefill deIcingSystemRefill) {
         LogEngine.instance.write("+ Body.receive(" + deIcingSystemRefill + ")");
         try {
 
@@ -1920,7 +1944,6 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
-
 
 
 }

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class DeIcingSystemFactoryTest {
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(DeIcingSystemFactory.build());
 
     }
