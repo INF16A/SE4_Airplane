@@ -5,6 +5,8 @@ import com.google.common.eventbus.Subscribe;
 import event.Slat.*;
 import event.flap.*;
 import event.Subscriber;
+import event.fueltank.FuelTankRefill;
+import event.fueltank.FuelTankTakeOut;
 import factory.*;
 import event.engine.*;
 import event.hydraulicPump.*;
@@ -653,6 +655,47 @@ public class Wing extends Subscriber {
 
                 int measuredValue = (int) turbulentAirFlowSensorMeasureMethod.invoke(turbulentAirFlowSensors.get(momSensor), turbulentAirFlowSensorMeasure.getAirFlow());
                 LogEngine.instance.write(turbulentAirFlowSensorMeasure.getPhase() + " : turbulentAirFlowSensorMeasure = " + measuredValue);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //// TANK BOTTLES
+    // FuelTank
+    @Subscribe
+    public void receive(FuelTankRefill fuelTankRefill){
+        LogEngine.instance.write("+ Wing.receive(" + fuelTankRefill + ")");
+
+        try {
+
+            for (int i = 0; i < fuelTanks.size(); i++) {
+                Method fuelTankRefillMethod = fuelTanks.get(i).getClass().getDeclaredMethod("refill", int.class);
+                LogEngine.instance.write("fuelTankRefillMethod = " + fuelTankRefillMethod);
+
+                int fillValue = (int) fuelTankRefillMethod.invoke(fuelTanks.get(i), fuelTankRefill.getFillValue());
+                LogEngine.instance.write(fuelTankRefill.getPhase() + " : fuelTankRefill = " + fillValue);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(FuelTankTakeOut fuelTankTakeOut){
+        LogEngine.instance.write("+ Wing.receive(" + fuelTankTakeOut + ")");
+
+        try {
+
+            for (int i = 0; i < fuelTanks.size(); i++) {
+                Method fuelTankTakeOutMethod = fuelTanks.get(i).getClass().getDeclaredMethod("takeOut", int.class);
+                LogEngine.instance.write("fuelTankTakeOutMethod = " + fuelTankTakeOutMethod);
+
+                int fillValue = (int) fuelTankTakeOutMethod.invoke(fuelTanks.get(i), fuelTankTakeOut.getFillValue());
+                LogEngine.instance.write(fuelTankTakeOut.getPhase() + " : fuelTankRefill = " + fillValue);
 
                 LogEngine.instance.write("+");
             }
