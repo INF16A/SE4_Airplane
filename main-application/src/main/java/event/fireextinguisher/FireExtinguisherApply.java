@@ -1,4 +1,4 @@
-package main.java.event.fueltank;
+package event.fireextinguisher;
 
 public class FireExtinguisherApply {
     private String phase;

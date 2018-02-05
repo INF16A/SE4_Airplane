@@ -1,4 +1,4 @@
-package main.java.event.fueltank;
+package event.apuoiltank;
 
 public class APUOilTankDecreaseLevel {
     private String phase;

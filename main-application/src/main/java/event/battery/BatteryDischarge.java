@@ -1,4 +1,4 @@
-package main.java.event.fueltank;
+package event.battery;
 
 public class BatteryDischarge {
     private String phase;

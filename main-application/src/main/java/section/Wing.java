@@ -3,6 +3,12 @@ package section;
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
 import event.Slat.*;
+import event.deicingsystem.DeIcingSystemActivate;
+import event.deicingsystem.DeIcingSystemDeIce;
+import event.deicingsystem.DeIcingSystemDeactivate;
+import event.deicingsystem.DeIcingSystemRefill;
+import event.engineoiltank.EngineOilTankDecreaseLevel;
+import event.engineoiltank.EngineOilTankIncreaseLevel;
 import event.flap.*;
 import event.Subscriber;
 import factory.*;
@@ -660,6 +666,118 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
+    @Subscribe
+    public void receive(EngineOilTankIncreaseLevel engineOilTankIncreaseLevel){
+        try {
+
+            for (int i = 0; i <  engineOilTanks.size(); i++) {
+                Method method = engineOilTanks.get(i).getClass().getDeclaredMethod("increaseLevel", int.class);
+                LogEngine.instance.write("engineOilTankIncreaseLevelMethod = " + method);
+
+                int value = (int) method.invoke(engineOilTanks.get(i), engineOilTankIncreaseLevel.getFillValue());
+                LogEngine.instance.write(engineOilTankIncreaseLevel.getPhase() + " : engineOilTankIncreaseLevel = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Subscribe
+    public void receive(EngineOilTankDecreaseLevel engineOilTankDecreaseLevel){
+        try {
+
+            for (int i = 0; i < engineOilTanks.size(); i++) {
+                Method method = engineOilTanks.get(i).getClass().getDeclaredMethod("methodNameInInterface", int.class);
+                LogEngine.instance.write("engineOilTankDecreaseLevelMethod = " + method);
+
+                int value = (int) method.invoke(engineOilTanks.get(i), engineOilTankDecreaseLevel.getFillValue());
+                LogEngine.instance.write(engineOilTankDecreaseLevel.getPhase() + " : engineOilTankDecreaseLevel = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemActivate deIcingSystemActivate){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemActivate + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("activate");
+                LogEngine.instance.write("deIcingSystemActivateMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemActivate.getPhase() + " : deIcingSystemActivate = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemDeactivate deIcingSystemDeactivate){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeactivate + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("deactivate");
+                LogEngine.instance.write("deIcingSystemDeactivateMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemDeactivate.getPhase() + " : deIcingSystemDeactivate = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemDeIce deIcingSystemDeIce){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeIce + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("deIce", int.class);
+                LogEngine.instance.write("deIcingSystemDeIceMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i), deIcingSystemDeIce.getFillValue());
+                LogEngine.instance.write(deIcingSystemDeIce.getPhase() + " : deIcingSystemDeIce = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemRefill deIcingSystemRefill){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemRefill + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("refill");
+                LogEngine.instance.write("deIcingSystemRefillMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemRefill.getPhase() + " : deIcingSystemRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 
 

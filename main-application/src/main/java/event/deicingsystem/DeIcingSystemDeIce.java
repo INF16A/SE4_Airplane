@@ -1,4 +1,4 @@
-package main.java.event.tank_bottle;
+package event.deicingsystem;
 
 public class DeIcingSystemDeIce {
     private String phase;

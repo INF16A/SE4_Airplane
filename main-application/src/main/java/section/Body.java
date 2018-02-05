@@ -1,5 +1,7 @@
 package section;
 
+import event.apuoiltank.*;
+
 import base.PrimaryFlightDisplay;
 import java.util.ArrayList;
 import java.lang.reflect.Method;
@@ -10,6 +12,15 @@ import event.SatCom.*;
 import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
 import event.apu.*;
+import event.battery.BatteryCharge;
+import event.battery.BatteryDischarge;
+import event.deicingsystem.DeIcingSystemActivate;
+import event.deicingsystem.DeIcingSystemDeIce;
+import event.deicingsystem.DeIcingSystemDeactivate;
+import event.deicingsystem.DeIcingSystemRefill;
+import event.engineoiltank.EngineOilTankIncreaseLevel;
+import event.fireextinguisher.FireExtinguisherApply;
+import event.fireextinguisher.FireExtinguisherRefill;
 import event.gear.*;
 import event.hydraulicPump.*;
 import event.nitrogenbottle.NitrogenBottleRefill;
@@ -1648,6 +1659,7 @@ public class Body extends Subscriber {
     // Oxygen Bottle
     @Subscribe
     public void receive(OxygenBottleRefill oxygenBottleRefill){
+        LogEngine.instance.write("+ Body.receive(" + oxygenBottleRefill + ")");
         try {
 
             for (int i = 0; i < oxygenBottles.size(); i++) {
@@ -1665,6 +1677,7 @@ public class Body extends Subscriber {
     }
     @Subscribe
     public void receive(OxygenBottleTakeOut oxygenBottleTakeOut){
+        LogEngine.instance.write("+ Body.receive(" + oxygenBottleTakeOut + ")");
         try {
 
             for (int i = 0; i < oxygenBottles.size(); i++) {
@@ -1683,6 +1696,7 @@ public class Body extends Subscriber {
     // Nitrogen Bottle
     @Subscribe
     public void receive(NitrogenBottleRefill nitrogenBottleRefill){
+        LogEngine.instance.write("+ Body.receive(" + nitrogenBottleRefill + ")");
         try {
 
             for (int i = 0; i < nitrogenBottles.size(); i++) {
@@ -1700,6 +1714,7 @@ public class Body extends Subscriber {
     }
     @Subscribe
     public void receive(NitrogenBottleTakeOut nitrogenBottleTakeOut){
+        LogEngine.instance.write("+ Body.receive(" + nitrogenBottleTakeOut + ")");
         try {
 
             for (int i = 0; i < nitrogenBottles.size(); i++) {
@@ -1715,5 +1730,197 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+
+    @Subscribe
+    public void receive(APUOilTankDecreaseLevel apuOilTankDecreaseLevel){
+        LogEngine.instance.write("+ Body.receive(" + apuOilTankDecreaseLevel + ")");
+        try {
+
+            for (int i = 0; i < aPUOilTanks.size(); i++) {
+                Method apuOilTankDecreaseLevelMethod = aPUOilTanks.get(i).getClass().getDeclaredMethod("decreaseLevel", int.class);
+                LogEngine.instance.write("apuOilTankDecreaseLevelMethod = " + apuOilTankDecreaseLevelMethod);
+
+                int value = (int) apuOilTankDecreaseLevelMethod.invoke(aPUOilTanks.get(i), apuOilTankDecreaseLevel.getFillValue());
+                LogEngine.instance.write(apuOilTankDecreaseLevel.getPhase() + " : apuOilTankDecreaseLevel = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(APUOilTankIncreaseLevel apuOilTankIncreaseLevel){
+        LogEngine.instance.write("+ Body.receive(" + apuOilTankIncreaseLevel + ")");
+        try {
+
+            for (int i = 0; i < aPUOilTanks.size(); i++) {
+                Method method = aPUOilTanks.get(i).getClass().getDeclaredMethod("increaseLevel", int.class);
+                LogEngine.instance.write("apuOilTankIncreaseLevelMethod = " + method);
+
+                int value = (int) method.invoke(aPUOilTanks.get(i), apuOilTankIncreaseLevel.getFillValue());
+                LogEngine.instance.write(apuOilTankIncreaseLevel.getPhase() + " : apuOilTankIncreaseLevel = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(BatteryCharge batteryCharge){
+        LogEngine.instance.write("+ Body.receive(" + batteryCharge + ")");
+        try {
+
+            for (int i = 0; i < batteries.size(); i++) {
+                Method method = batteries.get(i).getClass().getDeclaredMethod("charge");
+                LogEngine.instance.write("batteryChargeMethod = " + method);
+
+                int value = (int) method.invoke(batteries.get(i));
+                LogEngine.instance.write(batteryCharge.getPhase() + " : batteryCharge = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(BatteryDischarge batteryDischarge){
+        LogEngine.instance.write("+ Body.receive(" + batteryDischarge + ")");
+        try {
+
+            for (int i = 0; i < batteries.size(); i++) {
+                Method method = batteries.get(i).getClass().getDeclaredMethod("discharge");
+                LogEngine.instance.write("batteryDischargeMethod = " + method);
+
+                int value = (int) method.invoke(batteries.get(i));
+                LogEngine.instance.write(batteryDischarge.getPhase() + " : batteryDischarge = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(FireExtinguisherApply fireExtinguisherApply){
+        LogEngine.instance.write("+ Body.receive(" + fireExtinguisherApply + ")");
+        try {
+
+            for (int i = 0; i < fireExtinguishers.size(); i++) {
+                Method method = fireExtinguishers.get(i).getClass().getDeclaredMethod("apply");
+                LogEngine.instance.write("fireExtinguisherApplyMethod = " + method);
+
+                int value = (int) method.invoke(fireExtinguishers.get(i));
+                LogEngine.instance.write(fireExtinguisherApply.getPhase() + " : fireExtinguisherApply = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(FireExtinguisherRefill fireExtinguisherRefill){
+        LogEngine.instance.write("+ Body.receive(" + fireExtinguisherRefill + ")");
+        try {
+
+            for (int i = 0; i < fireExtinguishers.size(); i++) {
+                Method method = fireExtinguishers.get(i).getClass().getDeclaredMethod("refill");
+                LogEngine.instance.write("fireExtinguisherRefillMethod = " + method);
+
+                int value = (int) method.invoke(fireExtinguishers.get(i));
+                LogEngine.instance.write(fireExtinguisherRefill.getPhase() + " : fireExtinguisherRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemActivate deIcingSystemActivate){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemActivate + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("activate");
+                LogEngine.instance.write("deIcingSystemActivateMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemActivate.getPhase() + " : deIcingSystemActivate = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemDeactivate deIcingSystemDeactivate){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeactivate + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("deactivate");
+                LogEngine.instance.write("deIcingSystemDeactivateMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemDeactivate.getPhase() + " : deIcingSystemDeactivate = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemDeIce deIcingSystemDeIce){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemDeIce + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("deIce", int.class);
+                LogEngine.instance.write("deIcingSystemDeIceMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i), deIcingSystemDeIce.getFillValue());
+                LogEngine.instance.write(deIcingSystemDeIce.getPhase() + " : deIcingSystemDeIce = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(DeIcingSystemRefill deIcingSystemRefill){
+        LogEngine.instance.write("+ Body.receive(" + deIcingSystemRefill + ")");
+        try {
+
+            for (int i = 0; i < deIcingSystems.size(); i++) {
+                Method method = deIcingSystems.get(i).getClass().getDeclaredMethod("refill");
+                LogEngine.instance.write("deIcingSystemRefillMethod = " + method);
+
+                int value = (int) method.invoke(deIcingSystems.get(i));
+                LogEngine.instance.write(deIcingSystemRefill.getPhase() + " : deIcingSystemRefill = " + value);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
 }
