@@ -1,9 +1,10 @@
-package main.java.factory;
+package factory;
+
+import configuration.Configuration;
 
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import configuration.Configuration;
 
 public class SeatFactory {
 	

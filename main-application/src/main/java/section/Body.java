@@ -1,9 +1,12 @@
 package section;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
+import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
+import event.SeatBeltSign.SeatBeltSignOff;
+import event.SeatBeltSign.SeatBeltSignOn;
+import event.SmokingSign.SmokingSignOff;
+import event.SmokingSign.SmokingSignOn;
+import event.Subscriber;
 import event.apu.APUDecreaseRPM;
 import event.apu.APUIncreaseRPM;
 import event.apu.APUShutdown;
@@ -14,12 +17,10 @@ import event.hydraulicPump.HydraulicPumpDecompress;
 import event.hydraulicPump.HydraulicPumpRefilOil;
 import factory.*;
 import logging.LogEngine;
-import event.Subscriber;
-import factory.IceDetectorProbeFactory;
-import logging.LogEngine;
-
-import java.util.ArrayList;
 import recorder.FlightRecorder;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 // import factorys for sensor04
 
@@ -49,10 +50,10 @@ public class Body extends Subscriber {
     private ArrayList<Object> fireExtinguishers;
     private ArrayList<Object> deIcingSystems;
     // seats
-    private ArrayList<Object> firstClassSeats;
-    private ArrayList<Object> businessClassSeats;
-    private ArrayList<Object> touristClassSeats;
-    private ArrayList<Object> crewSeats;
+    private ArrayList<Object> firstClassSeatPorts;
+    private ArrayList<Object> businessClassSeatPorts;
+    private ArrayList<Object> touristClassSeatPorts;
+    private ArrayList<Object> crewSeatPorts;
     // sensor01
     private ArrayList<Object> iceDetectorProbes;
     // sensor02
@@ -146,15 +147,20 @@ public class Body extends Subscriber {
         deIcingSystems = new ArrayList<>();
         for (int i = 0; i < 2; i++) deIcingSystems.add(DeIcingSystemFactory.build());
 
+
         // seats
-        firstClassSeats = new ArrayList<>();
-        // Factory magic 16
-        businessClassSeats = new ArrayList<>();
-        // Factory magic 72
-        touristClassSeats = new ArrayList<>();
-        // Factory magic 480
-        crewSeats = new ArrayList<>();
-        // Factory magic 14
+        firstClassSeatPorts = new ArrayList<>();
+        for (int firstSeatIndex = 0; firstSeatIndex < 16; firstSeatIndex++)
+            firstClassSeatPorts.add(SeatFactory.buildFirstSeat());
+        businessClassSeatPorts = new ArrayList<>();
+        for (int businessSeatIndex = 0; businessSeatIndex < 72; businessSeatIndex++)
+            businessClassSeatPorts.add(SeatFactory.buildBusinessSeat());
+        touristClassSeatPorts = new ArrayList<>();
+        for (int touristSeatIndex = 0; touristSeatIndex < 480; touristSeatIndex++)
+            touristClassSeatPorts.add(SeatFactory.buildTouristSeat());
+        crewSeatPorts = new ArrayList<>();
+        for (int crewSeatIndex = 0; crewSeatIndex < 14; crewSeatIndex++)
+            crewSeatPorts.add(SeatFactory.buildCrewSeat());
 
         // sensor01
         iceDetectorProbes = new ArrayList<>();
@@ -342,20 +348,284 @@ public class Body extends Subscriber {
         return deIcingSystems;
     }
 
-    public ArrayList<Object> getFirstClassSeats() {
-        return firstClassSeats;
+    public ArrayList<Object> getFirstClassSeatPorts() {
+        return firstClassSeatPorts;
     }
 
-    public ArrayList<Object> getBusinessClassSeats() {
-        return businessClassSeats;
+    public ArrayList<Object> getBusinessClassSeatPorts() {
+        return businessClassSeatPorts;
     }
 
-    public ArrayList<Object> getTouristClassSeats() {
-        return touristClassSeats;
+    public ArrayList<Object> getTouristClassSeatPorts() {
+        return touristClassSeatPorts;
     }
 
-    public ArrayList<Object> getCrewSeats() {
-        return crewSeats;
+    @Subscribe
+    public void receive(SeatBeltSignOff seatBeltSignOff) {
+        LogEngine.instance.write("+ Body.receive(" + seatBeltSignOff + ")");
+
+        try {
+            //CrewSeats
+            /*for (int SeatBeltIndex = 0;SeatBeltIndex < 14;SeatBeltIndex++) {
+                Method SeatBeltSignOffMethod = crewSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOff");
+                LogEngine.instance.write("seatBeltSignOffMethod = " + SeatBeltSignOffMethod);
+
+                boolean isSeatBeltSignOff = (boolean)SeatBeltSignOffMethod.invoke(crewSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOff.getSeatBeltSign() + " : isSeatBeltSignOff = " + isSeatBeltSignOff);
+
+                PrimaryFlightDisplay.instance.isSeatBeltSignOff = isSeatBeltSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),seatBeltSignOff.getSeatBeltSign() + " : SeatBeltSign (isOff) = " + isSeatBeltSignOff);
+
+                LogEngine.instance.write("+");
+            }*/
+
+            //TouristClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 480; SeatBeltIndex++) {
+                Method SeatBeltSignOffMethod = touristClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOff");
+                LogEngine.instance.write("seatBeltSignOffMethod = " + SeatBeltSignOffMethod);
+
+                boolean isSeatBeltSignOff = (boolean) SeatBeltSignOffMethod.invoke(touristClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOff.getSeatBeltSign() + " : isSeatBeltSignOff = " + isSeatBeltSignOff);
+
+                PrimaryFlightDisplay.instance.isTouristClassSeatBeltSignOn = isSeatBeltSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOff.getSeatBeltSign() + " : SeatBeltSign (isOff) = " + isSeatBeltSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+            //BusinessClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 72; SeatBeltIndex++) {
+                Method SeatBeltSignOffMethod = businessClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOff");
+                LogEngine.instance.write("seatBeltSignOffMethod = " + SeatBeltSignOffMethod);
+
+                boolean isSeatBeltSignOff = (boolean) SeatBeltSignOffMethod.invoke(businessClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOff.getSeatBeltSign() + " : isSeatBeltSignOff = " + isSeatBeltSignOff);
+
+                PrimaryFlightDisplay.instance.isBusinessClassSeatSeatBeltSignOn = isSeatBeltSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOff.getSeatBeltSign() + " : SeatBeltSign (isOff) = " + isSeatBeltSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+            //FirstClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 16; SeatBeltIndex++) {
+                Method SeatBeltSignOffMethod = firstClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOff");
+                LogEngine.instance.write("seatBeltSignOffMethod = " + SeatBeltSignOffMethod);
+
+                boolean isSeatBeltSignOff = (boolean) SeatBeltSignOffMethod.invoke(firstClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOff.getSeatBeltSign() + " : isSeatBeltSignOff = " + isSeatBeltSignOff);
+
+                PrimaryFlightDisplay.instance.isFirstClassSeatSeatBeltSignOn = isSeatBeltSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOff.getSeatBeltSign() + " : SeatBeltSign (isOff) = " + isSeatBeltSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(SeatBeltSignOn seatBeltSignOn) {
+        LogEngine.instance.write("+ Body.receive(" + seatBeltSignOn + ")");
+
+        try {
+            //CrewSeats
+            /*for (int SeatBeltIndex = 0;SeatBeltIndex < 14;SeatBeltIndex++) {
+                Method SeatBeltSignOnMethod = crewSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("seatBeltSignOnMethod = " + SeatBeltSignOnMethod);
+
+                boolean isSeatBeltSignOn = (boolean)SeatBeltSignOnMethod.invoke(crewSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOn.getSeatBeltSign() + " : isSeatBeltSignOn = " + isSeatBeltSignOn);
+
+                PrimaryFlightDisplay.instance.isSeatBeltSignOn = isSeatBeltSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),seatBeltSignOn.getSeatBeltSign() + " : SeatBeltSign (isOn) = " + isSeatBeltSignOn);
+
+                LogEngine.instance.write("+");
+            }*/
+
+            //TouristClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 480; SeatBeltIndex++) {
+                Method SeatBeltSignOnMethod = touristClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("seatBeltSignOnMethod = " + SeatBeltSignOnMethod);
+
+                boolean isSeatBeltSignOn = (boolean) SeatBeltSignOnMethod.invoke(touristClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOn.getSeatBeltSign() + " : isSeatBeltSignOn = " + isSeatBeltSignOn);
+
+                PrimaryFlightDisplay.instance.isTouristClassSeatBeltSignOn = isSeatBeltSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOn.getSeatBeltSign() + " : SeatBeltSign (isOn) = " + isSeatBeltSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+            //BusinessClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 72; SeatBeltIndex++) {
+                Method SeatBeltSignOnMethod = businessClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("seatBeltSignOnMethod = " + SeatBeltSignOnMethod);
+
+                boolean isSeatBeltSignOn = (boolean) SeatBeltSignOnMethod.invoke(businessClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOn.getSeatBeltSign() + " : isSeatBeltSignOn = " + isSeatBeltSignOn);
+
+                PrimaryFlightDisplay.instance.isBusinessClassSeatSeatBeltSignOn = isSeatBeltSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOn.getSeatBeltSign() + " : SeatBeltSign (isOn) = " + isSeatBeltSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+            //FirstClassSeats
+            for (int SeatBeltIndex = 0; SeatBeltIndex < 16; SeatBeltIndex++) {
+                Method SeatBeltSignOnMethod = firstClassSeatPorts.get(SeatBeltIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("seatBeltSignOnMethod = " + SeatBeltSignOnMethod);
+
+                boolean isSeatBeltSignOn = (boolean) SeatBeltSignOnMethod.invoke(firstClassSeatPorts.get(SeatBeltIndex));
+                LogEngine.instance.write(seatBeltSignOn.getSeatBeltSign() + " : isSeatBeltSignOn = " + isSeatBeltSignOn);
+
+                PrimaryFlightDisplay.instance.isFirstClassSeatSeatBeltSignOn = isSeatBeltSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), seatBeltSignOn.getSeatBeltSign() + " : SeatBeltSign (isOn) = " + isSeatBeltSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(SmokingSignOff smokingSignOff) {
+        LogEngine.instance.write("+ Body.receive(" + smokingSignOff + ")");
+
+        try {
+            //CrewSeats
+            /*for (int SmokingSignIndex = 0;SmokingSignIndex < 14;SmokingSignIndex++) {
+                Method SmokingSignOffMethod = crewSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("smokingSignOff");
+                LogEngine.instance.write("SmokingSignOffMethod = " + SmokingSignOffMethod);
+
+                boolean isSmokingSignOff = (boolean)SmokingSignOffMethod.invoke(crewSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOff.getSmokingSign() + " : isSmokingSignOff = " + isSmokingSignOff);
+
+                PrimaryFlightDisplay.instance.isSmokingSignOff = isSmokingSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),smokingSignOff.getSmokingSign() + " : SmokingSign (isOff) = " + isSmokingSignOff);
+
+                LogEngine.instance.write("+");
+            }*/
+
+            //TouristClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 480; SmokingSignIndex++) {
+                Method SmokingSignOffMethod = touristClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("smokingSignOff");
+                LogEngine.instance.write("smokingSignOffMethod = " + SmokingSignOffMethod);
+
+                boolean isSmokingSignOff = (boolean) SmokingSignOffMethod.invoke(touristClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOff.getSmokingSign() + " : isSmokingSignOff = " + isSmokingSignOff);
+
+                PrimaryFlightDisplay.instance.isTouristClassSeatSmokingSignOn = isSmokingSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOff.getSmokingSign() + " : SmokingSign (isOff) = " + isSmokingSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+            //BusinessClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 72; SmokingSignIndex++) {
+                Method SmokingSignOffMethod = businessClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("smokingSignOff");
+                LogEngine.instance.write("smokingSignOffMethod = " + SmokingSignOffMethod);
+
+                boolean isSmokingSignOff = (boolean) SmokingSignOffMethod.invoke(businessClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOff.getSmokingSign() + " : isSmokingSignOff = " + isSmokingSignOff);
+
+                PrimaryFlightDisplay.instance.isBusinessClassSeatSmokingSignOn = isSmokingSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOff.getSmokingSign() + " : SmokingSign (isOff) = " + isSmokingSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+            //FirstClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 16; SmokingSignIndex++) {
+                Method SmokingSignOffMethod = firstClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("seatBeltOff");
+                LogEngine.instance.write("smokingOffMethod = " + SmokingSignOffMethod);
+
+                boolean isSmokingSignOff = (boolean) SmokingSignOffMethod.invoke(firstClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOff.getSmokingSign() + " : isSmokingSignOff = " + isSmokingSignOff);
+
+                PrimaryFlightDisplay.instance.isFirstClassSeatSmokingSignOn = isSmokingSignOff;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOff.getSmokingSign() + " : SmokingSign (isOff) = " + isSmokingSignOff);
+
+                LogEngine.instance.write("+");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void receive(SmokingSignOn smokingSignOn) {
+        LogEngine.instance.write("+ Body.receive(" + smokingSignOn + ")");
+
+        try {
+            //CrewSeats
+            /*for (int SmokingSignIndex = 0;SmokingSignIndex < 14;SmokingSignIndex++) {
+                Method SmokingSignOnMethod = crewSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("smokingOn");
+                LogEngine.instance.write("smokingSignOnMethod = " + SmokingSignOnMethod);
+
+                boolean isSmokingSignOn = (boolean)SmokingSignOnMethod.invoke(crewSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOn.getSmokingSign() + " : isSmokingSignOn = " + isSmokingSignOn);
+
+                PrimaryFlightDisplay.instance.isSmokingSignOn = isSmokingSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(),smokingSignOn.getSmokingSign() + " : SmokingSign (isOn) = " + isSmokingSignOn);
+
+                LogEngine.instance.write("+");
+            }*/
+
+            //TouristClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 480; SmokingSignIndex++) {
+                Method SmokingSignOnMethod = touristClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("smokingSignOnMethod = " + SmokingSignOnMethod);
+
+                boolean isSmokingSignOn = (boolean) SmokingSignOnMethod.invoke(touristClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOn.getSmokingSign() + " : isSmokingSignOn = " + isSmokingSignOn);
+
+                PrimaryFlightDisplay.instance.isTouristClassSeatSmokingSignOn = isSmokingSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOn.getSmokingSign() + " : SmokingSign (isOn) = " + isSmokingSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+            //BusinessClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 72; SmokingSignIndex++) {
+                Method SmokingSignOnMethod = businessClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("smokingSignOnMethod = " + SmokingSignOnMethod);
+
+                boolean isSmokingSignOn = (boolean) SmokingSignOnMethod.invoke(businessClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOn.getSmokingSign() + " : isSmokingSignOn = " + isSmokingSignOn);
+
+                PrimaryFlightDisplay.instance.isBusinessClassSeatSmokingSignOn = isSmokingSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOn.getSmokingSign() + " : SmokingSign (isOn) = " + isSmokingSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+            //FirstClassSeats
+            for (int SmokingSignIndex = 0; SmokingSignIndex < 16; SmokingSignIndex++) {
+                Method SmokingSignOnMethod = firstClassSeatPorts.get(SmokingSignIndex).getClass().getDeclaredMethod("seatBeltOn");
+                LogEngine.instance.write("smokingSignOnMethod = " + SmokingSignOnMethod);
+
+                boolean isSmokingSignOn = (boolean) SmokingSignOnMethod.invoke(firstClassSeatPorts.get(SmokingSignIndex));
+                LogEngine.instance.write(smokingSignOn.getSmokingSign() + " : isSmokingSignOn = " + isSmokingSignOn);
+
+                PrimaryFlightDisplay.instance.isFirstClassSeatSmokingSignOn = isSmokingSignOn;
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), smokingSignOn.getSmokingSign() + " : SmokingSign (isOn) = " + isSmokingSignOn);
+
+                LogEngine.instance.write("+");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<Object> getCrewSeatPorts() {
+        return crewSeatPorts;
     }
 
     public ArrayList<Object> getIceDetectorProbes() {
