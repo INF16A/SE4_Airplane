@@ -36,7 +36,6 @@ public class FlightRecorder {
 
     public synchronized void update(String sqlStatement) {
         try {
-            System.out.println(connection);
             Statement statement = connection.createStatement();
             int result = statement.executeUpdate(sqlStatement);
             if (result == -1)
@@ -75,7 +74,6 @@ public class FlightRecorder {
         stringBuilder.append("'").append(className).append("'").append(",");
         stringBuilder.append("'").append(message).append("'");
         stringBuilder.append(")");
-        System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 

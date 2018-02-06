@@ -26,6 +26,7 @@ public class Application {
         Cockpit cockpit = new Cockpit(airplane);
         cockpit.startSimulation();
 
+        SeatDatabase.instance.shutdown();
         FlightRecorder.instance.shutdown();
 
         LogEngine.instance.close();
