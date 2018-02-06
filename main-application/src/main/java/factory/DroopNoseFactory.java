@@ -10,7 +10,7 @@ public class DroopNoseFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/DroopNose/build/droopnose.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/droopnose.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, DroopNoseFactory.class.getClassLoader());
             Class droopNoseClass = Class.forName("DroopNose", true, urlClassLoader);
             Object droopNoseInstance = droopNoseClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);

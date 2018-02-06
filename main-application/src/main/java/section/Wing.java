@@ -83,7 +83,7 @@ public class Wing extends Subscriber {
         flaps = new ArrayList<>();
         //for (int i = 0; i < 2; i++) flaps.add(FlapFactory.build());
         slats = new ArrayList<>();
-        //for (int i = 0; i < 6; i++) slats.add(SlapFactory.build());
+        //for (int i = 0; i < 6; i++) slats.add(SlatFactory.build());
 
         // Flight Controls02
         leftAilerons = new ArrayList<>();
@@ -510,7 +510,7 @@ public class Wing extends Subscriber {
         }
     }
     @Subscribe
-    public void receive (SlatSetFix slatSetFix) {
+    public void receive (SlatSetFix slatSetFix) {           //TODO ist das für Slat oder Flap?
         LogEngine.instance.write("+ Wing.receive(" + slatSetFix + ")");
         int level = slatSetFix.getLevel();
         try {
@@ -544,7 +544,7 @@ public class Wing extends Subscriber {
         }
     }
     @Subscribe
-    public void receive (SlatSetVariable slatSetVariable) {
+    public void receive (SlatSetVariable slatSetVariable) {     //TODO wie oben: warum ruft das flaps.get auf?
         LogEngine.instance.write("+ Wing.receive(" + slatSetVariable + ")");
         int direction = slatSetVariable.getDirection();
         int degree = slatSetVariable.getDirection();

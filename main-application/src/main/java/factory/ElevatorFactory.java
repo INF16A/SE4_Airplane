@@ -9,9 +9,9 @@ public class ElevatorFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(configuration.Configuration.instance.commonPathToJavaArchive + "/Elevator/build/elevator.jar").toURI().toURL()};
+            URL[] urls = {new File(configuration.Configuration.instance.commonPathToJavaArchive + "/elevator.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, ElevatorFactory.class.getClassLoader());
-            Class elevatorFactoryClass = Class.forName("DroopNose", true, urlClassLoader);
+            Class elevatorFactoryClass = Class.forName("Elevator", true, urlClassLoader);
             Object elevatorFactoryInstance = elevatorFactoryClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = elevatorFactoryClass.getDeclaredField("port").get(elevatorFactoryInstance);
         } catch (Exception e) {

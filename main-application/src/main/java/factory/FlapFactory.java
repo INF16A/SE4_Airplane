@@ -10,7 +10,7 @@ public class FlapFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "../../../../components/Flap/build/flap.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/flap.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, FlapFactory.class.getClassLoader());
             Class flapClass = Class.forName("Flap", true, urlClassLoader);
             Object droopNoseInstance = flapClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
