@@ -13,4 +13,5 @@ public enum Configuration {
 
     public String dataDirectory = userDirectory + fileSeparator + "data" + fileSeparator;
     public String databaseFile = dataDirectory + "flightRecorderA380.db";
+    public String seatArchive = dataDirectory + "seat_configuration_A380.csv";
 }

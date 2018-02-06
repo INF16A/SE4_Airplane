@@ -1,33 +1,45 @@
-// please do not modify
-
-package recorder;
-
+package database;
 
 import configuration.Configuration;
+
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 
-public enum FlightRecorder {
+public enum SeatDatabase {
     instance;
 
     private Object object;
 
-    FlightRecorder() {
+    SeatDatabase() {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "persistence.jar").toURI().toURL()};
-            URLClassLoader urlClassLoader = new URLClassLoader(urls, FlightRecorder.class.getClassLoader());
+            URLClassLoader urlClassLoader = new URLClassLoader(urls, recorder.FlightRecorder.class.getClassLoader());
 
-            Class clazz = Class.forName("FlightRecorder", true, urlClassLoader);
+            Class clazz = Class.forName("SeatDatabase", true, urlClassLoader);
             object = clazz.getMethod("getInstance").invoke(null);
+
+
         } catch (Exception e) {
             System.out.println("--- exception");
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<String> getSeats() {
+        ArrayList<String> seats = new ArrayList<>();
+        try {
+            Method method = object.getClass().getMethod("getSeats");
+            seats = (ArrayList<String>) method.invoke(object);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return seats;
     }
 
     public void startup() {
@@ -40,8 +52,12 @@ public enum FlightRecorder {
     }
 
     public void init() {
-        dropTable();
-        createTable();
+        try {
+            Method method = object.getClass().getMethod("init");
+            method.invoke(object);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public synchronized void update(String sqlStatement) {
@@ -72,17 +88,6 @@ public enum FlightRecorder {
         }
     }
 
-    public void insert(String className, String message) {
-        Method method = null;
-        try {
-            method = object.getClass().getMethod("insert", String.class, String.class);
-            method.invoke(object, className, message);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void shutdown() {
         try {
             Method method = object.getClass().getMethod("shutdown");
@@ -92,5 +97,6 @@ public enum FlightRecorder {
             e.printStackTrace();
         }
     }
+
 
 }
