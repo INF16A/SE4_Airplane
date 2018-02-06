@@ -7,12 +7,12 @@ public class APUTest {
     private APU.Port port;
 
     @Before
-    public void init(){
+    public void init() {
         port = APU.getInstance().port;
     }
 
     @Test
-    public void version(){
+    public void version() {
         Assert.assertEquals("APU 1.0", port.version());
     }
 

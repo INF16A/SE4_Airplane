@@ -4,13 +4,12 @@ import java.lang.reflect.Method;
  * Created by Endrit Callaki on 30.01.2018.
  */
 public class TCASLight {
+    private static TCASLight instance = new TCASLight();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private boolean isOn;
-
-    private static TCASLight instance = new TCASLight();
-    public Port port;
 
     private TCASLight() {
         port = new Port();
@@ -18,6 +17,10 @@ public class TCASLight {
 
     public static TCASLight getInstance() {
         return instance;
+    }
+
+    public String innerMethodGetVersion() {
+        return "TCASLight";
     }
 
     public class Port implements ITCASLight {
@@ -38,9 +41,5 @@ public class TCASLight {
         public String version() {
             return innerMethodGetVersion();
         }
-    }
-
-    public String innerMethodGetVersion() {
-        return "TCASLight";
     }
 }

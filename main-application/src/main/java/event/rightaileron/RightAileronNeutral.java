@@ -11,6 +11,7 @@ public class RightAileronNeutral {
     public String toString() {
         return "{ RightAileronNeutral : id = " + id + " }";
     }
+
     public int getId() {
         return id;
     }

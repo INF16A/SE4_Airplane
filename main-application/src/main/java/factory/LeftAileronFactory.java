@@ -13,10 +13,10 @@ public class LeftAileronFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = { new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "leftaileron.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "leftaileron.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, LeftAileronFactory.class.getClassLoader());
-            Class leftAileronClass = Class.forName("LeftAileron",true,urlClassLoader);
-            Object leftAileronInstance = leftAileronClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class leftAileronClass = Class.forName("LeftAileron", true, urlClassLoader);
+            Object leftAileronInstance = leftAileronClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = leftAileronClass.getDeclaredField("port").get(leftAileronInstance);
 
             Method setId = componentPort.getClass().getMethod("setId", String.class);

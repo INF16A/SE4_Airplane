@@ -4,14 +4,12 @@ import java.lang.reflect.Method;
  * Created by Endrit Callaki on 30.01.2018.
  */
 public class TaxiLight {
+    private static TaxiLight instance = new TaxiLight();
+    public TaxiLight.Port port;
     private String manufacturer;
     private String type;
     private String id;
     private boolean isOn;
-
-
-    private static TaxiLight instance = new TaxiLight();
-    public TaxiLight.Port port;
 
     private TaxiLight() {
         port = new TaxiLight.Port();
@@ -19,6 +17,10 @@ public class TaxiLight {
 
     public static TaxiLight getInstance() {
         return instance;
+    }
+
+    public String innerMethodGetVersion() {
+        return "TaxiLight";
     }
 
     public class Port implements ITaxiLight {
@@ -39,10 +41,6 @@ public class TaxiLight {
         public boolean off() {
             return isOn = false;
         }
-    }
-
-    public String innerMethodGetVersion() {
-        return "TaxiLight";
     }
 }
 

@@ -6,8 +6,7 @@ public class Wheel {
     private long dateOfManufacture;
     private Brake brake;
 
-    public Wheel(String id, long dateOfManufacture)
-    {
+    public Wheel(String id, long dateOfManufacture) {
         this.id = id;
         this.dateOfManufacture = dateOfManufacture;
     }

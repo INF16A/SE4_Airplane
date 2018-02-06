@@ -1,25 +1,43 @@
-
 public class Rudder {
 
+    public static final int MAX_DEGREE = 26;
+    public static final int MIN_DEGREE = -26;
     private static Rudder instance = new Rudder();
-
-    public static Rudder getInstance() {
-        return instance;
-    }
-
     public Port port;
-
-    private Rudder() {
-        port = new Port();
-    }
-
     private String manufacturer;
     private String type;
     private String id;
     private int degree; // negative = left, positive = right
 
-    public static final int MAX_DEGREE = 26;
-    public static final int MIN_DEGREE = -26;
+    private Rudder() {
+        port = new Port();
+    }
+
+    public static Rudder getInstance() {
+        return instance;
+    }
+
+    private void innerAddDegree(int addValue) {
+        innerSetDegree(this.degree + addValue);
+    }
+
+    private void innerSetDegree(int totalValue) {
+        if (totalValue < MIN_DEGREE) {
+            this.degree = MIN_DEGREE;
+        } else if (totalValue > MAX_DEGREE) {
+            this.degree = MAX_DEGREE;
+        } else {
+            this.degree = totalValue;
+        }
+    }
+
+    private int innerGetDegree() {
+        return degree;
+    }
+
+    private String innerMethodGetVersion() {
+        return manufacturer + " - " + type + ", v0.01";
+    }
 
     public class Port implements IRudder {
 
@@ -86,28 +104,6 @@ public class Rudder {
             innerAddDegree(degree * -1);
             return innerGetDegree();
         }
-    }
-
-    private void innerAddDegree(int addValue) {
-        innerSetDegree(this.degree + addValue);
-    }
-
-    private void innerSetDegree(int totalValue) {
-        if (totalValue < MIN_DEGREE) {
-            this.degree = MIN_DEGREE;
-        } else if (totalValue > MAX_DEGREE) {
-            this.degree = MAX_DEGREE;
-        } else {
-            this.degree = totalValue;
-        }
-    }
-
-    private int innerGetDegree() {
-        return degree;
-    }
-
-    private String innerMethodGetVersion() {
-        return manufacturer + " - " + type + ", v0.01";
     }
 
 }

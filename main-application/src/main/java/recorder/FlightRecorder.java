@@ -2,12 +2,13 @@
 
 package recorder;
 
+import configuration.Configuration;
+import logging.LogEngine;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import configuration.Configuration;
-import logging.LogEngine;
 
 public enum FlightRecorder {
     instance;
@@ -21,7 +22,10 @@ public enum FlightRecorder {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
             String databaseURL = driverName + Configuration.instance.databaseFile;
-            connection = DriverManager.getConnection(databaseURL,username,password);
+            connection = DriverManager.getConnection(databaseURL, username, password);
+            if (connection == null) {
+                throw new Exception("could not connect to databas");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -61,7 +65,7 @@ public enum FlightRecorder {
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,String className,String message) {
+    public String buildSQLStatement(long id, String className, String message) {
         StringBuilder sqlStringBuilder = new StringBuilder();
         sqlStringBuilder.append("INSERT INTO data (id,className,message) VALUES (");
         sqlStringBuilder.append(id).append(",");
@@ -72,8 +76,8 @@ public enum FlightRecorder {
         return sqlStringBuilder.toString();
     }
 
-    public void insert(String className,String message) {
-        update(buildSQLStatement(System.nanoTime(),className,message));
+    public void insert(String className, String message) {
+        update(buildSQLStatement(System.nanoTime(), className, message));
     }
 
     public void shutdown() {

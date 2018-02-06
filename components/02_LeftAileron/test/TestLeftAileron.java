@@ -1,11 +1,9 @@
-
-
 import static org.junit.Assert.*;
 
 public class TestLeftAileron {
 
     @org.junit.Test
-    public void testManufacturer(){
+    public void testManufacturer() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.setManufacturer("Boeing");
@@ -14,7 +12,7 @@ public class TestLeftAileron {
     }
 
     @org.junit.Test
-    public void testMaxDegree(){
+    public void testMaxDegree() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.fullUp();
@@ -23,7 +21,7 @@ public class TestLeftAileron {
     }
 
     @org.junit.Test
-    public void testMaxDegreeAsLimit(){
+    public void testMaxDegreeAsLimit() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.fullUp();
@@ -34,7 +32,7 @@ public class TestLeftAileron {
 
 
     @org.junit.Test
-    public void testMinDegreeAsLimit(){
+    public void testMinDegreeAsLimit() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.fullDown();
@@ -44,7 +42,7 @@ public class TestLeftAileron {
     }
 
     @org.junit.Test
-    public void testNeutral(){
+    public void testNeutral() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.fullUp();
@@ -54,7 +52,7 @@ public class TestLeftAileron {
     }
 
     @org.junit.Test
-    public void testReturns(){
+    public void testReturns() {
         LeftAileron.Port leftAileron = LeftAileron.getInstance().port;
 
         leftAileron.neutral();

@@ -1,13 +1,11 @@
 public class Radar {
 
+    private static Radar instance = new Radar();
+    public Port port;
     private String manufacturer = "EADS";
     private String type = "flight radar";
     private String id = "0.18.123";
     private boolean isOn = false;
-
-    private static Radar instance = new Radar();
-
-    public Port port;
 
     private Radar() {
         port = new Port();

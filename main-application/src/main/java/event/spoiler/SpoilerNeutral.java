@@ -11,6 +11,7 @@ public class SpoilerNeutral {
     public String toString() {
         return "{ SpoilerNeutral : id = " + id + " }";
     }
+
     public int getId() {
         return id;
     }

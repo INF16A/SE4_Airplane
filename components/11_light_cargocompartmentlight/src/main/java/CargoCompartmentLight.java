@@ -4,13 +4,12 @@ import java.lang.reflect.Method;
  * Created by SolDeEcuador on 30/01/2018.
  */
 public class CargoCompartmentLight {
+    private static CargoCompartmentLight instance = new CargoCompartmentLight();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private boolean isOn;
-
-    private static CargoCompartmentLight instance = new CargoCompartmentLight();
-    public Port port;
 
     private CargoCompartmentLight() {
         port = new Port();
@@ -18,6 +17,10 @@ public class CargoCompartmentLight {
 
     public static CargoCompartmentLight getInstance() {
         return instance;
+    }
+
+    public String innerMethodGetVersion() {
+        return "CargoCompartmentLight";
     }
 
     public class Port implements ICargoCompartmentLight {
@@ -43,9 +46,5 @@ public class CargoCompartmentLight {
         public boolean off() {
             return isOn = false;
         }
-    }
-
-    public String innerMethodGetVersion() {
-        return "CargoCompartmentLight";
     }
 }

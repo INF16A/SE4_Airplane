@@ -1,9 +1,11 @@
-package main.java;
-
 public interface IWasteWaterTank {
-	String version();
-	boolean lock();
-	boolean unlock();
-	int add(int amount);
-	int pumpOut();
+    String version();
+
+    boolean lock();
+
+    boolean unlock();
+
+    int add(int amount);
+
+    int pumpOut();
 }
