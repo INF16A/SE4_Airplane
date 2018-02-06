@@ -127,13 +127,17 @@ public class Wing extends Subscriber {
 
         // sensor02
         fireDetectors = new ArrayList<>();
-        // Factory magic 4
+        for(int i = 0; i < 4; ++i)
+            fireDetectors.add(FireDetectorFactory.build());
         shockSensors = new ArrayList<>();
-        // Factory magic 2
+        for(int i = 0; i < 2; ++i)
+            shockSensors.add(ShockSensorFactory.build());
         stallingSensors = new ArrayList<>();
-        // Factory magic 2
+        for(int i = 0; i < 2; ++i)
+            stallingSensors.add(StallingSensorFactory.build());
         temperatureSensors = new ArrayList<>();
-        // Factory magic 4
+        for(int i = 0; i < 4; ++i)
+            temperatureSensors.add(TemperatureSensorFactory.build());
 
         // sensor03
         airflowSensors = new ArrayList<>();
