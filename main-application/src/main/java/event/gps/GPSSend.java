@@ -1,4 +1,4 @@
-package event.GPS;
+package event.gps;
 
 public class GPSSend {
     private String phase;

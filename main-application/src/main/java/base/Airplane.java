@@ -1,9 +1,9 @@
 package base;
 
 import com.google.common.eventbus.EventBus;
-import event.Camera.*;
-import event.GPS.*;
-import event.SatCom.*;
+import event.camera.*;
+import event.gps.*;
+import event.satcom.*;
 import event.radar.RadarOff;
 import event.radar.RadarScan;
 import event.Subscriber;

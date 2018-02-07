@@ -72,7 +72,7 @@ public class Wing extends Subscriber {
     private ArrayList<Object> airflowSensors;
     private ArrayList<Object> turbulentAirFlowSensors;
     // sensor04
-    private ArrayList<Object> cameras;
+    private ArrayList<Object> cameraPorts;
     // light
     private ArrayList<Object> landingLights;
     private ArrayList<Object> leftNavigationLights;
@@ -150,8 +150,8 @@ public class Wing extends Subscriber {
         turbulentAirFlowSensors.add(TurbulentAirFlowSensorFactory.build());
 
         // sensor04
-        cameras = new ArrayList<>();
-        cameras.add(CameraFactory.build());
+        cameraPorts = new ArrayList<>();
+        cameraPorts.add(CameraFactory.build());
 
         // light
         landingLights = new ArrayList<>();
@@ -880,7 +880,7 @@ public class Wing extends Subscriber {
 
     public ArrayList<Object> getCameras()
     {
-        return cameras;
+        return cameraPorts;
     }
 
     public ArrayList<Object> getLandingLights()
