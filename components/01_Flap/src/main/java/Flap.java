@@ -1,6 +1,8 @@
 
 
 public class Flap {
+
+    private static Flap instance = new Flap();
     private String manufacturer;
     private String type;
     private String id;
@@ -55,11 +57,19 @@ public class Flap {
         return degree;
     }
 
-    private Flap() {
+    public static Flap getInstance() {
+        return instance;
+    }
+
+    public int getDegree() {
+        return degree;
+    }
+
+    public Flap() {
         port = new Port();
     }
 
     private String innerVersion() {
-        return "main.java.Flap XYZ";
+        return "Flap v1.0";
     }
 }
