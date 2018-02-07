@@ -6,6 +6,8 @@ public class Slat {
     private String id;
     private int degree;
 
+    private static Slat instance = new Slat();
+
     public Port port;
 
     public class Port implements main.java.ISlat {
@@ -49,8 +51,9 @@ public class Slat {
     private int innerDown(int innerDegree) {
         degree-= innerDegree;
         if(degree<-45){
-            degree=45;
+            degree=-45;
         }
+
         return degree;
     }
 
@@ -61,6 +64,14 @@ public class Slat {
 
     private int innerNeutral() {
         degree = 0;
+        return degree;
+    }
+
+    public static Slat getInstance() {
+        return instance;
+    }
+
+    public int getDegree() {
         return degree;
     }
 
