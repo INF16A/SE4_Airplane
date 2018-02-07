@@ -1,4 +1,4 @@
-package event.Slat;
+package event.slat;
 
 public class SlatSetFix {
     private int id;

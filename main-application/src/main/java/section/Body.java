@@ -3,12 +3,11 @@ package section;
 import base.PrimaryFlightDisplay;
 import java.util.ArrayList;
 import java.lang.reflect.Method;
-import base.PrimaryFlightDisplay;
+
 import com.google.common.eventbus.Subscribe;
-import event.Elevator.*;
+import event.elevator.*;
 import event.gps.*;
 import event.satcom.*;
-import com.google.common.eventbus.Subscribe;
 import event.Subscriber;
 import event.apu.*;
 import event.gear.*;
@@ -22,8 +21,6 @@ import factory.*;
 import logging.LogEngine;
 import recorder.FlightRecorder;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 // imports for sensor04
 import factory.CameraFactory;
 import factory.GPSFactory;

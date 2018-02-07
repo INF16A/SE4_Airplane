@@ -1,10 +1,10 @@
-package event.Elevator;
+package event.elevator;
 
-public class ElevatorFullUpEvent {
+public class ElevatorNeutralEvent {
     private String phase;
     private int id;
 
-    public ElevatorFullUpEvent(int id, String phase) {
+    public ElevatorNeutralEvent(int id, String phase) {
         this.phase = phase;
         this.id = id;
     }

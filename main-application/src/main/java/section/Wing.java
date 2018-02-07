@@ -2,12 +2,12 @@ package section;
 
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
-import event.DroopNose.DroopNoseDownEvent;
-import event.DroopNose.DroopNoseFullDownEvent;
-import event.DroopNose.DroopNoseNeutralEvent;
-import event.DroopNose.DroopNoseUpEvent;
-import event.Slat.SlatSetFix;
-import event.Slat.SlatSetVariable;
+import event.droopNose.DroopNoseDownEvent;
+import event.droopNose.DroopNoseFullDownEvent;
+import event.droopNose.DroopNoseNeutralEvent;
+import event.droopNose.DroopNoseUpEvent;
+import event.slat.SlatSetFix;
+import event.slat.SlatSetVariable;
 import event.Subscriber;
 import factory.*;
 import event.engine.*;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 
 // Factory import for sensor04
 
-import factory.CameraFactory;
 import recorder.FlightRecorder;
 import event.camera.CameraOn;
 import event.camera.CameraOff;

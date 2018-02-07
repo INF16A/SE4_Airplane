@@ -1,11 +1,11 @@
-package event.Elevator;
+package event.elevator;
 
-public class ElevatorDownEvent {
+public class ElevatorUpEvent {
     private String phase;
     private int id;
     private int degrees;
 
-    public ElevatorDownEvent(int id, int degrees, String phase) {
+    public ElevatorUpEvent(int id, int degrees, String phase) {
         this.degrees = degrees;
         this.id = id;
         this.phase = phase;
