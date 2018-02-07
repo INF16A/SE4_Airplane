@@ -1,3 +1,5 @@
+import dummies.Passenger;
+
 public interface ITouristClassSeat {
     public String version();
     public void assign(Passenger passsenger);

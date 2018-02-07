@@ -1,3 +1,5 @@
+import dummies.Passenger;
+
 import java.lang.reflect.Method;
 
 public class TouristClassSeat {
