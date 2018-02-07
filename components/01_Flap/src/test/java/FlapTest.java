@@ -8,7 +8,7 @@ public class FlapTest {
 
     @Before
     public void init(){
-        flap = new Flap();
+        flap = Flap.getInstance();
         port = Flap.getInstance().port;
     }
 

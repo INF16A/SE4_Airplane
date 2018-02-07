@@ -65,7 +65,7 @@ public class Flap {
         return degree;
     }
 
-    public Flap() {
+    private Flap() {
         port = new Port();
     }
 
