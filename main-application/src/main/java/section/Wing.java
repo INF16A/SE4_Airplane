@@ -8,9 +8,13 @@ import event.Subscriber;
 import factory.*;
 import event.engine.*;
 import event.flap.FlapSetLevel;
-import event.hydraulicPump.*;
-import event.sensors.airflowSensor.*;
-import event.sensors.turbulentAirFlowSensor.*;
+import event.hydraulicPump.HydraulicPumpCompress;
+import event.hydraulicPump.HydraulicPumpDecompress;
+import event.hydraulicPump.HydraulicPumpRefilOil;
+import event.sensors.airflowSensor.AirflowSensorAlarm;
+import event.sensors.airflowSensor.AirflowSensorMeasure;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorAlarm;
+import event.sensors.turbulentAirFlowSensor.TurbulentAirFlowSensorMeasure;
 import factory.AirflowSensorFactory;
 import factory.CameraFactory;
 import factory.ExhaustGasTemperatureSensorFactory;
@@ -26,7 +30,9 @@ import java.util.ArrayList;
 
 import factory.CameraFactory;
 import recorder.FlightRecorder;
-import event.Camera.*;
+import event.camera.CameraOn;
+import event.camera.CameraOff;
+import event.camera.CameraZoomIn;
 
 
 public class Wing extends Subscriber {

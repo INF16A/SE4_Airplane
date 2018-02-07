@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.lang.reflect.Method;
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
+import event.Elevator.*;
 import event.GPS.*;
 import event.SatCom.*;
 import com.google.common.eventbus.Subscribe;
@@ -1474,5 +1475,99 @@ public class Body extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+    
+    @Subscribe
+    public void recieve(ElevatorDownEvent elevatorDownEvent) {
+        LogEngine.instance.write("+ Body.receive(" + elevatorDownEvent + ")");
+        
+        try {
+            for(int i = 0; i <elevators.size(); i++) {
+                Method elevatorDownMethod = elevators.get(i).getClass().getDeclaredMethod("down",String.class);
+                LogEngine.instance.write("elevatorDownMethod = " + elevatorDownMethod);
+                
+                int degreesAfterExecution = (int) elevatorDownMethod.invoke(elevators.get(i),elevatorDownEvent.getDegrees());
+                LogEngine.instance.write(elevatorDownEvent.getPhase()  + " : elevatorDegreesAfterExecution = " + degreesAfterExecution);
+                
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    @Subscribe
+    public void recieve(ElevatorUpEvent elevatorUpEvent) {
+        LogEngine.instance.write("+ Body.receive(" + elevatorUpEvent + ")");
+
+        try {
+            for(int i = 0; i <elevators.size(); i++) {
+                Method elevatorUpMethod = elevators.get(i).getClass().getDeclaredMethod("down",String.class);
+                LogEngine.instance.write("elevatorUpMethod = " + elevatorUpMethod);
+
+                int degreesAfterExecution = (int) elevatorUpMethod.invoke(elevators.get(i),elevatorUpEvent.getDegrees());
+                LogEngine.instance.write(elevatorUpEvent.getPhase()  + " : elevatorDegreesAfterExecution = " + degreesAfterExecution);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(ElevatorNeutralEvent elevatorNeutralEvent) {
+        LogEngine.instance.write("+ Body.receive(" + elevatorNeutralEvent + ")");
+
+        try {
+            for(int i = 0; i <elevators.size(); i++) {
+                Method elevatorNeutralMethod = elevators.get(i).getClass().getDeclaredMethod("down",String.class);
+                LogEngine.instance.write("elevatorNeutralMethod = " + elevatorNeutralMethod);
+
+                int stepsTaken = (int) elevatorNeutralMethod.invoke(elevators.get(i));
+                LogEngine.instance.write(elevatorNeutralEvent.getPhase()  + " : elevatorIsInNeutral. ChangeInDegrees = " + stepsTaken);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(ElevatorFullDownEvent elevatorFullDownEvent) {
+        LogEngine.instance.write("+ Body.receive(" + elevatorFullDownEvent + ")");
+
+        try {
+            for(int i = 0; i <elevators.size(); i++) {
+                Method elevatorFullDownMethod = elevators.get(i).getClass().getDeclaredMethod("down",String.class);
+                LogEngine.instance.write("elevatorFullDownMethod = " + elevatorFullDownMethod);
+
+                int stepsTaken = (int) elevatorFullDownMethod.invoke(elevators.get(i));
+                LogEngine.instance.write(elevatorFullDownEvent.getPhase()  + " : elevatorIsFullDown. ChangeInDegrees = " + stepsTaken);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Subscribe
+    public void recieve(ElevatorFullUpEvent elevatorFullUpEvent) {
+        LogEngine.instance.write("+ Body.receive(" + elevatorFullUpEvent + ")");
+
+        try {
+            for(int i = 0; i <elevators.size(); i++) {
+                Method elevatorFullUpMethod = elevators.get(i).getClass().getDeclaredMethod("down",String.class);
+                LogEngine.instance.write("elevatorFullUpMethod = " + elevatorFullUpMethod);
+
+                int stepsTaken = (int) elevatorFullUpMethod.invoke(elevators.get(i));
+                LogEngine.instance.write(elevatorFullUpEvent.getPhase()  + " : elevatorIsFullUp. ChangeInDegrees = " + stepsTaken);
+
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

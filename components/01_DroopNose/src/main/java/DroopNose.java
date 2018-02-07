@@ -11,6 +11,7 @@ public class DroopNose {
     private DroopNose() {
         degree = 0;
         maxDegree = 45;
+        manufacturer = "aManufacturer";
         port = new Port();
     }
 
@@ -19,7 +20,7 @@ public class DroopNose {
     }
 
     private String innerVersion() {
-        return "Version 0.2";
+        return manufacturer + " - Version 1.0";
     }
 
     private int innerNeutral() {
