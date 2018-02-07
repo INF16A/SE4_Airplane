@@ -2,6 +2,10 @@ package section;
 
 import base.PrimaryFlightDisplay;
 import com.google.common.eventbus.Subscribe;
+import event.DroopNose.DroopNoseDownEvent;
+import event.DroopNose.DroopNoseFullDownEvent;
+import event.DroopNose.DroopNoseNeutralEvent;
+import event.DroopNose.DroopNoseUpEvent;
 import event.Slat.SlatSetFix;
 import event.Slat.SlatSetVariable;
 import event.Subscriber;
@@ -181,6 +185,27 @@ public class Wing extends Subscriber {
 
             //TurbulentAirFlowSensor
             for (Object port : turbulentAirFlowSensors) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //Flap
+            for (Object port : flaps) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //Slat
+            for (Object port : slats) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
+            }
+
+            //DroopNose
+            for (Object port : droopNoses) {
                 Method versionMethod = port.getClass().getDeclaredMethod("version");
                 String version = (String) versionMethod.invoke(port);
                 LogEngine.instance.write("TurbulentAirflowSensorPort :" + port.hashCode() + " - " + version);
@@ -450,7 +475,7 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
-
+    // Flap set level
     @Subscribe
     public void receive (FlapSetLevel flapSetlevel) {
         LogEngine.instance.write("+ Wing.receive(" + flapSetlevel + ")");
@@ -509,8 +534,9 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+    // Slat set fix
     @Subscribe
-    public void receive (SlatSetFix slatSetFix) {           //TODO ist das für Slat oder Flap?
+    public void receive (SlatSetFix slatSetFix) {
         LogEngine.instance.write("+ Wing.receive(" + slatSetFix + ")");
         int level = slatSetFix.getLevel();
         try {
@@ -518,9 +544,9 @@ public class Wing extends Subscriber {
                 case 0:
                     for (int i = 0; i < 6; i++) {
                         Method method = null;
-                        method = flaps.get(i).getClass().getDeclaredMethod("neutral");
+                        method = slats.get(i).getClass().getDeclaredMethod("neutral");
                         LogEngine.instance.write("slatSetFix = " + method);
-                        int returnValue = (int) method.invoke(flaps.get(i));
+                        int returnValue = (int) method.invoke(slats.get(i));
                         LogEngine.instance.write(slatSetFix.getId() + " : Current Degress = " + returnValue);
                         FlightRecorder.instance.insert(this.getClass().getSimpleName(), slatSetFix.getId() + " : Current Degress = " + returnValue);
                         LogEngine.instance.write("+");
@@ -529,9 +555,9 @@ public class Wing extends Subscriber {
                 case 1:
                     for (int i = 0; i < 6; i++) {
                         Method method = null;
-                        method = flaps.get(i).getClass().getDeclaredMethod("fullDown");
+                        method = slats.get(i).getClass().getDeclaredMethod("fullDown");
                         LogEngine.instance.write("slatSetFix = " + method);
-                        int returnValue = (int) method.invoke(flaps.get(i));
+                        int returnValue = (int) method.invoke(slats.get(i));
                         LogEngine.instance.write(slatSetFix.getId() + " : Current Degress = " + returnValue);
                         FlightRecorder.instance.insert(this.getClass().getSimpleName(), slatSetFix.getId() + " : Current Degress = " + returnValue);
                         LogEngine.instance.write("+");
@@ -543,8 +569,9 @@ public class Wing extends Subscriber {
             System.out.println(e.getMessage());
         }
     }
+    // Slat set variable
     @Subscribe
-    public void receive (SlatSetVariable slatSetVariable) {     //TODO wie oben: warum ruft das flaps.get auf?
+    public void receive (SlatSetVariable slatSetVariable) {
         LogEngine.instance.write("+ Wing.receive(" + slatSetVariable + ")");
         int direction = slatSetVariable.getDirection();
         int degree = slatSetVariable.getDirection();
@@ -552,9 +579,9 @@ public class Wing extends Subscriber {
             if(direction<0){
                 for (int i = 0; i < 6; i++) {
                     Method method = null;
-                    method = flaps.get(i).getClass().getDeclaredMethod("down", int.class);
+                    method = slats.get(i).getClass().getDeclaredMethod("down", int.class);
                     LogEngine.instance.write("slatSetVariable = " + method);
-                    int returnValue = (int) method.invoke(flaps.get(i),slatSetVariable.getDegree());
+                    int returnValue = (int) method.invoke(slats.get(i),degree);
                     LogEngine.instance.write(slatSetVariable.getId() + " : Current Degress = " + returnValue);
                     FlightRecorder.instance.insert(this.getClass().getSimpleName(), slatSetVariable.getId() + " : Current Degress = " + returnValue);
                     LogEngine.instance.write("+");
@@ -562,13 +589,90 @@ public class Wing extends Subscriber {
             } else {
                 for (int i = 0; i < 6; i++) {
                     Method method = null;
-                    method = flaps.get(i).getClass().getDeclaredMethod("up", int.class);
+                    method = slats.get(i).getClass().getDeclaredMethod("up", int.class);
                     LogEngine.instance.write("slatSetVariable = " + method);
-                    int returnValue = (int) method.invoke(flaps.get(i),slatSetVariable.getDegree());
+                    int returnValue = (int) method.invoke(slats.get(i),degree);
                     LogEngine.instance.write(slatSetVariable.getId() + " : Current Degress = " + returnValue);
                     FlightRecorder.instance.insert(this.getClass().getSimpleName(), slatSetVariable.getId() + " : Current Degress = " + returnValue);
                     LogEngine.instance.write("+");
                 }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //DroopNose Down
+    @Subscribe
+    public void receive (DroopNoseDownEvent droopNoseDown) {
+        LogEngine.instance.write("+ Wing.receive(" + droopNoseDown + ")");
+        int degree = droopNoseDown.getDegrees();
+        try {
+                for (int i = 0; i < 2; i++) {
+                    Method method = null;
+                    method = droopNoses.get(i).getClass().getDeclaredMethod("down", int.class);
+                    LogEngine.instance.write("droopNoseDown = " + method);
+                    int returnValue = (int) method.invoke(droopNoses.get(i),degree);
+                    LogEngine.instance.write(droopNoseDown.getId() + " : Current Degress = " + returnValue);
+                    FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseDown.getId() + " : Current Degress = " + returnValue);
+                    LogEngine.instance.write("+");
+                }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    //DroopNose Full Down
+    @Subscribe
+    public void receive (DroopNoseFullDownEvent droopNoseFullDown) {
+        LogEngine.instance.write("+ Wing.receive(" + droopNoseFullDown + ")");
+        try {
+            for (int i = 0; i < 2; i++) {
+                Method method = null;
+                method = droopNoses.get(i).getClass().getDeclaredMethod("fullDown");
+                LogEngine.instance.write("droopNoseFullDown = " + method);
+                int returnValue = (int) method.invoke(droopNoses.get(i));
+                LogEngine.instance.write(droopNoseFullDown.getId() + " : Current Degress = " + returnValue);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseFullDown.getId() + " : Current Degress = " + returnValue);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //DroopNose Neutral
+    @Subscribe
+    public void receive (DroopNoseNeutralEvent droopNoseNeutral) {
+        LogEngine.instance.write("+ Wing.receive(" + droopNoseNeutral + ")");
+        try {
+            for (int i = 0; i < 2; i++) {
+                Method method = null;
+                method = droopNoses.get(i).getClass().getDeclaredMethod("neutral");
+                LogEngine.instance.write("droopNoseNeutral = " + method);
+                int returnValue = (int) method.invoke(droopNoses.get(i));
+                LogEngine.instance.write(droopNoseNeutral.getId() + " : Current Degress = " + returnValue);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseNeutral.getId() + " : Current Degress = " + returnValue);
+                LogEngine.instance.write("+");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //DroopNose Up
+    @Subscribe
+    public void receive (DroopNoseUpEvent droopNoseUp) {
+        LogEngine.instance.write("+ Wing.receive(" + droopNoseUp + ")");
+        int degree = droopNoseUp.getDegrees();
+        try {
+            for (int i = 0; i < 2; i++) {
+                Method method = null;
+                method = droopNoses.get(i).getClass().getDeclaredMethod("neutral", int.class);
+                LogEngine.instance.write("droopNoseUp = " + method);
+                int returnValue = (int) method.invoke(droopNoses.get(i),degree);
+                LogEngine.instance.write(droopNoseUp.getId() + " : Current Degress = " + returnValue);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseUp.getId() + " : Current Degress = " + returnValue);
+                LogEngine.instance.write("+");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

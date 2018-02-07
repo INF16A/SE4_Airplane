@@ -13,8 +13,8 @@ public class FlapFactory {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/flap.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, FlapFactory.class.getClassLoader());
             Class flapClass = Class.forName("Flap", true, urlClassLoader);
-            Object droopNoseInstance = flapClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            componentPort = flapClass.getDeclaredField("port").get(droopNoseInstance);
+            Object flapInstance = flapClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = flapClass.getDeclaredField("port").get(flapInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
