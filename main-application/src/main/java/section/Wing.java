@@ -638,7 +638,7 @@ public class Wing extends Subscriber {
                 LogEngine.instance.write("droopNoseFullDown = " + method);
                 int returnValue = (int) method.invoke(droopNoses.get(i));
                 LogEngine.instance.write(droopNoseFullDown.getId() + " : Current Degress = " + returnValue);
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseFullDown.getId() + " : Current Degress = " + returnValue);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseFullDown.getId() + " : is full up. Change in Degrees = " + returnValue);
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -657,7 +657,7 @@ public class Wing extends Subscriber {
                 LogEngine.instance.write("droopNoseNeutral = " + method);
                 int returnValue = (int) method.invoke(droopNoses.get(i));
                 LogEngine.instance.write(droopNoseNeutral.getId() + " : Current Degress = " + returnValue);
-                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseNeutral.getId() + " : Current Degress = " + returnValue);
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), droopNoseNeutral.getId() + " : is in neutral. Change in Degress = " + returnValue);
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
