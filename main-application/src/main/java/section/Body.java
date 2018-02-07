@@ -315,6 +315,13 @@ public class Body extends Subscriber {
                 LogEngine.instance.write("TCASPort :" + port.hashCode() + " - " + version);
             }
 
+            //Elevator
+            for(Object port : elevators) {
+                Method versionMethod = port.getClass().getDeclaredMethod("version");
+                String version = (String) versionMethod.invoke(port);
+                LogEngine.instance.write("ElevatorPort :" + port.hashCode() + " - " + version);
+            }
+
             // please add here
 
             LogEngine.instance.write("");
@@ -1487,6 +1494,8 @@ public class Body extends Subscriber {
                 
                 int degreesAfterExecution = (int) elevatorDownMethod.invoke(elevators.get(i),elevatorDownEvent.getDegrees());
                 LogEngine.instance.write(elevatorDownEvent.getPhase()  + " : elevatorDegreesAfterExecution = " + degreesAfterExecution);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), elevatorDownEvent.getPhase() + " : elevator moved down. Degrees afterwards: " + degreesAfterExecution);
                 
                 LogEngine.instance.write("+");
             }
@@ -1507,6 +1516,9 @@ public class Body extends Subscriber {
                 int degreesAfterExecution = (int) elevatorUpMethod.invoke(elevators.get(i),elevatorUpEvent.getDegrees());
                 LogEngine.instance.write(elevatorUpEvent.getPhase()  + " : elevatorDegreesAfterExecution = " + degreesAfterExecution);
 
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), elevatorUpEvent.getPhase() + " : elevator moved up. Degrees afterwards: " + degreesAfterExecution);
+
+
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -1525,6 +1537,9 @@ public class Body extends Subscriber {
 
                 int stepsTaken = (int) elevatorNeutralMethod.invoke(elevators.get(i));
                 LogEngine.instance.write(elevatorNeutralEvent.getPhase()  + " : elevatorIsInNeutral. ChangeInDegrees = " + stepsTaken);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), elevatorNeutralEvent.getPhase() + " : elevator moved to neutral. Degrees moved: " + stepsTaken);
+
 
                 LogEngine.instance.write("+");
             }
@@ -1545,6 +1560,9 @@ public class Body extends Subscriber {
                 int stepsTaken = (int) elevatorFullDownMethod.invoke(elevators.get(i));
                 LogEngine.instance.write(elevatorFullDownEvent.getPhase()  + " : elevatorIsFullDown. ChangeInDegrees = " + stepsTaken);
 
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), elevatorFullDownEvent.getPhase() + " : elevator moved fully down. Degrees moved: " + stepsTaken);
+
+
                 LogEngine.instance.write("+");
             }
         } catch (Exception e) {
@@ -1563,6 +1581,9 @@ public class Body extends Subscriber {
 
                 int stepsTaken = (int) elevatorFullUpMethod.invoke(elevators.get(i));
                 LogEngine.instance.write(elevatorFullUpEvent.getPhase()  + " : elevatorIsFullUp. ChangeInDegrees = " + stepsTaken);
+
+                FlightRecorder.instance.insert(this.getClass().getSimpleName(), elevatorFullUpEvent.getPhase() + " : elevator moved fully up. Degrees moved: " + stepsTaken);
+
 
                 LogEngine.instance.write("+");
             }
