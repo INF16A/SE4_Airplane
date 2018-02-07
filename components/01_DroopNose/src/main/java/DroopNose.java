@@ -50,8 +50,8 @@ public class DroopNose {
 
     private int innerDown(int degree)  {
         for(int i = 0; i < degree; i++) {
-            if(degree > -maxDegree) {
-                degree--;
+            if(this.degree > -maxDegree) {
+                this.degree--;
                 //send NoseDown Event
             }
         }
@@ -60,8 +60,8 @@ public class DroopNose {
 
     private int innerUp(int degree) {
         for(int i = 0; i < degree; i++) {
-            if(degree < maxDegree) {
-                degree++;
+            if(this.degree < maxDegree) {
+                this.degree++;
                 //send NoseDown Event
             }
         }

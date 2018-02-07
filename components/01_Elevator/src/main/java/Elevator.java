@@ -58,8 +58,8 @@ public class Elevator {
 
     private int innerUp(int degree) {
         for(int i = 0; i < degree; i++) {
-            if(degree < maxDegree) {
-                degree++;
+            if(this.degree < maxDegree) {
+                this.degree++;
                 //Elevator up?
             }
         }
@@ -68,8 +68,8 @@ public class Elevator {
 
     private int innerDown(int degree) {
         for(int i = 0; i < degree; i++) {
-            if (degree > -maxDegree) {
-                degree--;
+            if (this.degree > -maxDegree) {
+                this.degree--;
                 //Elevator down?
             }
         }
