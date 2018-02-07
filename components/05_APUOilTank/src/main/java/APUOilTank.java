@@ -1,13 +1,13 @@
 import java.lang.reflect.Method;
 
-public class APUOilTank  {
+public class APUOilTank {
 
     private static APUOilTank instance = new APUOilTank();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int level;
-    public Port port;
 
     private APUOilTank() {
         this.port = new Port();

@@ -12,10 +12,10 @@ public class RadarAltimeterFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/radaraltimeter.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "radaraltimeter.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, RadarAltimeterFactory.class.getClassLoader());
-            Class radarAltimeterClass = Class.forName("RadarAltimeter",true,urlClassLoader);
-            Object radarAltimeterInstance = radarAltimeterClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class radarAltimeterClass = Class.forName("RadarAltimeter", true, urlClassLoader);
+            Object radarAltimeterInstance = radarAltimeterClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = radarAltimeterClass.getDeclaredField("port").get(radarAltimeterInstance);
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,10 +11,10 @@ public class BatteryFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/battery.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "battery.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, BatteryFactory.class.getClassLoader());
-            Class fuelTankClass = Class.forName("Battery",true,urlClassLoader);
-            Object fuelTankInstance = fuelTankClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class fuelTankClass = Class.forName("Battery", true, urlClassLoader);
+            Object fuelTankInstance = fuelTankClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = fuelTankClass.getDeclaredField("port").get(fuelTankInstance);
         } catch (Exception e) {
             e.printStackTrace();

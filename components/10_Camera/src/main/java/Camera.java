@@ -1,14 +1,12 @@
 public class Camera {
 
+    private static Camera instance = new Camera();
+    public Port port;
     private String manufacturer = "EADS";
     private CameraType type;
     private String id = "23";
     private boolean isOn;
     private double factor = 1.0;
-
-    private static Camera instance = new Camera();
-
-    public Port port;
 
     private Camera() {
         port = new Port();
@@ -46,7 +44,7 @@ public class Camera {
         }
 
         public double zoomIn(boolean f) {
-            return f ? factor*2.0 : 2.0 ;
+            return f ? factor * 2.0 : 2.0;
         }
 
         public boolean off() {

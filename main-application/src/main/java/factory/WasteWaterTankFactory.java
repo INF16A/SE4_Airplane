@@ -1,22 +1,23 @@
 package factory;
 
+import configuration.Configuration;
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import configuration.Configuration;
 
 public class WasteWaterTankFactory {
-	public static Object build() {
-		Object componentPort = null;
-		try {
-			URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/wastewatertank.jar").toURI().toURL()};
-			URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
-			Class engineClass = Class.forName("WasteWaterTank", true, urlClassLoader);
-			Object engineInstance = engineClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-			componentPort = engineClass.getDeclaredField("port").get(engineInstance);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    public static Object build() {
+        Object componentPort = null;
+        try {
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "wastewatertank.jar").toURI().toURL()};
+            URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
+            Class engineClass = Class.forName("WasteWaterTank", true, urlClassLoader);
+            Object engineInstance = engineClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = engineClass.getDeclaredField("port").get(engineInstance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 		/*try {
 			URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/wastewatertank.jar").toURI().toURL()};
@@ -28,8 +29,8 @@ public class WasteWaterTankFactory {
 			e.printStackTrace();
 		}*/
 
-		return componentPort;
-	}
+        return componentPort;
+    }
 }
 
 

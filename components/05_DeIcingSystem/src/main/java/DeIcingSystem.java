@@ -1,16 +1,14 @@
-
 import java.lang.reflect.Method;
 
-public class DeIcingSystem{
+public class DeIcingSystem {
 
     private static DeIcingSystem instance = new DeIcingSystem();
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int amount;
     private boolean isActivated;
-    public Port port;
 
     private DeIcingSystem() {
         this.port = new Port();

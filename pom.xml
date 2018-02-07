@@ -13,7 +13,7 @@
         <!-- Hier module "path" hinzufügen. alt+Enter über dem path
              drücken und Create Module auswählen
         -->
-
+        <module>components/24_Persistence</module>
         <module>components/01_DroopNose</module>
         <module>components/01_Elevator</module>
         <module>components/01_Flap</module>

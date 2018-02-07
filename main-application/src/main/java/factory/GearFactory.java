@@ -17,7 +17,7 @@ public class GearFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/gear.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "gear.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
             Class gearClass = Class.forName("Gear", true, urlClassLoader);
             Object gearInstance = gearClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);

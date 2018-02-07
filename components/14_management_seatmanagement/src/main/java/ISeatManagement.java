@@ -7,5 +7,6 @@ import java.util.ArrayList;
  */
 public interface ISeatManagement {
     String version();
+
     int assign(ArrayList<Passenger> passengers);
 }

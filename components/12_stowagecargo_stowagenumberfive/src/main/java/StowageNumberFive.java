@@ -14,7 +14,7 @@ public class StowageNumberFive implements IStowageNumberFive {
 
     public double loadBaggage(ArrayList<Baggage> baggageList) {
         double totalWeight = 0;
-        for (int i = 0; i < baggageList.size() ; i++) {
+        for (int i = 0; i < baggageList.size(); i++) {
             totalWeight += baggageList.get(i).getWeight();
         }
         return totalWeight;

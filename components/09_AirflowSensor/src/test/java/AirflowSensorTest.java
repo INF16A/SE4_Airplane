@@ -6,12 +6,12 @@ public class AirflowSensorTest {
     AirflowSensor.Port port = AirflowSensor.getInstance().port;
 
     @Test
-    public void measure(){
-        Assert.assertEquals(3,port.measure("wow"));
+    public void measure() {
+        Assert.assertEquals(3, port.measure("wow"));
     }
 
     @Test
-    public void alarm(){
+    public void alarm() {
         Assert.assertFalse(port.alarm(3));
     }
 

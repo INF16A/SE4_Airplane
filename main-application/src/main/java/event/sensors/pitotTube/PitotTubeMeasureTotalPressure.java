@@ -15,5 +15,5 @@ public class PitotTubeMeasureTotalPressure {
     public String toString() {
         return "phase: " + phase + " PitotTubeMeasureTotalPressure";
     }
-    
+
 }

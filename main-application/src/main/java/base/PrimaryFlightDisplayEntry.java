@@ -11,7 +11,7 @@ public class PrimaryFlightDisplayEntry {
     public PrimaryFlightDisplayEntry() {
     }
 
-    public PrimaryFlightDisplayEntry(String attribute,String value) {
+    public PrimaryFlightDisplayEntry(String attribute, String value) {
         this.attribute = new SimpleStringProperty(attribute);
         this.value = new SimpleStringProperty(value);
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum PrimaryFlightDisplay {
     instance;
-    
+
     // please add value(s)
 
     //DroopNose
@@ -18,7 +18,7 @@ public enum PrimaryFlightDisplay {
     public int leftWingFlapDegree;
     public int rightWingFlapDegree;
 
-    //Slat
+    //slat
     public int leftWingSlatDegree;
     public int rightWingSlatDegree;
 
@@ -131,7 +131,7 @@ public enum PrimaryFlightDisplay {
     //CrewSeat
 
     //ExhaustGasTemperatureSensor
-    public int  leftWingExhaustGasTemperatureSensorTemperature;
+    public int leftWingExhaustGasTemperatureSensorTemperature;
     public boolean isLeftExhaustGasTemperatureSensorAlarmMajor;
     public boolean isLeftExhaustGasTemperatureSensorAlarmCritical;
     public int rightWingExhaustGasTemperatureSensorTemperature;

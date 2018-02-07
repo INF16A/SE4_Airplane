@@ -1,26 +1,43 @@
-
-
 public class Spoiler {
 
+    public static final int MAX_DEGREE = 21;
+    public static final int MIN_DEGREE = 0;
     private static Spoiler instance = new Spoiler();
-
-    public static Spoiler getInstance() {
-        return instance;
-    }
-
     public Port port;
-
-    private Spoiler() {
-        port = new Port();
-    }
-
     private String manufacturer;
     private String type;
     private String id;
     private int degree;
 
-    public static final int MAX_DEGREE = 21;
-    public static final int MIN_DEGREE = 0;
+    private Spoiler() {
+        port = new Port();
+    }
+
+    public static Spoiler getInstance() {
+        return instance;
+    }
+
+    private void innerAddDegree(int addValue) {
+        innerSetDegree(this.degree + addValue);
+    }
+
+    private void innerSetDegree(int totalValue) {
+        if (totalValue < MIN_DEGREE) {
+            this.degree = MIN_DEGREE;
+        } else if (totalValue > MAX_DEGREE) {
+            this.degree = MAX_DEGREE;
+        } else {
+            this.degree = totalValue;
+        }
+    }
+
+    private int innerGetDegree() {
+        return degree;
+    }
+
+    private String innerMethodGetVersion() {
+        return manufacturer + " - " + type + ", v0.01";
+    }
 
     public class Port implements ISpoiler {
 
@@ -81,28 +98,6 @@ public class Spoiler {
             innerAddDegree(degree * -1);
             return innerGetDegree();
         }
-    }
-
-    private void innerAddDegree(int addValue) {
-        innerSetDegree(this.degree + addValue);
-    }
-
-    private void innerSetDegree(int totalValue) {
-        if (totalValue < MIN_DEGREE) {
-            this.degree = MIN_DEGREE;
-        } else if (totalValue > MAX_DEGREE) {
-            this.degree = MAX_DEGREE;
-        } else {
-            this.degree = totalValue;
-        }
-    }
-
-    private int innerGetDegree() {
-        return degree;
-    }
-
-    private String innerMethodGetVersion() {
-        return manufacturer + " - " + type + ", v0.01";
     }
 
 }

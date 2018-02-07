@@ -6,6 +6,7 @@ package event.hydraulicPump;
 public class HydraulicPumpRefilOil {
     private String phase;
     private int amount;
+
     public HydraulicPumpRefilOil(String phase, int amount) {
         this.phase = phase;
         this.amount = amount;

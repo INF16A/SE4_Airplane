@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class EngineOilTankFactoryTest {
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(EngineOilTankFactory.build());
 
     }

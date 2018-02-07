@@ -5,6 +5,7 @@ package event.engine;
  */
 public class EngineStart {
     private String phase;
+
     public EngineStart(String phase) {
         this.phase = phase;
     }

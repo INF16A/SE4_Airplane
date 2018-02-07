@@ -1,15 +1,13 @@
 public class SatCom {
 
 
+    private static SatCom instance = new SatCom();
+    public Port port;
     private String manufacturer = "Motorola";
     private String type = "multi-frequency iridium SatCom";
     private String id = "312.54";
     private boolean isConnected = false;
     private boolean isOn;
-
-    private static SatCom instance = new SatCom();
-
-    public Port port;
 
     private SatCom() {
         port = new Port();
@@ -40,23 +38,23 @@ public class SatCom {
         }
 
         public boolean connect(String satellite, String frequency) {
-            if(!isOn)
+            if (!isOn)
                 return false;
-            else{
+            else {
                 isConnected = true;
                 return true;
             }
         }
 
-        public void send(String request){
-            if(!isConnected)
+        public void send(String request) {
+            if (!isConnected)
                 System.out.println("No connection");
             else
                 System.out.println("Signal has been send");
         }
 
         public String receive() {
-            if(!isConnected)
+            if (!isConnected)
                 return "no satellite connection";
             else
                 return "No weather warning ahead";

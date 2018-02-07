@@ -1,14 +1,13 @@
-
 import java.lang.reflect.Method;
 
 public class Battery {
 
     private static Battery instance = new Battery();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int percentage;
-    public Port port;
 
     private Battery() {
         this.port = new Port();
@@ -35,7 +34,7 @@ public class Battery {
     public int innerDischarge() {
         percentage--;
         if (percentage < 0) percentage = 0;
-        if (1==2) {
+        if (1 == 2) {
             System.out.println("Hallo");
         }
         return percentage;

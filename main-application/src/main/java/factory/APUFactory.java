@@ -17,7 +17,7 @@ public class APUFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/apu.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "apu.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
             Class apuClass = Class.forName("APU", true, urlClassLoader);
             Object apuInstance = apuClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);

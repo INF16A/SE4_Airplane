@@ -5,8 +5,7 @@ import org.junit.Test;
 
 public class APUOilTankFactoryTest {
     @Test
-    public void build(){
+    public void build() {
         Assert.assertNotNull(APUOilTankFactory.build());
-
     }
 }

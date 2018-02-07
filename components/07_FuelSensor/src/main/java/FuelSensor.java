@@ -7,6 +7,7 @@ public class FuelSensor {
     private boolean isAlarmReserve = false;
     private boolean isAlarmCritical = false;
     private boolean isAlarmMajor = false;
+
     private FuelSensor() {
 
     }

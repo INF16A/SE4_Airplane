@@ -13,7 +13,9 @@ public class CameraZoomIn {
         return phase;
     }
 
-    public boolean getFactor() {return factor; }
+    public boolean getFactor() {
+        return factor;
+    }
 
     public String toString() {
         return "event - " + phase + " : CameraZoomIn with " + factor;

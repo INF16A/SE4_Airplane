@@ -1,7 +1,6 @@
 public class Elevator {
-    public Port port;
     private static Elevator instance = new Elevator();
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
@@ -25,12 +24,12 @@ public class Elevator {
     private int innerNeutral() {
         int stepsTaken = 0;
         if (degree < 0) {
-            for(;degree < 0; degree++) {
+            for (; degree < 0; degree++) {
                 stepsTaken++;
                 // Elevator up?
             }
-        } else if(degree > 0) {
-            for(;degree > 0; degree--) {
+        } else if (degree > 0) {
+            for (; degree > 0; degree--) {
                 stepsTaken++;
                 // Elevator down?
             }
@@ -40,7 +39,7 @@ public class Elevator {
 
     private int innerFullDown() {
         int stepsTaken = 0;
-        for(; degree > -maxDegree; degree--) {
+        for (; degree > -maxDegree; degree--) {
             stepsTaken++;
             // Elevator down?
         }
@@ -49,7 +48,7 @@ public class Elevator {
 
     private int innerFullUp() {
         int stepsTaken = 0;
-        for(; degree < maxDegree; degree++) {
+        for (; degree < maxDegree; degree++) {
             stepsTaken++;
             // Elevator up?
         }
@@ -57,8 +56,8 @@ public class Elevator {
     }
 
     private int innerUp(int degree) {
-        for(int i = 0; i < degree; i++) {
-            if(this.degree < maxDegree) {
+        for (int i = 0; i < degree; i++) {
+            if (this.degree < maxDegree) {
                 this.degree++;
                 //Elevator up?
             }
@@ -67,7 +66,7 @@ public class Elevator {
     }
 
     private int innerDown(int degree) {
-        for(int i = 0; i < degree; i++) {
+        for (int i = 0; i < degree; i++) {
             if (this.degree > -maxDegree) {
                 this.degree--;
                 //Elevator down?
@@ -82,13 +81,21 @@ public class Elevator {
             return innerVersion();
         }
 
-        public int neutral() { return innerNeutral(); }
+        public int neutral() {
+            return innerNeutral();
+        }
 
-        public int fullUp() { return innerFullUp(); }
+        public int fullUp() {
+            return innerFullUp();
+        }
 
-        public int fullDown() { return innerFullDown(); }
+        public int fullDown() {
+            return innerFullDown();
+        }
 
-        public int up(int degree) { return innerUp(degree); }
+        public int up(int degree) {
+            return innerUp(degree);
+        }
 
         public int down(int degree) {
             return innerDown(degree);

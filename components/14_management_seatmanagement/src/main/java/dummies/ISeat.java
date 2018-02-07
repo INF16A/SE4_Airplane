@@ -5,5 +5,6 @@ package dummies;
  */
 public interface ISeat {
     String getId();
+
     void assign(Passenger passenger);
 }

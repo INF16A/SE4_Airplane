@@ -1,17 +1,19 @@
 public class FireDetector {
 
     private static FireDetector Instance = new FireDetector();
+    public Port port = new Port();
+    private String manufacturer = "It's Lit";
+    private String type = "Topmodell";
+    private String id = "35982";
+    private boolean isAlarm = false;
 
     public static FireDetector getInstance() {
         return Instance;
     }
 
-    public Port port = new Port();
-
-    private String manufacturer = "It's Lit";
-    private String type = "Topmodell";
-    private String id = "35982";
-    private boolean isAlarm = false;
+    public String innerVersion() {
+        return "FireDetector(id: " + id + ") by " + manufacturer + " with Type " + type;
+    }
 
     public class Port implements IFireDetector {
 
@@ -27,10 +29,6 @@ public class FireDetector {
             return isAlarm;
         }
 
-    }
-
-    public String innerVersion() {
-        return "FireDetector(id: " + id + ") by " + manufacturer + " with Type " + type;
     }
 
 }
