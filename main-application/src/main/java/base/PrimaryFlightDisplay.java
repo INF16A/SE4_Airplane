@@ -204,7 +204,7 @@ public enum PrimaryFlightDisplay {
     public boolean isRadarAltimeterOn;
 
     //TCAS
-    public int zCASAltitude;
+    public int tCASAltitude;
     public boolean isTCASOn;
     public boolean isTCASConnected;
     public boolean isTCASAlarm;

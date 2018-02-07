@@ -1464,7 +1464,7 @@ public class Body extends Subscriber {
                 int measuredValue = (int) TCASSetAltitudeMethod.invoke(tCASs.get(momSensor), tcasSetAltitude.getValue());
                 LogEngine.instance.write(tcasSetAltitude.getPhase() + " : TCASSetAltitude = " + measuredValue);
 
-                PrimaryFlightDisplay.instance.zCASAltitude = measuredValue;
+                PrimaryFlightDisplay.instance.tCASAltitude = measuredValue;
 
                 LogEngine.instance.write("+");
             }
