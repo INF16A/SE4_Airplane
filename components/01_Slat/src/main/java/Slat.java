@@ -28,7 +28,7 @@ public class Slat {
     private int innerDown(int innerDegree) {
         degree -= innerDegree;
         if (degree < -45) {
-            degree = 45;
+            degree = -45;
         }
         return degree;
     }
@@ -40,6 +40,10 @@ public class Slat {
 
     private int innerNeutral() {
         degree = 0;
+        return degree;
+    }
+
+    public int getDegree() {
         return degree;
     }
 

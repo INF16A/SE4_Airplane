@@ -1,4 +1,4 @@
-package event.DroopNose;
+package event.droopNose;
 
 public class DroopNoseNeutralEvent {
     private int id;

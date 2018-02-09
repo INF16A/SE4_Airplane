@@ -10,6 +10,7 @@ public class DroopNose {
     private DroopNose() {
         degree = 0;
         maxDegree = 45;
+        manufacturer = "aManufacturer";
         port = new Port();
     }
 
@@ -18,7 +19,7 @@ public class DroopNose {
     }
 
     private String innerVersion() {
-        return "Version 0.2";
+        return manufacturer + " - Version 1.0";
     }
 
     private int innerNeutral() {
@@ -46,10 +47,10 @@ public class DroopNose {
         return stepsTaken;
     }
 
-    private int innerDown(int degree) {
+    private int innerDown(int degree)  {
         for (int i = 0; i < degree; i++) {
-            if (degree > -maxDegree) {
-                degree--;
+            if (this.degree > -maxDegree) {
+                this.degree--;
                 //send NoseDown Event
             }
         }

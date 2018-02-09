@@ -34,6 +34,10 @@ public class Flap {
         return degree;
     }
 
+    public int getDegree() {
+        return degree;
+    }
+
     private String innerVersion() {
         return "main.java.Flap XYZ";
     }

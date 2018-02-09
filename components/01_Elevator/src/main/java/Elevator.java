@@ -26,12 +26,12 @@ public class Elevator {
         if (degree < 0) {
             for (; degree < 0; degree++) {
                 stepsTaken++;
-                // send ElevatorUp Event?
+                // Elevator up?
             }
         } else if (degree > 0) {
             for (; degree > 0; degree--) {
                 stepsTaken++;
-                // send ElevatorDown Event?
+                // Elevator down?
             }
         }
         return stepsTaken;
@@ -41,7 +41,7 @@ public class Elevator {
         int stepsTaken = 0;
         for (; degree > -maxDegree; degree--) {
             stepsTaken++;
-            // send ElevatorDown Event?
+            // Elevator down?
         }
         return stepsTaken;
     }
@@ -50,16 +50,16 @@ public class Elevator {
         int stepsTaken = 0;
         for (; degree < maxDegree; degree++) {
             stepsTaken++;
-            // send ElevatorUp Event?
+            // Elevator up?
         }
         return stepsTaken;
     }
 
     private int innerUp(int degree) {
         for (int i = 0; i < degree; i++) {
-            if (degree < maxDegree) {
-                degree++;
-                //send ElevatorUp Event?
+            if (this.degree < maxDegree) {
+                this.degree++;
+                //Elevator up?
             }
         }
         return this.degree;
@@ -67,9 +67,9 @@ public class Elevator {
 
     private int innerDown(int degree) {
         for (int i = 0; i < degree; i++) {
-            if (degree > -maxDegree) {
-                degree--;
-                //send ElevatorDown Event?
+            if (this.degree > -maxDegree) {
+                this.degree--;
+                //Elevator down?
             }
         }
         return this.degree;

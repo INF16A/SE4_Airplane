@@ -14,8 +14,8 @@ public class SlatFactory {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "slat.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, SlatFactory.class.getClassLoader());
             Class slatClass = Class.forName("Slat", true, urlClassLoader);
-            Object droopNoseInstance = slatClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            componentPort = slatClass.getDeclaredField("port").get(droopNoseInstance);
+            Object slatInstance = slatClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = slatClass.getDeclaredField("port").get(slatInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
