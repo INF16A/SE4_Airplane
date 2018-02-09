@@ -3,12 +3,10 @@ package factory;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
-public class LeftAileronFactoryTest {
+public class RudderFactoryTest {
 
     @Test
     public void testBuild(){
-        assertNotNull(LeftAileronFactory.build("1","test","3"));
+        assertNotNull(RudderFactory.build("1","test","3"));
     }
-
-
 }
