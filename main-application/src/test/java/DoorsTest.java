@@ -8,7 +8,7 @@ import org.junit.Test;
 
     public class DoorsTest {
 
-        private Object result = null;
+        private Object result;
 
         @Test
         public void testBulkCargoDoor()
