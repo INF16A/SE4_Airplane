@@ -2,11 +2,6 @@ public class CrewDoor{
 
     private static CrewDoor Instance = new CrewDoor();
 
-    public static CrewDoor getInstance()
-    {
-        return Instance;
-    }
-
     public Port port = new Port();
 
     private String manufacturer = "Werner";
@@ -14,6 +9,11 @@ public class CrewDoor{
     private String id = "666";
     private boolean isClosed;
     private boolean isLocked;
+
+    public static CrewDoor getInstance()
+    {
+        return Instance;
+    }
 
     public class Port implements ICrewDoor{
 
@@ -46,7 +46,6 @@ public class CrewDoor{
         {
             return  innerUnlock();
         }
-
     }
 
     private String innerVersion()

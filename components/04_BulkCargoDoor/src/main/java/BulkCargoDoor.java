@@ -2,11 +2,6 @@ public class BulkCargoDoor{
 
     private static BulkCargoDoor Instance = new BulkCargoDoor();
 
-    public static BulkCargoDoor getInstance()
-    {
-        return Instance;
-    }
-
     public Port port = new Port();
 
     private String manufacturer = "Lubitz";
@@ -14,6 +9,11 @@ public class BulkCargoDoor{
     private String id = "420";
     private boolean isClosed;
     private boolean isLocked;
+
+    public static BulkCargoDoor getInstance()
+    {
+        return Instance;
+    }
 
     public class Port implements IBulkCargoDoor {
 

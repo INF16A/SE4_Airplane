@@ -13,9 +13,9 @@ public class BulkCargoDoorFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "BulkCargoDoor.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, BulkCargoDoorFactory.class.getClassLoader());
-            Class BulkCargoDoorClass = Class.forName("BulkCargoDoor", true, urlClassLoader);
-            Object BulkCargoDoorInstance = BulkCargoDoorClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            componentPort = BulkCargoDoorClass.getDeclaredField("port").get(BulkCargoDoorInstance);
+            Class bulkCargoDoorFactoryClass = Class.forName("BulkCargoDoor", true, urlClassLoader);
+            Object bulkCargoDoorInstance = bulkCargoDoorFactoryClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = bulkCargoDoorFactoryClass.getDeclaredField("port").get(bulkCargoDoorInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }

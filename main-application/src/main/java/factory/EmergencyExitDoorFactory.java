@@ -11,11 +11,11 @@ public class EmergencyExitDoorFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "EmergencyDoor.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "EmergencyExitDoor.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EmergencyExitDoorFactory.class.getClassLoader());
-            Class EmergencyDoorClass = Class.forName("EmergencyDoor", true, urlClassLoader);
-            Object EmergencyDoorInstance = EmergencyDoorClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            componentPort = EmergencyDoorClass.getDeclaredField("port").get(EmergencyDoorInstance);
+            Class EmergencyExitDoorClass = Class.forName("EmergencyExitDoor", true, urlClassLoader);
+            Object EmergencyExitDoorInstance = EmergencyExitDoorClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
+            componentPort = EmergencyExitDoorClass.getDeclaredField("port").get(EmergencyExitDoorInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
