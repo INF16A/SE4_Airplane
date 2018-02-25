@@ -316,6 +316,7 @@ public class Body extends Subscriber {
         // management
         // TODO: Add management stuff
         costOptimizers = new ArrayList<>();
+        for (int i = 0; i < 2; i++) { costOptimizers.add(CostOptimizerFactory.build()); };
         // Factory magic 2
         routeManagements = new ArrayList<>();
         // Factory magic 2
