@@ -10,6 +10,7 @@ import event.fuelFlowSensor.FuelFlowSensorMeasure;
 import event.fuelSensor.FuelSensorMeasure;
 import event.gps.GPSOff;
 import event.gps.GPSOn;
+import event.iceDetectorProbe.IceDetectorProbeMeasure;
 import event.radar.RadarOff;
 import event.radar.RadarScan;
 import event.satcom.SatComOff;
@@ -81,6 +82,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 20));
         eventBus.post(new FuelFlowSensorMeasure(phase, 20));
         eventBus.post(new FuelSensorMeasure(phase, 100));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"iceless"));
     }
 
     public void taxi() {
@@ -93,6 +95,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 300));
         eventBus.post(new FuelFlowSensorMeasure(phase, 100));
         eventBus.post(new FuelSensorMeasure(phase, 95));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"iceless"));
 
     }
 
@@ -107,6 +110,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 800));
         eventBus.post(new FuelFlowSensorMeasure(phase, 350));
         eventBus.post(new FuelSensorMeasure(phase, 90));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"iceless"));
     }
 
     public void climbing() {
@@ -129,6 +133,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 900));
         eventBus.post(new FuelFlowSensorMeasure(phase, 400));
         eventBus.post(new FuelSensorMeasure(phase, 80));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"ice buildup"));
     }
 
     public void rightTurn() {
@@ -200,6 +205,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 600));
         eventBus.post(new FuelFlowSensorMeasure(phase, 150));
         eventBus.post(new FuelSensorMeasure(phase, 40));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"ice buildup decreasing"));
 
 
     }
@@ -224,6 +230,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 500));
         eventBus.post(new FuelFlowSensorMeasure(phase, 150));
         eventBus.post(new FuelSensorMeasure(phase, 30));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"iceless"));
 
     }
 
@@ -241,6 +248,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 400));
         eventBus.post(new FuelFlowSensorMeasure(phase, 50));
         eventBus.post(new FuelSensorMeasure(phase, 25));
+        eventBus.post(new IceDetectorProbeMeasure(phase,"iceless"));
 
 
     }
