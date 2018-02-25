@@ -348,6 +348,7 @@ public class Body extends Subscriber {
         routeManagements = new ArrayList<>();
         // Factory magic 2
         seatManagements = new ArrayList<>();
+        seatManagements.add(SeatManagementFactory.build());
         // Factory magic 1
     }
 
