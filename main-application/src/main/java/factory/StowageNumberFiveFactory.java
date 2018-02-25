@@ -11,7 +11,7 @@ public class StowageNumberFiveFactory {
 		Object componentPort = null;
 
 		try {
-			URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/stowagenumberfive.jar").toURI().toURL()};
+			URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "stowagenumberfive.jar").toURI().toURL()};
 			URLClassLoader urlClassLoader = new URLClassLoader(urls, StowageNumberFiveFactory.class.getClassLoader());
 			Class stowageNumberFiveClass = Class.forName("StowageNumberFive",true,urlClassLoader);
 			Object stowageNumberFiveInstance = stowageNumberFiveClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
