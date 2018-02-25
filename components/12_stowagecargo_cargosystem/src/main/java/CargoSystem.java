@@ -119,6 +119,11 @@ public class CargoSystem {
             return innerUnlock();
         }
 
+        @Override
+        public double load(Stowage stowage, ArrayList<Container> container) {
+            return 0;
+        }
+
         public double loadContainer(Stowage stowage, ArrayList<Container> container) {
             return innerLoadContainer(stowage, container);
         }
