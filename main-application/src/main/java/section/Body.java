@@ -220,18 +220,22 @@ public class Body extends Subscriber {
         // Factory magic 2
 
         // sensor02
-        // TODO: Add a lot of sensors
 
         fireDetectors = new ArrayList<>();
-        // Factory magic 14
+        for(int i = 0; i < 14; ++i)
+            fireDetectors.add(FireDetectorFactory.build());
         oxygenSensors = new ArrayList<>();
-        // Factory magic 8
+        for(int i = 0; i < 8; ++i)
+            oxygenSensors.add(OxygenBottleFactory.build());
         shockSensors = new ArrayList<>();
-        // Factory magic 2
+        for(int i = 0; i < 2; ++i)
+            shockSensors.add(ShockSensorFactory.build());
         stallingSensors = new ArrayList<>();
-        // Factory magic 2
+        for(int i = 0; i < 2; ++i)
+            stallingSensors.add(StallingSensorFactory.build());
         temperatureSensors = new ArrayList<>();
-        // Factory magic 2
+        for(int i = 0; i < 2; ++i)
+            temperatureSensors.add(TemperatureSensorFactory.build());
 
         // sensor03
         airflowSensors = new ArrayList<>();
