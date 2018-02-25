@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Routemanagement {
-    private IRouteManagement port = new Port();
     private static Routemanagement instance = new Routemanagement();
+    private IRouteManagement port = new Port();
     private String manufacturer = "airbus";
     private String type = "Model A";
     private String id = "A98JDKF87KDJSXCM";
@@ -33,7 +33,7 @@ public class Routemanagement {
         }
 
         public void printCheckpoints() {
-            checkpoints.forEach(c -> System.out.println(c.getName() + ":"  + c.getSequenceID() +
+            checkpoints.forEach(c -> System.out.println(c.getName() + ":" + c.getSequenceID() +
                     " " + c.getLongitude() + " " + c.getLatitude()));
         }
 
