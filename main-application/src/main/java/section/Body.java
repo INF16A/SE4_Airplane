@@ -317,10 +317,10 @@ public class Body extends Subscriber {
 
         // stowage_cargo
         cargoSystems = new ArrayList<>();
-        for (int i = 0; i < 2; i++) cargoSystems.add(CargoSystemFactory.build());
+        //for (int i = 0; i < 2; i++) cargoSystems.add(CargoSystemFactory.build());
         // Factory magic 2
         stowageNumberFives = new ArrayList<>();
-        stowageNumberFives.add(StowageNumberFiveFactory.build());
+        //stowageNumberFives.add(StowageNumberFiveFactory.build());
         // Factory magic 1
 
         // cabin
