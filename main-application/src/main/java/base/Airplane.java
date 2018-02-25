@@ -6,6 +6,7 @@ import event.camera.CameraOff;
 import event.camera.CameraOn;
 import event.camera.CameraZoomIn;
 import event.exhaustGasTemperatureSensor.ExhaustGasTemperatureSensorMeasurement;
+import event.fuelFlowSensor.FuelFlowSensorMeasure;
 import event.gps.GPSOff;
 import event.gps.GPSOn;
 import event.radar.RadarOff;
@@ -77,6 +78,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new AirflowSensorMeasure(phase, "645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 20));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 20));
     }
 
     public void taxi() {
@@ -87,7 +89,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new AirflowSensorMeasure(phase, "645"));
         eventBus.post(new TurbulentAirFlowSensorMeasure(phase, "48654"));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 300));
-
+        eventBus.post(new FuelFlowSensorMeasure(phase, 100));
 
     }
 
@@ -100,6 +102,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new AirflowSensorAlarm(phase, 5));
         eventBus.post(new TurbulentAirFlowSensorAlarm(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 800));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 350));
 
     }
 
@@ -121,6 +124,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new TCASAlarm(phase));
         eventBus.post(new RadarAltimeterMeasureAltitude(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 900));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 400));
 
     }
 
@@ -143,6 +147,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new TCASAlarm(phase));
         eventBus.post(new RadarAltimeterMeasureAltitude(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 700));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 350));
 
     }
 
@@ -166,6 +171,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new TCASAlarm(phase));
         eventBus.post(new RadarAltimeterMeasureAltitude(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 700));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 350));
 
     }
 
@@ -188,6 +194,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new TCASAlarm(phase));
         eventBus.post(new RadarAltimeterMeasureAltitude(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 600));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 150));
 
     }
 
@@ -209,6 +216,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new TCASAlarm(phase));
         eventBus.post(new RadarAltimeterMeasureAltitude(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 500));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 150));
 
     }
 
@@ -224,6 +232,7 @@ public class Airplane implements IAirplane {
         eventBus.post(new RadarAltimeterOff(phase));
         eventBus.post(new TCASOff(phase));
         eventBus.post(new ExhaustGasTemperatureSensorMeasurement(phase, 400));
+        eventBus.post(new FuelFlowSensorMeasure(phase, 50));
 
     }
 }
