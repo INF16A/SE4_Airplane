@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
-public class Routemanagement {
-    private static Routemanagement instance = new Routemanagement();
-    private IRouteManagement port = new Port();
+public class RouteManagement {
+
+    private static RouteManagement instance = new RouteManagement();
+    @SuppressWarnings("WeakerAccess")
+    public IRouteManagement port;
     private String manufacturer = "airbus";
     private String type = "Model A";
     private String id = "A98JDKF87KDJSXCM";
@@ -10,7 +12,11 @@ public class Routemanagement {
     private ArrayList<Checkpoint> checkpoints = new ArrayList<>();
     private double costIndex = 2; // default
 
-    public static Routemanagement getInstance() {
+    private RouteManagement() {
+        this.port = new Port();
+    }
+
+    public static RouteManagement getInstance() {
         return instance;
     }
 
