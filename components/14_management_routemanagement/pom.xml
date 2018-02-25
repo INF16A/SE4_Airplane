@@ -7,6 +7,34 @@
     <groupId>de.dhbw.mosbach.inf16a</groupId>
     <artifactId>14_management_routemanagement</artifactId>
     <version>1.0.0</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>routemanagement</finalName>
+                    <outputDirectory>../</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <parent>
+        <groupId>de.dhbw.mosbach.inf16a</groupId>
+        <artifactId>SE4_Airplane</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../..</relativePath>
+    </parent>
 
 
 </project>

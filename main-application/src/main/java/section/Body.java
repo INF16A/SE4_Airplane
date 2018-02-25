@@ -341,11 +341,11 @@ public class Body extends Subscriber {
         for (int i = 0; i < 14; i++) escapeSlides.add(EscapeSlideFactory.build());
 
         // management
-        // TODO: Add management stuff
         costOptimizers = new ArrayList<>();
         for (int i = 0; i < 2; i++) { costOptimizers.add(CostOptimizerFactory.build()); };
         // Factory magic 2
         routeManagements = new ArrayList<>();
+        for (int i = 0; i < 2; i++) { routeManagements.add(RouteManagementFactory.build()); }
         // Factory magic 2
         seatManagements = new ArrayList<>();
         seatManagements.add(SeatManagementFactory.build());
