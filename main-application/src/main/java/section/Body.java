@@ -316,11 +316,11 @@ public class Body extends Subscriber {
         for (int i = 0; i < 2; i++) tCASLights.add(TCASLightFactory.build());
 
         // stowage_cargo
-        // TODO: Add some of these too
-
         cargoSystems = new ArrayList<>();
+        for (int i = 0; i < 2; i++) cargoSystems.add(CargoSystemFactory.build());
         // Factory magic 2
         stowageNumberFives = new ArrayList<>();
+        stowageNumberFives.add(StowageNumberFiveFactory.build());
         // Factory magic 1
 
         // cabin

@@ -6,6 +6,12 @@ public class Baggage {
     private double weight;
     private BaggageType baggageType;
 
+    public Baggage(String id, double weight, BaggageType baggageType) {
+        this.id = id;
+        this.weight = weight;
+        this.baggageType = baggageType;
+    }
+
     public String getId() {
         return id;
     }
