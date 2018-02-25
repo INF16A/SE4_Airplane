@@ -6,6 +6,7 @@ public class RadarOff {
     public RadarOff(String phase) {
         this.phase = phase;
     }
+
     public String getPhase() {
         return phase;
     }

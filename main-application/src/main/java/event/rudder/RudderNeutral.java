@@ -12,6 +12,7 @@ public class RudderNeutral {
     public String toString() {
         return "{ RudderNeutral : id = " + id + " }";
     }
+
     public int getId() {
         return id;
     }

@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Created by felixbertsch on 30.01.18.
  */
-public class StowageNumberFiveTest {
+public class StowageNumberFiveTest {/*
     private Object componentPort;
     private ArrayList<Baggage> baggages = new ArrayList<Baggage>();
     private double expectedWeight = 0;
@@ -47,5 +47,5 @@ public class StowageNumberFiveTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 }

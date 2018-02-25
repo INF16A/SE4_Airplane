@@ -18,6 +18,7 @@ public class SpoilerUp {
         return "{ SpoilerUp : id = " + id + ", degree = " + degree + " }";
 
     }
+
     public int getId() {
         return id;
     }

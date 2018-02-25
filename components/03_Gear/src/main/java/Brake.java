@@ -7,8 +7,7 @@ public class Brake {
     private int percentage;
 
 
-    public Brake(String id, long dateOfManufacture)
-    {
+    public Brake(String id, long dateOfManufacture) {
         this.id = id;
         this.dateOfManufacture = dateOfManufacture;
     }

@@ -3,8 +3,12 @@
  */
 public interface IAPU {
     public String version();
+
     public boolean start();
+
     public int increaseRPM(int value);
+
     public int decreaseRPM(int value);
+
     public boolean shutdown();
 }

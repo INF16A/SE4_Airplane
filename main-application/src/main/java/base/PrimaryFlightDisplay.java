@@ -19,7 +19,7 @@ public enum PrimaryFlightDisplay {
     public int leftWingFlapDegree;
     public int rightWingFlapDegree;
 
-    //Slat
+    //slat
     public int leftWingSlatDegree;
     public int rightWingSlatDegree;
 
@@ -132,7 +132,7 @@ public enum PrimaryFlightDisplay {
     //CrewSeat
 
     //ExhaustGasTemperatureSensor
-    public int  leftWingExhaustGasTemperatureSensorTemperature;
+    public int leftWingExhaustGasTemperatureSensorTemperature;
     public boolean isLeftExhaustGasTemperatureSensorAlarmMajor;
     public boolean isLeftExhaustGasTemperatureSensorAlarmCritical;
     public int rightWingExhaustGasTemperatureSensorTemperature;
@@ -205,7 +205,7 @@ public enum PrimaryFlightDisplay {
     public boolean isRadarAltimeterOn;
 
     //TCAS
-    public int zCASAltitude;
+    public int tCASAltitude;
     public boolean isTCASOn;
     public boolean isTCASConnected;
     public boolean isTCASAlarm;
@@ -216,27 +216,21 @@ public enum PrimaryFlightDisplay {
     public boolean isRightWingTurbulentAirFlowSensorAlarm;
 
     //Camera
-    public boolean isBodyCameraOn;
-    public boolean isLeftWingCameraOn;
-    public boolean isRightWingCameraOn;
-    public double bodyCameraFactor;
-    public double leftWingCameraFactor;
-    public double rightWingCameraFactor;
+    public boolean isCameraOn;
+    public double cameraFactor;
 
     //GPS
     public boolean isGPSOn;
-    public boolean isGPSConnected;
 
     //Radar
     public boolean isRadarOn;
+    public boolean isAirspaceFree;
 
     //SatCom
     public boolean isSatComConnected;
 
     //VHF
     public boolean isVHFOn;
-    public String[] vHFChannelList;
-    public String vHFselectedChannel;
 
     //AntiCollisionLight
     public boolean isAntiCollisionLightOn;

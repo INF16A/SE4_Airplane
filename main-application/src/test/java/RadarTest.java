@@ -1,6 +1,8 @@
 import factory.RadarFactory;
 import org.junit.Test;
+
 import java.lang.reflect.Method;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
@@ -18,8 +20,8 @@ public class RadarTest {
         componentPort = RadarFactory.build();
         try {
             Method onMethod = componentPort.getClass().getDeclaredMethod("on");
-            boolean isOn = (boolean)onMethod.invoke(componentPort);
-            assertEquals(true,isOn);
+            boolean isOn = (boolean) onMethod.invoke(componentPort);
+            assertEquals(true, isOn);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -30,8 +32,8 @@ public class RadarTest {
         componentPort = RadarFactory.build();
         try {
             Method offMethod = componentPort.getClass().getDeclaredMethod("off");
-            boolean isOn = (boolean)offMethod.invoke(componentPort);
-            assertEquals(false,isOn);
+            boolean isOn = (boolean) offMethod.invoke(componentPort);
+            assertEquals(false, isOn);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,8 +44,8 @@ public class RadarTest {
         componentPort = RadarFactory.build();
         try {
             Method offMethod = componentPort.getClass().getDeclaredMethod("version");
-            String version = (String)offMethod.invoke(componentPort);
-            assertEquals("Radar 0.18.123",version);
+            String version = (String) offMethod.invoke(componentPort);
+            assertEquals("Radar 0.18.123", version);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -55,7 +57,7 @@ public class RadarTest {
         try {
             Method offMethod = componentPort.getClass().getDeclaredMethod("scan", String.class);
             String environment = "Cloud freeSpace bird Cloud";
-            boolean scanResult = (boolean)offMethod.invoke(componentPort, new Object[]{environment});
+            boolean scanResult = (boolean) offMethod.invoke(componentPort, new Object[]{environment});
             assertEquals(true, scanResult);
         } catch (Exception e) {
             System.out.println(e.getMessage());

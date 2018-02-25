@@ -13,6 +13,10 @@ public class RadarScan {
         return phase;
     }
 
+    public String getEnvironment() {
+        return environment;
+    }
+
     public String toString() {
         return "event - " + phase + " : RadarScan, environment: " + environment;
     }

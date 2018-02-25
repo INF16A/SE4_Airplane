@@ -2,6 +2,8 @@
  * Created by Lenovo on 30.01.2018.
  */
 public class Engine {
+    private static Engine instance = new Engine();
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
@@ -9,11 +11,7 @@ public class Engine {
     private int rpm;
     private boolean isFire;
 
-    public Port port;
-    private static Engine instance = new Engine();
-
-    private Engine()
-    {
+    private Engine() {
         port = new Port();
         this.manufacturer = "Best Engine Customer";
         this.type = "Best Engine Type";
@@ -22,12 +20,11 @@ public class Engine {
 
     }
 
-    public static Engine getInstance(){
+    public static Engine getInstance() {
         return instance;
     }
 
-    public class Port implements IEngine
-    {
+    public class Port implements IEngine {
 
         public String version() {
             return "Engine 1.0";
@@ -39,16 +36,16 @@ public class Engine {
         }
 
         public int increaseRPM(int value) {
-            if(value <= 0)
+            if (value <= 0)
                 return rpm;
             rpm += value;
-            if(rpm>10500)
+            if (rpm > 10500)
                 rpm = 10500;
             return rpm;
         }
 
         public int decreaseRPM(int value) {
-            if(value <= 0)
+            if (value <= 0)
                 return rpm;
             rpm -= value;
             return rpm;

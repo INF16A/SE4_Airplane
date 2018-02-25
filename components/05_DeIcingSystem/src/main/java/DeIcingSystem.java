@@ -1,17 +1,14 @@
-package main.java;
-
 import java.lang.reflect.Method;
 
-public class DeIcingSystem{
+public class DeIcingSystem {
 
     private static DeIcingSystem instance = new DeIcingSystem();
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private int amount;
     private boolean isActivated;
-    private Port port;
 
     private DeIcingSystem() {
         this.port = new Port();
@@ -40,8 +37,9 @@ public class DeIcingSystem{
     }
 
     public int innerRefill() {
+        int tmp = 1000 - amount;
         amount = 1000;
-        return amount;
+        return tmp;
     }
 
     public boolean innerActivate() {

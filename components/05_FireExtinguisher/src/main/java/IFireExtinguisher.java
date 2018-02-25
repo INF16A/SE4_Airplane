@@ -1,7 +1,7 @@
-package main.java;
-
 public interface IFireExtinguisher {
     public String version();
-    public int refill();
+
+    public boolean refill();
+
     public int apply();
 }

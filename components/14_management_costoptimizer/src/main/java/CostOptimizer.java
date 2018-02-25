@@ -1,22 +1,15 @@
-package main.java;
-
 import java.util.ArrayList;
 
-/**
- * Created by chag0709 on 30.01.18 - Kaufland Informationssysteme 2018.
- */
 public class CostOptimizer {
 
-    public Port port;
+    private static final int COST_INDEX_HARDCODE = 2;
     private static CostOptimizer instance = new CostOptimizer();
-
+    public Port port;
     private String manufacturer;
     private String type;
     private String id;
     private boolean isOn;
     private ArrayList<CheckPoint> checkPointList;
-
-    private static final int COST_INDEX_HARDCODE = 2;
 
     private CostOptimizer() {
         this.port = new Port();

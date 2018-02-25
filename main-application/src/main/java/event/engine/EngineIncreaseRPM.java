@@ -7,8 +7,7 @@ public class EngineIncreaseRPM {
     private String phase;
     private int value;
 
-    public EngineIncreaseRPM(String phase, int value)
-    {
+    public EngineIncreaseRPM(String phase, int value) {
         this.phase = phase;
         this.value = value;
     }

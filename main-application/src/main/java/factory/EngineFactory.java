@@ -17,7 +17,7 @@ public class EngineFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/engine.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "engine.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, EngineFactory.class.getClassLoader());
             Class engineClass = Class.forName("Engine", true, urlClassLoader);
             Object engineInstance = engineClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);

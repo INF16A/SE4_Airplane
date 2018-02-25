@@ -15,8 +15,8 @@ public class RudderFactory {
         try {
             URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "rudder.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, RudderFactory.class.getClassLoader());
-            Class rudderClass = Class.forName("Rudder",true,urlClassLoader);
-            Object rudderInstance = rudderClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            Class rudderClass = Class.forName("Rudder", true, urlClassLoader);
+            Object rudderInstance = rudderClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             componentPort = rudderClass.getDeclaredField("port").get(rudderInstance);
 
             Method setId = componentPort.getClass().getMethod("setId", String.class);

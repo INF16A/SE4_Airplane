@@ -3,6 +3,8 @@
  */
 public interface ITaxiLight {
     public String version();
+
     public boolean on();
+
     public boolean off();
 }

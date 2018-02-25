@@ -1,11 +1,9 @@
-
-
 import static org.junit.Assert.*;
 
 public class TestRightAileron {
 
     @org.junit.Test
-    public void testManufacturer(){
+    public void testManufacturer() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.setManufacturer("Boeing");
@@ -14,7 +12,7 @@ public class TestRightAileron {
     }
 
     @org.junit.Test
-    public void testMaxDegree(){
+    public void testMaxDegree() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.fullUp();
@@ -23,7 +21,7 @@ public class TestRightAileron {
     }
 
     @org.junit.Test
-    public void testMaxDegreeAsLimit(){
+    public void testMaxDegreeAsLimit() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.fullUp();
@@ -34,7 +32,7 @@ public class TestRightAileron {
 
 
     @org.junit.Test
-    public void testMinDegreeAsLimit(){
+    public void testMinDegreeAsLimit() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.fullDown();
@@ -44,7 +42,7 @@ public class TestRightAileron {
     }
 
     @org.junit.Test
-    public void testNeutral(){
+    public void testNeutral() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.fullUp();
@@ -54,7 +52,7 @@ public class TestRightAileron {
     }
 
     @org.junit.Test
-    public void testReturns(){
+    public void testReturns() {
         RightAileron.Port rightAileron = RightAileron.getInstance().port;
 
         rightAileron.neutral();

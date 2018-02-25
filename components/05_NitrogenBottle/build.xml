@@ -2,7 +2,7 @@
 
     <target name="clean">
         <delete dir="build"/>
-		<delete dir="jar"/>
+        <delete dir="jar"/>
     </target>
 
     <target name="compile">
@@ -18,8 +18,8 @@
             </manifest>
         </jar>
     </target>
-	
-	<target name="all" depends="clean, compile, jar">
+
+    <target name="all" depends="clean, compile, jar">
     </target>
-	
+
 </project>
