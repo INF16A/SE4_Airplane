@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * Created by felixbertsch on 30.01.18.
- */
 public class StowageNumberFive implements IStowageNumberFive {
     private int maximumNuberofItems = 50;
     private ArrayList<Baggage> baggageList;

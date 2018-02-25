@@ -11,11 +11,11 @@ public class CargoSystemFactory {
         Object componentPort = null;
 
         try {
-            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + "/cargosystem.jar").toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.commonPathToJavaArchive + Configuration.instance.fileSeparator + "cargosystem.jar").toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, CargoSystemFactory.class.getClassLoader());
             Class cargoSystemClass = Class.forName("CargoSystem",true,urlClassLoader);
-            Object fuelTankInstance = cargoSystemClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
-            componentPort = cargoSystemClass.getDeclaredField("port").get(fuelTankInstance);
+            Object cargoSystemInstance = cargoSystemClass.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
+            componentPort = cargoSystemClass.getDeclaredField("port").get(cargoSystemInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }

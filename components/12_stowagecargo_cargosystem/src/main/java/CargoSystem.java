@@ -22,6 +22,10 @@ public class CargoSystem {
         this.port = new Port();
     }
 
+    public static CargoSystem getInstance() {
+        return instance;
+    }
+
     public String innerVersion() {
         return "V1";
     }
