@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dhbw.mosbach.inf16a</groupId>
-    <artifactId>06_Seats</artifactId>
+    <artifactId>06_CrewSeats</artifactId>
     <version>1.0.0</version>
 
     <build>
@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>06_Seats</finalName>
+                    <finalName>crewseat</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>

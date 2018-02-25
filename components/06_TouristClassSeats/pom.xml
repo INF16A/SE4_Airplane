@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>06_TouristClassSeats</finalName>
+                    <finalName>touristclassseat</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>

@@ -15,7 +15,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <finalName>06_FirstClassSeats</finalName>
+                    <finalName>firstclassseat</finalName>
                     <outputDirectory>../</outputDirectory>
                 </configuration>
             </plugin>
